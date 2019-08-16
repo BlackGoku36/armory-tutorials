@@ -45,7 +45,9 @@ class CubeController extends iron.Trait {
 
 This should give you following result:
 
-![](/../Assets/save_load_8.mov)
+<video width="640" height="480" controls>
+  <source src="/../Assets/save_load_8.mov" type="video/mp4">
+</video>
 
 Now to adding cube location and rotation to save_game.json for saving and loading.
 
@@ -96,7 +98,9 @@ for now, we will have to reopen the game to let game parse newly overwritten gam
 
 You should get this as result:
 
-![](/../Assets/save_load_9.mov)
+<video width="640" height="480" controls>
+  <source src="/../Assets/save_load_9.mov" type="video/mp4">
+</video>
 
 If it work for you, then congrats! Part-II finishes!
 
