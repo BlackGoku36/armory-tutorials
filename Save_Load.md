@@ -60,5 +60,88 @@ Now, hit `Play` and when you go over to `root_folder/build_file/debug/krom/` you
 
 ![savejson](Assets/save_load_3.png)
 
+Now, let save `save_game.json` to proper place and add some keyboard input code to handle saving manualy instead of saving when the game initiate.
+
+```
+package arm;
+
+import iron.system.Input;// 1
+
+class SaveLoadMechanism extends iron.Trait {
+	public function new() {
+		super();
+
+		var kb = Input.getKeyboard();// 1
+
+        notifyOnUpdate(function() { // 2
+            #if kha_krom
+            var saveData = { text: "Hello World!" };
+            var saveDataJSON = haxe.Json.stringify(saveData);
+
+            // will be saved at file_write/build_file/debug/krom/my_file.json
+            var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json"; // 3
+
+            // Write file
+            var bytes = haxe.io.Bytes.ofString(saveDataJSON);
+            // 4
+            if (kb.started("f")){
+                Krom.fileSaveBytes(path, bytes.getData());
+                trace("Saved!");
+            }
+            #end
+        });
+	}
+}
+```
+1. We import and initialize keyboard input variable.
+2. We change `notifyOnInit` to `notifyOnUpdate`.
+3. Here, we get out of build files and put get bundled path, this will help us in reading the `save_game.json` later (`/..` means out of a directory).
+4. This check if keyboard key `f` is started, if so then it will save the file.
+Now, if you play and press `f` then it should save `save_game.json` to Bundled.
+
+![savejsonbundled](Assets/save_load_4.png)
+
+Don't forget to create Bundled folder in your root directory!
+{: .label .label-yellow}
+
+We will now add reading functionality, we will read `save_game.json` from `Bundled` folder and print `text` value in debug console. To enable debug console for debugging(ofc!), head over to `Render - Armory Project - Flags` and select `Debug Console`.
+
+![debugconsole](Assets/save_load_5.png)
+
+Now let get to code:
+```
+package arm;
+
+import iron.system.Input;
+import iron.data.Data;//<===
+    
+                          ~
+		var saveFile = "save_game.json";//<===
+
+		notifyOnUpdate(function() {
+                          ~
+			var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/$saveFile";//<===
+                          ~
+			if(kb.started("g")){
+				Data.getBlob(saveFile, function(bytes:kha.Blob) {
+					var jsonString = bytes.toString();// 1
+
+					// Get json from string
+					var json = haxe.Json.parse(jsonString);// 2
+					trace(json.text);// 3
+				});
+			}
+		});
+	}
+}
+```
+1. We convert loaded bytes to string and assign it to `jsonString`
+2. Parse json from `jsonString`
+3. We finally print/trace `text` from json
+
+Hit `Play`, try pressing `f` and then `g`, `Hello World!` should appear in debug console, if it do than that means saving and loading work perfectly!
+
+![printdebugconsole](Assets/save_load_6.png)
+
 WIP
 {: .label .label-red}

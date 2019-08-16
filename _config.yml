@@ -2,7 +2,7 @@ title: Armory-tutorial
 description: Tutorials for Armory3D Game Engine
 
 remote_theme: pmarsceill/just-the-docs
-color_scheme: nil
+color_scheme: dark
 
 aux_links:
     "Armory-tutorials on GitHub":
