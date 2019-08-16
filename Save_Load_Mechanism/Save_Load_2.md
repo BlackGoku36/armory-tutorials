@@ -11,7 +11,7 @@ In this second part, we will write and read cube's Location and rotation to/from
 
 ---
 
-I created simple scene, consisting of cube, plane with Hosek-Wilkie hdr(background hdr is not necessary, it is for eye-candy only).
+I created a simple scene, consisting of a cube, a plane and Hosek-Wilkie hdr(background hdr is not necessary, it is for eye-candy only).
 
 ![scene](/../Assets/save_load_7.png)
 
@@ -91,7 +91,7 @@ class SaveLoadMechanism extends iron.Trait {
 3. We change json structure to our cube's Anonymous Structure
 4. When the json is parsed, it will get cube's location and rotation value and set the cube's location and rotation to this obtained value, hence Loading.
 
-for now, we will have to reopen the game to let game parse newly overwritten game_save.json. We can fix this why hot asset reload.
+for now, we will have to reopen the game to let game parse newly overwritten game_save.json.
 {: .label .label-yellow}
 
 You should get this as result:
