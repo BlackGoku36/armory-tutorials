@@ -45,9 +45,7 @@ class CubeController extends iron.Trait {
 
 This should give you following result:
 
-<video width="640" height="480" controls>
-  <source src="/../Assets/save_load_8.mp4" type="video/mp4">
-</video>
+<iframe width="480" height="360" src="https://blackgoku36.github.io/armory-tutorials/Assets/save_load_8.mp4" frameborder="0"> </iframe>
 
 Now to adding cube location and rotation to save_game.json for saving and loading.
 
@@ -98,9 +96,7 @@ for now, we will have to reopen the game to let game parse newly overwritten gam
 
 You should get this as result:
 
-<video width="640" height="480" controls>
-  <source src="/../Assets/save_load_9.mp4" type="video/mp4">
-</video>
+<iframe width="480" height="360" src="https://blackgoku36.github.io/armory-tutorials/Assets/save_load_9.mp4" frameborder="0"> </iframe>
 
 If it work for you, then congrats! Part-II finishes!
 
