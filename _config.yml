@@ -4,6 +4,8 @@ description: Tutorials for Armory3D Game Engine
 remote_theme: pmarsceill/just-the-docs
 color_scheme: "dark"
 
+ga_tracking: UA-145916081-1
+
 aux_links:
     "Armory-tutorials on GitHub":
       - "//github.com/BlackGoku36/armory-tutorials"
