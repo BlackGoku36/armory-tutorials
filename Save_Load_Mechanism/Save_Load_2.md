@@ -15,7 +15,7 @@ I created a simple scene, consisting of a cube, a plane and Hosek-Wilkie hdr(bac
 
 ![scene](/../Assets/save_load_7.png)
 
-Now, select our default cube and head over to `Object - Armory Traits` to create a new Haxe trait and name it `CubeController`(or whatever you want). We will make it move on X-Y axis and then make it rotate randomly so, that we can demostrate saving/loading mechanism.
+Select our default cube and head over to `Object - Armory Traits` to create a new Haxe trait and name it `CubeController`(or whatever you want). We will make it move on X-Y axis and then make it rotate randomly so, that we can demostrate saving/loading mechanism.
 
 ```
 // In CubeController.hx
@@ -49,7 +49,7 @@ This should give you following result:
 
 Now to adding cube location and rotation to save_game.json for saving and loading.
 
-Now, go back to `SaveLoadMechanism.hx`, we will get cube's location and rotation and add it to json structure.
+Go back to `SaveLoadMechanism.hx`, we will get cube's location and rotation and add it to json structure.
 
 ```
 // In SaveLoadMechanism.hx
@@ -61,25 +61,52 @@ import iron.math.Vec4;
 import iron.system.Input;
 import iron.data.Data;
 
-typedef Cube = { loc : Vec4, rot : Vec4 } // 1
+typedef Cube = { loc : Vec4, rot : Vec4 }// 1
 
 class SaveLoadMechanism extends iron.Trait {
-                    ~
+
+	var kb = Input.getKeyboard();
+
+	var saveFile = "save_game.json";
+
+	public function new() {
+		super();
+
 		notifyOnUpdate(function() {
-			var cube = Scene.active.getChild("Cube"); //2
-			var cubeLoc = cube.transform.loc;// 2
-			var cubeRot = new Vec4(cube.transform.rot.x, cube.transform.rot.y, cube.transform.rot.z); //2
-			#if kha_krom
-			var saveData: Cube = {loc: cubeLoc, rot: cubeRot}; //3
-			var saveDataJSON = haxe.Json.stringify(saveData);
-                            ~
-					// Get json from string
-					var json = haxe.Json.parse(string);// 4
-					cube.transform.loc = json.loc; //4
-					cube.transform.setRotation(json.rot.x, json.rot.y, json.rot.z);//4
-					cube.transform.buildMatrix();//4
-				});
-			}
+            if(kb.started("f")){
+                save();
+            }else if(kb.started("g")){
+                load();
+            }
+		});
+	}
+	public function save(){
+		var cube = Scene.active.getChild("Cube");// 2
+		var cubeLoc = cube.transform.loc;// 2
+		var cubeRot = new Vec4(cube.transform.rot.x, cube.transform.rot.y, cube.transform.rot.z);// 2
+		#if kha_krom
+		var saveData: Cube = {loc: cubeLoc, rot: cubeRot};// 3
+		var saveDataJSON = haxe.Json.stringify(saveData);
+
+		var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";
+		
+		var bytes = haxe.io.Bytes.ofString(saveDataJSON);
+		Krom.fileSaveBytes(path, bytes.getData());
+		trace("Saved!");
+		#end
+	}
+
+	public function load() {
+		var cube = Scene.active.getChild("Cube");
+		Data.getBlob(saveFile, function(b:kha.Blob) {
+			// Get string from loaded bytes
+			var string = b.toString();
+
+			// Get json from string
+			var json = haxe.Json.parse(string);
+			cube.transform.loc = json.loc;// 4
+			cube.transform.setRotation(json.rot.x, json.rot.y, json.rot.z);// 4
+			cube.transform.buildMatrix();// 4
 		});
 	}
 }
@@ -100,8 +127,13 @@ You should get this as result:
 
 If it work for you, then congrats! Part-II finishes!
 
----
 In last part(aka Part-III) we will finalize it by adding UI
+
+---
 
 [<-- Part-I](Save_Load_1.md)
 [Part-III -->](Save_Load_3.md){: .ml-xl-9}
+
+---
+
+If there are some bug, something that I missed, or any problem with this than you can ask me on Armory's Discord by pinging `@BlackGoku36`
