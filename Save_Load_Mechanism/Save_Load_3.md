@@ -81,9 +81,11 @@ class SaveLoadMechanism extends iron.Trait {
 
 		notifyOnInit(function(){
 			canvas = Scene.active.getTrait(CanvasScript);// 1
+			hideButtons(); // 3
+			isButtonsHidden = true;// 3
 						~
 		});
-		// 3
+		// 4
 		notifyOnUpdate(function (){
 			if (kb.started("m")){
 				if (isButtonsHidden){
@@ -102,13 +104,13 @@ class SaveLoadMechanism extends iron.Trait {
 	public function load() {
 		~
 	}
-	// 4
+	// 5
 	public function hideButtons() {
 		canvas.getElement("save_btn").visible = false;
 		canvas.getElement("load_btn").visible = false;
 		isButtonsHidden = true;
 	}
-	// 4
+	// 5
 	public function showButtons() {
 		canvas.getElement("save_btn").visible = true;
 		canvas.getElement("load_btn").visible = true;
@@ -119,8 +121,9 @@ class SaveLoadMechanism extends iron.Trait {
 ```
 1. Import, initialize `CanvasScript` trait.
 2. Create `isHiddenButton` Bool.
-3. We create `notifyOnUpdate()` function and add key check for `m` and on key `m` started it will check if the button is hidden, if so than it will call `showButtons()`, if not then it will call `hideButtons()`.
-4. We create `hideButtons()`/`showButtons()` and then get canvas's element by name(name that we gave to butttons in Canavs __Flashback__) and then get it visible property and set it to `true`/`false` respective to the function, and then finally set `isButtonsHidden` to `true`/`false` again respective to the function.
+3. We hide buttons and set `isButtonsHidden` to true on init.
+4. We create `notifyOnUpdate()` function and add key check for `m` and on key `m` started it will check if the button is hidden, if so than it will call `showButtons()`, if not then it will call `hideButtons()`.
+5. We create `hideButtons()`/`showButtons()` and then get canvas's element by name(name that we gave to butttons in Canavs __Flashback__) and then get it visible property and set it to `true`/`false` respective to the function, and then finally set `isButtonsHidden` to `true`/`false` again respective to the function.
 
 You should get the following result:
 
