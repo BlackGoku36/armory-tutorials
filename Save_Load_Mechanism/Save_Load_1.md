@@ -12,7 +12,7 @@ In this part we will implement basic of file reading and writing from in-game. A
 
 Let first open and save default cube blend file and in `Render - Armory Player` hit `Play`, a [Krom](https://github.com/Kode/Krom) window should pop-up showing our default cube. If it do then, celebrate! you have armory working!
 
-![default_cube](/../Assets/save_load_1.png)
+![default_cube](/../docassets/save_load_1.png)
 
 Now, in `Scene - Armory Scene Traits` create a haxe trait with whatever name you want(`SaveLoadMechanism` in my case) and then hit `Edit Script`, now it should open [Kode Studio](https://github.com/Kode/KodeStudio) (if you have it install) or your system default IDE.
 
@@ -20,7 +20,7 @@ Note: Make sure to make your script's first letter to be capital
 {: .label .label-yellow}
 
 
-![VSCode](/../Assets/save_load_2.png)
+![VSCode](/../docassets/save_load_2.png)
 
 Now, for learning sake, we will be using [json](https://en.wikipedia.org/wiki/JSON) to store and read information from, later you can do stuff to make it unreadable to us humans to prevent cheating. [Haxe](https://haxe.org/) provide really good support for json and xml parsing and writing, making it easier for us to use.
 
@@ -61,7 +61,7 @@ Let go and understand the code line-by-line:
 
 Now, hit `Play` and when you go over to `root_folder/build_file/debug/krom/` you should find `save_game.json` and on opening it should read `{"text":"Hello World!"}`, if you do, then Congratulation! You did it!
 
-![savejson](/../Assets/save_load_3.png)
+![savejson](/../docassets/save_load_3.png)
 
 Now, let save `save_game.json` to proper place and add some keyboard input code to handle saving manualy instead of saving when the game initiate.
 
@@ -109,14 +109,14 @@ class SaveLoadMechanism extends iron.Trait {
 5. Here, we get out of build files and get bundled path, this will help us in reading the `save_game.json` later (`/..` means out of a directory).
 Now, if you play and press `f` then it should save `save_game.json` to Bundled.
 
-![savejsonbundled](/../Assets/save_load_4.png)
+![savejsonbundled](/../docassets/save_load_4.png)
 
 Don't forget to create Bundled folder in your root directory!
 {: .label .label-yellow}
 
 We will now add reading functionality, we will read `save_game.json` from `Bundled` folder and print `text` value in debug console. To enable debug console for debugging(ofc!), head over to `Render - Armory Project - Flags` and select `Debug Console`.
 
-![debugconsole](/../Assets/save_load_5.png)
+![debugconsole](/../docassets/save_load_5.png)
 
 Now let get to code:
 ```
@@ -180,7 +180,7 @@ class SaveLoadMechanism extends iron.Trait {
 
 Hit `Play`, try pressing `f` and then `g`, `Hello World!` should appear in debug console, if it do than that means saving and loading work perfectly!
 
-![printdebugconsole](/../Assets/save_load_6.png)
+![printdebugconsole](/../docassets/save_load_6.png)
 
 And that is for today! In next part we will make it save cube's Location and Rotation.
 
