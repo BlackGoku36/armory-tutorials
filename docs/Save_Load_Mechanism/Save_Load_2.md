@@ -13,7 +13,7 @@ In this second part, we will write and read cube's Location and rotation to/from
 
 I created a simple scene, consisting of a cube, a plane and Hosek-Wilkie hdr(background hdr is not necessary, it is for eye-candy only).
 
-![scene](/../docassets/save_load_7.png)
+![scene](/../../docassets/save_load_7.png)
 
 Select our default cube and head over to `Object - Armory Traits` to create a new Haxe trait and name it `CubeController`(or whatever you want). We will make it move on X-Y axis and then make it rotate randomly so, that we can demostrate saving/loading mechanism.
 

@@ -13,15 +13,15 @@ In this third and the last part we will add UI to our game for gamey effect.
 
 Move over to `Scene - Armory Scene Trait` and create a new Trait but this time select `UI`, click `New Canvas` and as always name it whatever you want(`SaveLoad` for me)
 
-![saveloadcanvas](/../docassets/save_load_10.png)
+![saveloadcanvas](/../../docassets/save_load_10.png)
 
 And then finally click `Edit Canvas`, a new window should pop-up named `Armory2D`:
 
-![armory2d](/../docassets/save_load_11.png)
+![armory2d](/../../docassets/save_load_11.png)
 
 And do the following:
 
-![canvasbtn](/../docassets/save_load_12.png)
+![canvasbtn](/../../docassets/save_load_12.png)
 
 1. This create a button, create 2 button and place them where you want them to be(mine in the center).
 2. This is will name the button, name them.
@@ -32,7 +32,7 @@ And do the following:
 
 and if you play it, you should get something like this:
 
-![menu](/../docassets/save_load_13.png)
+![menu](/../../docassets/save_load_13.png)
 
 Now to button functionality, we will implement it in `SaveLoadMechanism.hx`
 
