@@ -16,6 +16,6 @@ This tutorial is divided into 3 parts:
 
 at the end of this tutorial you should get this:
 
-<iframe width="480" height="360" src="https://blackgoku36.github.io/armory-tutorials/Assets/save_load_final.mp4" frameborder="0"> </iframe>
+<iframe width="480" height="360" src="https://blackgoku36.github.io/armory-tutorials/docassets/save_load_final.mp4" frameborder="0"> </iframe>
 
 If anything goes wrong, then you can check the [source code](https://github.com/BlackGoku36/armory-tutorial-download/tree/master/SaveLoadMechanism)
