@@ -24,7 +24,7 @@ Note: Make sure to make your script's first letter to be capital
 
 Now, for learning sake, we will be using [json](https://en.wikipedia.org/wiki/JSON) to store and read information from, later you can do stuff to make it unreadable to us humans to prevent cheating. [Haxe](https://haxe.org/) provide really good support for json and xml parsing and writing, making it easier for us to use.
 
-```
+``` haxe
 // In SaveLoadMechanism.hx
 
 package arm;

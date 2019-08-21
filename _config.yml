@@ -3,6 +3,9 @@ description: Tutorials for Armory3D Game Engine
 
 color_scheme: "dark"
 
+markdown: kramdown
+highlighter: rouge
+
 ga_tracking: UA-145916081-1
 
 aux_links:
