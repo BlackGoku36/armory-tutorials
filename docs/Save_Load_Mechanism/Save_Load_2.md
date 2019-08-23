@@ -111,8 +111,7 @@ class SaveLoadMechanism extends iron.Trait {
 3. We change json structure to our cube's Anonymous Structure
 4. When the json is parsed, it will get cube's location and rotation value and set the cube's location and rotation to this obtained value, hence Loading.
 
-for now, we will have to reopen the game to let game parse newly overwritten game_save.json.
-{: .label .label-yellow}
+!> For now, we will have to reopen the game to let game parse newly overwritten game_save.json.
 
 You should get this as result:
 
@@ -121,7 +120,3 @@ You should get this as result:
 If it work for you, then congrats! Part-II finishes!
 
 In last part(aka Part-III) we will finalize it by adding UI
-
----
-
-If there are some bug, something that I missed, or any problem with this than you can ask me on Armory's Discord by pinging `@BlackGoku36`

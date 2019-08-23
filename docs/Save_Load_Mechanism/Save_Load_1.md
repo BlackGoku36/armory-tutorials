@@ -9,8 +9,7 @@ Let first open and save default cube blend file and in `Render - Armory Player` 
 
 Now, in `Scene - Armory Scene Traits` create a haxe trait with whatever name you want(`SaveLoadMechanism` in my case) and then hit `Edit Script`, now it should open [Kode Studio](https://github.com/Kode/KodeStudio) (if you have it install) or your system default IDE.
 
-Note: Make sure to make your script's first letter to be capital
-{: .label .label-yellow}
+!> Note: Make sure to make your script's first letter to be capital
 
 
 ![VSCode](/../../docassets/save_load_2.png)
@@ -104,8 +103,7 @@ Now, if you play and press `f` then it should save `save_game.json` to Bundled.
 
 ![savejsonbundled](/../../docassets/save_load_4.png)
 
-Don't forget to create Bundled folder in your root directory!
-{: .label .label-yellow}
+!> Don't forget to create Bundled folder in your root directory!
 
 We will now add reading functionality, we will read `save_game.json` from `Bundled` folder and print `text` value in debug console. To enable debug console for debugging(ofc!), head over to `Render - Armory Project - Flags` and select `Debug Console`.
 
@@ -176,7 +174,3 @@ Hit `Play`, try pressing `f` and then `g`, `Hello World!` should appear in debug
 ![printdebugconsole](/../../docassets/save_load_6.png)
 
 And that is for today! In next part we will make it save cube's Location and Rotation.
-
----
-
-If there are some bug, something that I missed, or any problem with this than you can ask me on Armory's Discord by pinging `@BlackGoku36`

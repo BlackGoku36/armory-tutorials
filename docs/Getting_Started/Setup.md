@@ -49,7 +49,3 @@ git submodule foreach --recursive git pull origin master
 1. Go to Armory add-on tab and then click `Update SDK`.
 2. Open terminal/command prompt and check the progress, when it is done, it should say `Armory is sucessfully updated. Restart Blender`.
 3. Restart Blender
-
----
-
-[<-- Introduction](Introduction.md)

@@ -131,7 +131,3 @@ For further improving, you can:
 1. Make the file secure, so that people don't cheat.
 2. Add more value for it to save.
 3. Make GTA XII
-
----
-
-If there are some bug, something that I missed, or any problem with this than you can ask me on Armory's Discord by pinging `@BlackGoku36`

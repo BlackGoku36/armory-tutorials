@@ -36,7 +36,3 @@ Armory support all targets that Kha support. Platform such as `Desktop(MacOS, Li
 ### IRON
 
 [**IRON**](https://github.com/armory3d/iron) is data-based, asynchronous engine used for building 3D tools, It is built with Kha, Haxe and WebAssembly. It is core engine of Armory but is designed to run stand-alone. Iron handles render & content pipelines and lets you develop a custom visual engine on top of it.
-
----
-
-[Setup -->](Setup.md)
