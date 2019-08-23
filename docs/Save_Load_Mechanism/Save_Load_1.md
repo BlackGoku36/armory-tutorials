@@ -1,10 +1,3 @@
----
-layout: default
-title: Part-I
-parent: Save Load Mechanism
-nav_order: 1
----
-
 ## Part I
 In this part we will implement basic of file reading and writing from in-game. At the end of this part you should be able to save/write json to `Bundled` and then load/read json from `Bundled` both during in-game.
 
@@ -65,7 +58,7 @@ Now, hit `Play` and when you go over to `root_folder/build_file/debug/krom/` you
 
 Now, let save `save_game.json` to proper place and add some keyboard input code to handle saving manualy instead of saving when the game initiate.
 
-```
+```haxe
 // In SaveLoadMechanism.hx
 
 package arm;
@@ -119,7 +112,7 @@ We will now add reading functionality, we will read `save_game.json` from `Bundl
 ![debugconsole](/../../docassets/save_load_5.png)
 
 Now let get to code:
-```
+```haxe
 // In SaveLoadMechanism.hx
 
 package arm;
@@ -183,11 +176,6 @@ Hit `Play`, try pressing `f` and then `g`, `Hello World!` should appear in debug
 ![printdebugconsole](/../../docassets/save_load_6.png)
 
 And that is for today! In next part we will make it save cube's Location and Rotation.
-
----
-
-[<-- Introduction](Save_Load_Mechanism.md)
-[Part-II -->](Save_Load_2.md){: .ml-xl-9}
 
 ---
 

@@ -1,10 +1,3 @@
----
-layout: default
-title: Part-III
-parent: Save Load Mechanism
-nav_order: 3
----
-
 ## Part-III
 
 In this third and the last part we will add UI to our game for gamey effect.
@@ -36,7 +29,7 @@ and if you play it, you should get something like this:
 
 Now to button functionality, we will implement it in `SaveLoadMechanism.hx`
 
-```
+```haxe
 // In SaveLoadMechanism.hx
 package arm;
 
@@ -61,7 +54,7 @@ class SaveLoadMechanism extends iron.Trait {
 
 For our last and final feature, we are going to hide buttons on start and then we will able to show and hide them with `m`.
 
-```
+```haxe
 // In SaveLoadMechanism.hx
 
 			~
@@ -138,10 +131,6 @@ For further improving, you can:
 1. Make the file secure, so that people don't cheat.
 2. Add more value for it to save.
 3. Make GTA XII
-
----
-
-[<-- Part-II](Save_Load_2.md)
 
 ---
 

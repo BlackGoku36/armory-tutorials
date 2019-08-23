@@ -1,10 +1,3 @@
----
-layout: default
-title: Save Load Mechanism
-nav_order: 2
-has_children: true
----
-
 # Save/Load Mechanism
 
 Let create save/load mechanism for our game! We should be able to save/load object location/rotation and save/load using UI.

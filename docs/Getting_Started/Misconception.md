@@ -1,10 +1,3 @@
----
-layout: default
-title: Common Misconceptions
-parent: Getting Started
-nav_order: 3
----
-
 # Common Misconceptions
 
 List of Common Misconceptions in Armory:

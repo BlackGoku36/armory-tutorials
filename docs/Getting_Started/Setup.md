@@ -1,10 +1,3 @@
----
-layout: default
-title: Setup
-parent: Getting Started
-nav_order: 2
----
-
 # Setup
 
 Setting up Armory in Blender.

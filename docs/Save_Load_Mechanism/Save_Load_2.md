@@ -1,10 +1,3 @@
----
-layout: default
-title: Part-II
-parent: Save Load Mechanism
-nav_order: 2
----
-
 ## Part II
 
 In this second part, we will write and read cube's Location and rotation to/from the `save_game.json` in bundled. At the end of this part you should be able to get saving/loading working.
@@ -17,7 +10,7 @@ I created a simple scene, consisting of a cube, a plane and Hosek-Wilkie hdr(bac
 
 Select our default cube and head over to `Object - Armory Traits` to create a new Haxe trait and name it `CubeController`(or whatever you want). We will make it move on X-Y axis and then make it rotate randomly so, that we can demostrate saving/loading mechanism.
 
-```
+```haxe
 // In CubeController.hx
 
 package arm;
@@ -51,7 +44,7 @@ Now to adding cube location and rotation to save_game.json for saving and loadin
 
 Go back to `SaveLoadMechanism.hx`, we will get cube's location and rotation and add it to json structure.
 
-```
+```haxe
 // In SaveLoadMechanism.hx
 
 package arm;
@@ -128,11 +121,6 @@ You should get this as result:
 If it work for you, then congrats! Part-II finishes!
 
 In last part(aka Part-III) we will finalize it by adding UI
-
----
-
-[<-- Part-I](Save_Load_1.md)
-[Part-III -->](Save_Load_3.md){: .ml-xl-9}
 
 ---
 
