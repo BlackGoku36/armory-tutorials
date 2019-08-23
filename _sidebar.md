@@ -9,3 +9,7 @@
     * [Save & Load I](docs/Save_Load_Mechanism/Save_Load_1.md "Save/Load Mechanism I")
     * [Save & Load II](docs/Save_Load_Mechanism/Save_Load_2.md "Save/Load Mechanism II")
     * [Save & Load III](docs/Save_Load_Mechanism/Save_Load_3.md "Save/Load Mechanism III")
+
+- **Themes**
+- <a href="#" data-link-title="dark"> :black_large_square: Dark</a>
+- <a href="#" data-link-title="light"> :white_large_square: Light</a>
