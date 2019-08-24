@@ -5,7 +5,7 @@ In this part we will implement basic of file reading and writing from in-game. A
 
 Let first open and save default cube blend file and in `Render - Armory Player` hit `Play`, a [Krom](https://github.com/Kode/Krom) window should pop-up showing our default cube. If it do then, celebrate! you have armory working!
 
-![default_cube](/../../docassets/save_load_1.png)
+![default_cube](../../docassets/defaultcube.png)
 
 Now, in `Scene - Armory Scene Traits` create a haxe trait with whatever name you want(`SaveLoadMechanism` in my case) and then hit `Edit Script`, now it should open [Kode Studio](https://github.com/Kode/KodeStudio) (if you have it install) or your system default IDE.
 

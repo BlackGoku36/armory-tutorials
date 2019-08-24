@@ -10,7 +10,7 @@ Move over to `Scene - Armory Scene Trait` and create a new Trait but this time s
 
 And then finally click `Edit Canvas`, a new window should pop-up named `Armory2D`:
 
-![armory2d](/../../docassets/save_load_11.png)
+![armory2d](../../docassets/armory2D.png)
 
 And do the following:
 
