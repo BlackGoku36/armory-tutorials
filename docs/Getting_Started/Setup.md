@@ -2,11 +2,12 @@
 
 Setting up Armory in Blender.
 
-1. [Download the add-on](#Downloading-the-add-on)
-    1. [Using Git](#Git)
-    2. [Using Itch.io](#Itch.io)
-2. [Installing the add-on](#Installing-the-add-on)
-3. [Updating the add-on](#Updating-the-add-on)
+- [Setup](#setup)
+  - [Downloading the add-on](#downloading-the-add-on)
+    - [Git](#git)
+    - [Itch.io](#itchio)
+  - [Installing the add-on](#installing-the-add-on)
+  - [Updating the add-on](#updating-the-add-on)
 
 ---
 

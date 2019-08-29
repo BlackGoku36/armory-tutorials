@@ -120,14 +120,14 @@ class SaveLoadMechanism extends iron.Trait {
 
 You should get the following result:
 
-<iframe width="480" height="360" src="https://blackgoku36.github.io/armory-tutorials/docassets/save_load_final.mp4" frameborder="0"> </iframe>
+<iframe width="640" height="480" src="../../docassets/save_load_final.mp4" frameborder="0"> </iframe>
 
 
-🎉There we go! Save and Load mechanism tutorial is over!🎉
+**🎉There we go! Save and Load mechanism tutorial is over!🎉**
 
 ---
 
 For further improving, you can:
 1. Make the file secure, so that people don't cheat.
 2. Add more value for it to save.
-3. Make GTA XII :trollface:
+3. Make GTA XII

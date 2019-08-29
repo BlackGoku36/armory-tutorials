@@ -1,12 +1,8 @@
 # Canvas
-In this tutorial, we will learn about canvas and how to use it.
+In this tutorial, we will create canvas using Armory2D, learn about it and then add and control canvas's element using `haxe`.
 
-Including:
-1. Add UI using Armory2D.
-2. Controll it using Haxe.
-
-
-Canvas parses `root/Bundled/canvas/nameOfCanvas.json`(produced by Armory2D) file's content and then [ZUI](https://github.com/armory3d/zui) will build UI from it. So it is possible to provide your own without using Armory2D but we will not do that here, we will only use it for editing.
+Our Goal:
+<iframe width="640" height="480" src="../../docassets/finalcanvas.mp4" frameborder="0"></iframe>
 
 ---
 Fire Armory3D project, once you have it up, go to `Scene - Armory Scene Trait`, create new `Canvas Trait`, name it `UI` and hit `Edit Canvas`. A window named Armory2D should pop-up:
@@ -103,15 +99,14 @@ class CanvasController extends iron.Trait {
 
 If you were to run this and press `Apply` button, it should print `Applied!`. If it do, then our basics are working and we are ready to do more work.
 
-Now to change color of text using `R`/`G`/`B` silder:
+Now to change color of text using `slider_r`/`slider_g`/`slider_b` silder and enable/disable visibility using `visibility` checkbox:
 ```haxe
 //In CanvasController.hx
 ~
 // 1
 import kha.Color;
 import zui.Canvas.TElement;
-		~
-
+~
 class CanvasController extends iron.Trait {
 
 	var canvas:CanvasScript;
@@ -128,14 +123,25 @@ class CanvasController extends iron.Trait {
 	}
 
 	public function applyCanvas() {
-		rgb();//5
+		set_rgb();// 7
+		set_visibility();// 7
 	}
 
-	public function rgb() {
+	public function set_rgb() {
 		var r = canvas.getHandle("slider_r").value;// 3
 		var g = canvas.getHandle("slider_g").value;
 		var b = canvas.getHandle("slider_b").value;
 		text.color = Color.fromFloats(r, g, b);// 4
+	}
+
+	public function set_visibility() {
+		var is_selected = canvas.getHandle("visibility").selected;// 5
+		// 6
+		if (!is_selected){
+			text.visible = false;
+		}else{
+			text.visible = true;
+		}
 	}
 }
 ```
@@ -143,25 +149,30 @@ class CanvasController extends iron.Trait {
 2. We declare text as `TElement` and initialize it as canvas element `txt`.*(canvas.getElement("txt")* get element of canvas by name).
 3. We get input value of slider using `canvas.getHandle("slider_r/g/b").value` and assign it to var r/g/b.
 4. We set color of `text` using `Color.fromFloats(*r*,*g*,*b*,*a*)`*(alpha value is defaultly set to 1.0, you can change it by adding value)*.
-5. Finally call `rgb()` in `applyCanvas()`.
+5. Inside, `set_visibility()`, we get selected bool and assign it to `is_selected`
+6. We check if `is_selected` is true or false and then set text visbility according to it.
+7. Finally call `set_rgb()`/`set_visibility` in `applyCanvas()`.
    
 Now we will get input from `input_txt` and case sensitivity from `dd_case` and set Text `txt` according to it.
 
 ```haxe
 //In CanvasContoller.hx
-		~
+~
 class CanvasController extends iron.Trait {
-			~
+	~
 	public function new() { ~ }
 
 	public function applyCanvas() {
-		rgb();
-		input_txt();// 4
+		set_rgb();
+		set_visibility();
+		set_input_txt();// 4
 	}
 
-	public function rgb() { ~ }
+	public function set_rgb() { ~ }
 
-	public function input_txt() {
+	public function set_visibility() { ~ }
+
+	public function set_input_txt() {
 		var input_txt = canvas.getHandle("input_txt").text;// 1
 		var caseSensitivity = canvas.getHandle("dd_case").position;// 2
 		// 3
@@ -178,3 +189,46 @@ class CanvasController extends iron.Trait {
 1. Get text value from `input_txt` and assign to `input_txt`.
 2. Get position value from `dd_case` and assign it to `caseSensitivity` *(position get value of select value in order, i.e., `Default Case` = 0, `Upper Case` = 1, `Lower Case` = 2)*
 3. check the value of `caseSensitivity`, then change case sensitivity according to it using `toUpperCase()`/`toLowerCase()` or else keep the case.
+
+And lastly rotation of Text `txt` using Radio `visibility`:
+
+```haxe
+~
+class CanvasController extends iron.Trait {
+	~
+	public function new() { ~ }
+
+	public function applyCanvas() {
+		~
+		set_rotation();// 3
+	}
+
+	public function set_rgb() { ~ }
+
+	public function set_visibility() { ~ }
+
+	public function set_input_txt() { ~ }
+
+	public function set_rotation(){
+		var rotate = canvas.getHandle("rotate").position;// 1
+		if (rotate == 0){// 2
+			text.rotation = 0;
+		}else if (rotate == 1){
+			text.rotation = 90*3.14/180;
+		}else if (rotate == 2){
+			text.rotation = 180*3.14/180;
+		}
+	}
+}
+```
+1. Get `rotate` position value and assign it to rotate.
+2. Set text rotation according to the value.
+3. Finally call `set_rotation()` in `apply_canvas()`.
+4. *`degrees x 3.14/180`, will convert degrees to radians that armory uses*.
+
+Now on playing it, you should get our goal.
+
+**🎉There we go, our tutorial is finished 🎉**
+
+---
+If anything goes wrong, then you can check the [source code](https://github.com/BlackGoku36/armory-tutorial-download/tree/master/Canvas)
