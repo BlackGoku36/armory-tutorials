@@ -120,7 +120,7 @@ class SaveLoadMechanism extends iron.Trait {
 
 You should get the following result:
 
-<iframe width="640" height="480" src="https://blackgoku36.github.io/armory-tutorials/docassets/save_load_final.mp4" frameborder="0"> </iframe>
+<iframe width="640" height="480" src="https://blackgoku36.github.io/armory-tutorials/docassets/save_load_final.mp4" frameborder="0" allowfullscreen> </iframe>
 
 
 **🎉There we go! Save and Load mechanism tutorial is over!🎉**

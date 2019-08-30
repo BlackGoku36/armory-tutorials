@@ -6,6 +6,7 @@
 
 * Basics
   * [Canvas](docs/Basics/Canvas.md "Canvas")
+  * [Tilesheet](docs/Basics/Tilesheet.md "Tilesheet")
 
 * Save & Load Mechanism
     * [Intro to Save & Load](docs/Save_Load_Mechanism/Save_Load_Mechanism.md "Intro to Save/Load Mechanism")
