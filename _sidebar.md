@@ -2,7 +2,7 @@
     * [Getting Started](docs/Getting_Started/Getting_Started.md "Getting Started!")
     * [Introduction](docs/Getting_Started/Introduction.md "Introduction")
     * [Setup](docs/Getting_Started/Setup.md "Setup")
-    * [Misconception](docs/Getting_Started/Misconception.md "Misconception")
+    * [Pitfalls and Misconception](docs/Getting_Started/Pitfalls_Misconception.md "Pitfalls and Misconception")
 
 * Basics
   * [Canvas](docs/Basics/Canvas.md "Canvas")
