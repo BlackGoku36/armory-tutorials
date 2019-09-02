@@ -5,6 +5,7 @@
     * [Pitfalls and Misconception](docs/Getting_Started/Pitfalls_Misconception.md "Pitfalls and Misconception")
 
 * Basics
+  * [Traits](docs/Basics/Trait.md "Traits")
   * [Canvas](docs/Basics/Canvas.md "Canvas")
   * [Tilesheet](docs/Basics/Tilesheet.md "Tilesheet")
 

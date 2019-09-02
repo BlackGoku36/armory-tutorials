@@ -4,11 +4,7 @@ In this second part, we will write and read cube's Location and rotation to/from
 
 ---
 
-I created a simple scene, consisting of a cube, a plane and Hosek-Wilkie hdr(background hdr is not necessary, it is for eye-candy only).
-
-![scene](/../../docassets/save_load_7.png ':size=700')
-
-Select our default cube and head over to `Object - Armory Traits` to create a new Haxe trait and name it `CubeController`(or whatever you want). We will make it move on X-Y axis and then make it rotate randomly so, that we can demostrate saving/loading mechanism.
+Select our default cube and create another Haxe trait(`CubeController`). We will make it move on X-Y axis and then make it rotate randomly so, that we can demostrate saving/loading mechanism.
 
 ```haxe
 // In CubeController.hx
@@ -34,7 +30,7 @@ class CubeController extends iron.Trait {
 }
 ```
 1. We check if player if pressing `up arrow` than it will translate the object(self/default cube) -0.2 on X-axis than if pressing `down arrow` than it will translate 0.2 on x-axis, same with rest but on y-axis.
-2. In rotate(-vec4-, -speed-) function we set all axis in Vec4 to random(`Math.random()` give random float) to make it rotate randomly, and set speed to 0.1.
+2. In rotate(*vec4*, *speed*) function we set all axis in Vec4 to random(`Math.random()` give random float) to make it rotate randomly, and set speed to 0.1.
 
 This should give you following result:
 

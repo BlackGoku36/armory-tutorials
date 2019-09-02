@@ -3,16 +3,7 @@ In this part we will implement basic of file reading and writing from in-game. A
 
 ---
 
-Let first open and save default cube blend file and in `Render - Armory Player` hit `Play`, a [Krom](https://github.com/Kode/Krom) window should pop-up showing our default cube. If it do then, celebrate! you have armory working!
-
-![default_cube](../../docassets/defaultcube.png ':size=700')
-
-Now, in `Scene - Armory Scene Traits` create a haxe trait with whatever name you want(`SaveLoadMechanism` in my case) and then hit `Edit Script`, now it should open [Kode Studio](https://github.com/Kode/KodeStudio) (if you have it install) or your system default IDE.
-
-
-![VSCode](/../../docassets/save_load_2.png ':size=700')
-
-!> Note: Make sure to make your script's first letter to be capital
+Let create a Haxe trait(`SaveLoadMechanism`) for handling our save and load mechanism.
 
 Now, for learning sake, we will be using [json](https://en.wikipedia.org/wiki/JSON) to store and read information from, later you can do stuff to make it unreadable to us humans to prevent cheating. [Haxe](https://haxe.org/) provide really good support for json and xml parsing and writing, making it easier for us to use.
 
@@ -49,13 +40,11 @@ Let go and understand the code line-by-line:
 3. haxe.Json.stringify will convert our json structure to string json for saving to file.
 4. Krom.getFilesLocation() will get path of build folder and add `"/save_game.json"` to it for complete path.
 5. This will take our `saveDataJSON` string and than it will write it to bytes to save.
-6. Krom.fileSaveBytes(path, bytes.getData()); will save bytes to path specified.
+6. Krom.fileSaveBytes(*path*, bytes.getData()); will save bytes to path specified.
 
-Now, hit `Play` and when you go over to `root_folder/build_file/debug/krom/` you should find `save_game.json` and on opening it should read `{"text":"Hello World!"}`, if you do, then Congratulation! You did it!
+Now, if you play the game and go over to `root_folder/build_file/debug/krom/` you should find `save_game.json` and on opening it should read `{"text":"Hello World!"}`, if you do, then Congratulation! You did it!
 
-![savejson](/../../docassets/save_load_3.png ':size=700')
-
-Now, let save `save_game.json` to proper place and add some keyboard input code to handle saving manualy instead of saving when the game initiate.
+Let save `save_game.json` to proper place and add some keyboard input code to handle saving manualy instead of saving when the game initiate.
 
 ```haxe
 // In SaveLoadMechanism.hx

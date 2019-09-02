@@ -5,7 +5,7 @@ Our Goal:
 <iframe width="640" height="480" src="https://blackgoku36.github.io/armory-tutorials/docassets/finalcanvas.mp4" frameborder="0" allowfullscreen></iframe>
 
 ---
-Fire Armory3D project, once you have it up, go to `Scene - Armory Scene Trait`, create new `Canvas Trait`, name it `UI` and hit `Edit Canvas`. A window named Armory2D should pop-up:
+Fire up Armory3D project, once you have it up, go to `Scene - Armory Scene Trait`, create new `Canvas Trait`, name it `UI` and hit `Edit Canvas`. A window named Armory2D should pop-up:
 
 ![Armory2d Image](../../docassets/armory2D.png ':size=700')
 

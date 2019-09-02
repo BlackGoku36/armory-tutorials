@@ -20,6 +20,7 @@ npm install -g docsify-cli
 # go to root directory of this tutorial, then
 docsify serve
 ```
+Plus side of using docsify cli is that docsify will automatically reload your site for you on saving it.
 
 ### Python
 ```bash

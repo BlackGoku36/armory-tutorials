@@ -4,24 +4,9 @@ In this third and the last part we will add UI to our game for gamey effect.
 
 ---
 
-Move over to `Scene - Armory Scene Trait` and create a new Trait but this time select `UI`, click `New Canvas` and as always name it whatever you want(`SaveLoad` for me)
-
-![saveloadcanvas](/../../docassets/save_load_10.png ':size=700')
-
-And then finally click `Edit Canvas`, a new window should pop-up named `Armory2D`:
-
-![armory2d](../../docassets/armory2D.png ':size=700')
-
-And do the following:
+Create a new scene Canvas trait(`SaveLoad`) and add following:
 
 ![canvasbtn](/../../docassets/save_load_12.png ':size=700')
-
-1. This create a button, create 2 button and place them where you want them to be(mine in the center).
-2. This is will name the button, name them.
-3. This will set the text of the button, label them.
-4. This will anchor the button, selecting `Center` will make the button to center, irrespective of the window size, anchor them.
-5. This is for button's event, we will use this for calling the button's event from our haxe script, we will name it `save_btn` and `load_btn` for respective button.
-6. Finally save it.
 
 and if you play it, you should get something like this:
 
@@ -64,7 +49,6 @@ typedef Cube = { loc : Vec4, rot : Vec4 }
 
 class SaveLoadMechanism extends iron.Trait {
 				~
-
 	var canvas:CanvasScript;// 1
 
 	var isButtonsHidden:Bool;// 2
