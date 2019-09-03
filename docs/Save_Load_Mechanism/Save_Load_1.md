@@ -73,7 +73,7 @@ class SaveLoadMechanism extends iron.Trait {
         var saveDataJSON = haxe.Json.stringify(saveData);
 
         // will be saved at file_write/build_file/debug/krom/my_file.json
-        var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";// 5
+        var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";/// 5
 
         // Write file
         var bytes = haxe.io.Bytes.ofString(saveDataJSON);
@@ -84,7 +84,7 @@ class SaveLoadMechanism extends iron.Trait {
 }
 ```
 1. We import and initialize keyboard input variable.
-2. We change remove `notifyOnInit` and use `notifyOnUpdate` instead.
+2. We use `notifyOnUpdate` instead.
 3. This check if keyboard key `f` is started, if so then it will call the save function.
 4. We move all save functionality to it own function `save()`.
 5. Here, we get out of build files and get bundled path, this will help us in reading the `save_game.json` later (`/..` means out of a directory).
@@ -125,20 +125,8 @@ class SaveLoadMechanism extends iron.Trait {
 		});
 	}
 
-    public function save(){
-        #if kha_krom
-        var saveData = { text: "Hello World!" };
-        var saveDataJSON = haxe.Json.stringify(saveData);
+    public function save() { ~ }
 
-        // will be saved at file_write/build_file/debug/krom/my_file.json
-        var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";
-
-        // Write file
-        var bytes = haxe.io.Bytes.ofString(saveDataJSON);
-        Krom.fileSaveBytes(path, bytes.getData());
-        trace("Saved!");
-        #end
-    }
     // 2
     public function load(){
         Data.getBlob(saveFile, function(bytes:kha.Blob) {// 3

@@ -99,7 +99,6 @@ class SaveLoadMechanism extends iron.Trait {
 		});
 	}
 }
-
 ```
 
 1. We define Cube's [Anonymous Structure](https://haxe.org/manual/types-anonymous-structure.html)(it is kind of like other languages's struct)

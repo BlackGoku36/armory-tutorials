@@ -74,13 +74,9 @@ class SaveLoadMechanism extends iron.Trait {
 		});
 	}
 
-	public function save(){
-		~
-	}
+	public function save() { ~ }
 
-	public function load() {
-		~
-	}
+	public function load() { ~ }
 	// 5
 	public function hideButtons() {
 		canvas.getElement("save_btn").visible = false;
@@ -94,7 +90,6 @@ class SaveLoadMechanism extends iron.Trait {
 		isButtonsHidden = false;
 	}
 }
-
 ```
 1. Import, initialize `CanvasScript` trait.
 2. Create `isHiddenButton` Bool.
