@@ -136,6 +136,7 @@ If you play it now, you should see `Hello World from Canvas`.
 Check [Canvas tutorial](docs/Basics/Canvas.md) for more!
 
 **🎉There we go! We covered the basics of Traits!🎉**
+
 ---
 
 If anything goes wrong, then you can check the [source code](https://github.com/BlackGoku36/armory-tutorial-sourcecode/tree/master/Traits)
