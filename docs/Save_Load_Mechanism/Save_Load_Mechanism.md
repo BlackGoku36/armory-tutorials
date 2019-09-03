@@ -1,4 +1,4 @@
-# Save/Load Mechanism :floppy_disk:
+# Save/Load Mechanism
 
 Let create save/load mechanism for our game! We should be able to save/load object location/rotation and save/load using UI.
 
