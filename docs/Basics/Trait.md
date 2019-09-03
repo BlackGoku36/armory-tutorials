@@ -1,10 +1,13 @@
 # Traits
 
-In this tutorial, we will learn about what is Traits, what are different types, how to create them and how to print `Hello World` from different traits.
+In this tutorial, we will learn about what is Traits, what are different types, how to create them and rotate different cube from different traits.
+
+Goal:
+<iframe width="640" height="480" src="https://blackgoku36.github.io/armory-tutorials/docassets/trait_final.mp4" frameborder="0" allowfullscreen></iframe>
 
 ---
 
-`Trait` is conecpt in `Iron` means a piece of logic attached to object or scene, just like traits of humans that is it characteristic.
+`Trait` is conecpt in `Iron` means a piece of logic attached to object or scene, just like traits of humans.
 
 There are 4 different types of `traits`:
 1. **Haxe Trait**: [Haxe](https://haxe.org/) scripting trait that can be used to write game logic in.
@@ -17,7 +20,7 @@ There are 4 different types of `traits`:
 
 ---
 
-Let's get started, fire up armory3D project and head over to `Scene - Armory Scene Trait`.
+Let's get started, fire up armory3D project.
 We will create Trait in following order:
 
 1. [Haxe](#haxe)
@@ -26,6 +29,8 @@ We will create Trait in following order:
 4. [Canvas](#canvas)
 
 ## Haxe
+Create a cube, name it `Haxe` and place it wherever you want. Select it and go to `Scene - Armory Scene Trait`.
+
 1. Click `+`, select `Haxe` and click `OK`, `Haxe` trait placeholder should appear.
 2. Click `New Script` and name the script of your choice, just make sure the first letter is capital(`HaxeScript` for me).
 3. Finally hit `Edit Script`, you system default IDE should now open up with the project.
@@ -35,31 +40,102 @@ Edit the script:
 // In HaxeScript.hx
 package arm;
 
+//Imports
+import iron.object.Object;
+import iron.math.Vec4;
+import iron.Scene;
+
 class HaxeScript extends iron.Trait {
+
+	var haxeCube:Object;// 1
+
 	public function new() {
 		super();
 
-		notifyOnInit(function() {// 1
-            trace("Hello World from Haxe!");// 2
+		notifyOnInit(function() {// 3
+			haxeCube = Scene.active.getChild("Haxe");// 1
 		});
 
 		notifyOnUpdate(function() {// 3
-		});
-
-		notifyOnRemove(function() {// 4
+			haxeCube.transform.rotate(new Vec4(0.0, 0.0, 1.0), 0.01);// 2
 		});
 	}
 }
 ```
-1. `notifyOnInit(*function*)`, will call `*function*` when the trait it is attached to initialised, in our instance, it will call the `*function*` when the scene initialises(remember? the haxe trait it attached to scene?).
-2. Print "Hello World from Haxe!" when initialised.
-3. `notifyOnUpdate(*function*)`, will call `*function*` every tick.
-4. `notifyOnRemove(*function*)`, will call `*function*` when the trait it is attached to get removed/destroyed in game.
+1. Initialise `haxeCube` as `Object` and then set it on `notifyOnInit`.
+2. Rotate `haxeCube` on z-axis, with speed of `0.05`.
+3. `notifyOnInit(*function*)`, will call `*function*` when the trait it is attached to initialised, in our instance, it will call the `*function*` when the haxe cube is initialises.
+4. `notifyOnUpdate(*function*)`, will call `*function*` every tick.
 
-Now, if you were to play it, you should see `Hello World from Haxe!` in console.
+Now, if you were to play it, you should see `Haxe` cube rotating!.
 
 ## Logic Node
+Create a cube, name it `Nodes` and place it wherever you want. Select it and go to `Scene - Armory Scene Trait`.
+
+1. Click `+`, select `Nodes` and click `OK`, `Nodes` trait placeholder should appear.
+2. Change your editor type to `Logic Node Editor` and click `+New`.
+3. A node tree should be created, you can rename it by editing the text field(`LogicNodes` for me).
+4. Go back to `Scene - Armory Scene trait`, select you logic nodes place holder and click `Tree`, select `LogicNodes` in dropdown.
+
+and now add following nodes(`Shift + A`):
+
+![](/../../docassets/traits_1.png ':size=500')
+
+1. On Update: It is triggered every tick.
+2. Rotate object on axis, speed is set directly in vector.
+
+Now if you play it, `Nodes` cube should start spinnig.
 
 ## Wasm
+Create a cube, name it `Wasm` and place it wherever you want. Select it and go to `Scene - Armory Scene Trait`.
+
+1. Click `+`, select `Wasm` and click `OK`, `Wasm` trait placeholder should appear.
+2. Click `New Module`, and it should re-direct you to [WebAssembly Studio](https://webassembly.studio/), select `Empty Rust Project`(you can select c/c++ too) and click `Create`.
+3. Enter `Rust`/`C`/`C++` code and click `Build` and there should be `main.wasm` in `out` folder, right-click and download it.
+4. Put outputed `main.wasm` in `Bundled` folder (create one, if there is no bundled folder).
+5. Go back to `Scene - Armory Scene Trait`, select previously created `Wasm` placeholder, click `Refresh` and select `main` in `Module` dropdown.
+
+```rust
+// Rust example of rotating cube
+// main.rs
+extern {
+  fn notify_on_update(f: extern fn() -> ()) -> ();
+  fn get_object(name: *const i8) -> i32;
+  fn set_transform(object: i32, x: f32, y: f32, z: f32, rx: f32, ry: f32, rz: f32, sx: f32, sy: f32, sz: f32) -> ();
+}
+
+#[no_mangle]
+pub extern "C" fn update() -> () {
+  unsafe {
+    let name = std::ffi::CString::new("Wasm").unwrap();
+    let object = get_object(name.as_ptr());
+    static mut rot: f32 = 0.1;
+    rot += 0.01;
+    set_transform(object, 0.0, 0.0, 0.0, 0.0, 0.0, rot, 0.5, 0.5, 0.5);
+  }
+}
+
+#[no_mangle]
+pub extern "C" fn main() -> i32 {
+  unsafe {
+    notify_on_update(update);
+  }
+  return 0;
+}
+```
+
+Now if you play it then you should have spinny rusty wasm cube.
 
 ## Canvas
+1. Click `+`, select `UI` and click `OK`, `Canvas` trait placeholder should appear.
+2. Click `New Canvas` and enter the name and click `Edit Canvas`.
+3. Add `Text` element and set text as `Hello World from Canvas!` and save it.
+
+If you play it now, you should see `Hello World from Canvas`.
+
+Check [Canvas tutorial](docs/Basics/Canvas.md) for more!
+
+**🎉There we go! We covered the basics of Traits!🎉**
+---
+
+If anything goes wrong, then you can check the [source code](https://github.com/BlackGoku36/armory-tutorial-sourcecode/tree/master/Traits)
