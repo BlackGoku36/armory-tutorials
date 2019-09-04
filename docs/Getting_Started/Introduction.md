@@ -8,7 +8,7 @@ Armory3D is data-driven 3D engine written in [`Haxe`](https://en.wikipedia.org/w
 Armory has it own renderer(see Iron). Armory uses Cycles/EEVEE material nodes to build [shaders](https://en.wikipedia.org/wiki/Shader). The [renderpath](https://en.wikipedia.org/wiki/Graphics_pipeline) is completely scriptable, with support of forward and deferred renderpath out-of-box. It is completely possible to write your own shaders(in [glsl](https://en.wikipedia.org/wiki/OpenGL_Shading_Language)).
 
 ### SCRIPTING
-Scripting is done with `traits`(a conecpt developed in `Iron`: *a piece of logic attached to an object*).
+Scripting is done with `traits`(a concept developed in `Iron`: *a piece of logic attached to an object*).
 
 There are 4 different `Traits`:
 1. **LOGIC NODES TRAIT**: Traits can be written with `Logic Node`(similar to UE4's Blueprints)
