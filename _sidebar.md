@@ -1,5 +1,4 @@
 * Getting Started
-    * [Getting Started](docs/Getting_Started/Getting_Started.md "Getting Started!")
     * [Introduction](docs/Getting_Started/Introduction.md "Introduction")
     * [Setup](docs/Getting_Started/Setup.md "Setup")
     * [Pitfalls and Misconception](docs/Getting_Started/Pitfalls_Misconception.md "Pitfalls and Misconception")

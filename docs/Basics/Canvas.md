@@ -69,33 +69,32 @@ Now, we will create `Haxe Trait` to control our UI created in `UI` Canvas. Head 
 // In CanvasController.hx
 package arm;
 
-//Imports 1
 import iron.Scene;
 import armory.trait.internal.CanvasScript;
 import armory.system.Event;
 
 class CanvasController extends iron.Trait {
 
-	var canvas:CanvasScript;// 2
+	// Initialize canvas as CanvasScript.
+	var canvas:CanvasScript;
 
 	public function new() {
 		super();
 
 		notifyOnInit(function() {
-			canvas = Scene.active.getTrait(CanvasScript);// 2
-			Event.add("apply_btn", applyCanvas);// 3
+			// Set canvas as CanvasScript trait from active scene.
+			canvas = Scene.active.getTrait(CanvasScript);
+			// Add event listener with string 'apply_btn' and call 'applyCanvas' function.
+			Event.add("apply_btn", applyCanvas);
 		});
 
 	}
 
-	public function applyCanvas() {// 3
+	public function applyCanvas() {
 		trace("Applied!");
 	}
 }
 ```
-1. We import `Scene`, `CanvasScript` and `Event`.
-2. Initialize canvas variable, assign and get `CanvasScript` Trait attached to Scene, i.e., our `UI` Canvas Trait.
-3. We add `apply_btn` event on init and call `applyCanvas()` when done. And then finally trace `Applied!` when called.
 
 If you were to run this and press `Apply` button, it should print `Applied!`. If it do, then our basics are working and we are ready to do more work.
 
@@ -103,40 +102,46 @@ Now to change color of text using `slider_r`/`slider_g`/`slider_b` silder and en
 ```haxe
 //In CanvasController.hx
 ~
-// 1
+
 import kha.Color;
 import zui.Canvas.TElement;
 ~
 class CanvasController extends iron.Trait {
 
 	var canvas:CanvasScript;
-	var text:TElement;// 2
+	// Initialize text as TElement.
+	var text:TElement;
 
 	public function new() {
 		super();
 
 		notifyOnInit(function() {
 			canvas = Scene.active.getTrait(CanvasScript);
-			text = canvas.getElement("txt");// 2
+			//get element from canvas with string 'txt'.
+			text = canvas.getElement("txt");
 			Event.add("apply_btn", applyCanvas);
 		});
 	}
 
 	public function applyCanvas() {
-		set_rgb();// 7
-		set_visibility();// 7
+		//Only call set_'s funtions when button is pressed.
+		set_rgb();
+		set_visibility();
 	}
 
 	public function set_rgb() {
-		var r = canvas.getHandle("slider_r").value;// 3
+		//Get value from UI using getHandle().
+		var r = canvas.getHandle("slider_r").value;
 		var g = canvas.getHandle("slider_g").value;
 		var b = canvas.getHandle("slider_b").value;
-		text.color = Color.fromFloats(r, g, b);// 4
+		//Set text color from float r,g,b.
+		text.color = Color.fromFloats(r, g, b);
 	}
 
 	public function set_visibility() {
-		var is_selected = canvas.getHandle("visibility").selected;// 5
-		// 6
+		//Get checkbox's selected bool value.
+		var is_selected = canvas.getHandle("visibility").selected;
+		// if isn't selected than keep invisible else visible.
 		if (!is_selected){
 			text.visible = false;
 		}else{
@@ -145,13 +150,6 @@ class CanvasController extends iron.Trait {
 	}
 }
 ```
-1. We import `kha.Color`*(color handling by Kha)* and `zui.Canvas.TElement`*(Element handling)*.
-2. We declare text as `TElement` and initialize it as canvas element `txt`.*(canvas.getElement("txt")* get element of canvas by name).
-3. We get input value of slider using `canvas.getHandle("slider_r/g/b").value` and assign it to var r/g/b.
-4. We set color of `text` using `Color.fromFloats(*r*,*g*,*b*,*a*)`*(alpha value is defaultly set to 1.0, you can change it by adding value)*.
-5. Inside, `set_visibility()`, we get selected bool and assign it to `is_selected`
-6. We check if `is_selected` is true or false and then set text visbility according to it.
-7. Finally call `set_rgb()`/`set_visibility` in `applyCanvas()`.
    
 Now we will get input from `input_txt` and case sensitivity from `dd_case` and set Text `txt` according to it.
 
@@ -173,8 +171,10 @@ class CanvasController extends iron.Trait {
 	public function set_visibility() { ~ }
 
 	public function set_input_txt() {
-		var input_txt = canvas.getHandle("input_txt").text;// 1
-		var caseSensitivity = canvas.getHandle("dd_case").position;// 2
+		//Get input value.
+		var input_txt = canvas.getHandle("input_txt").text;
+		//Get selected value from drop down with position.
+		var caseSensitivity = canvas.getHandle("dd_case").position;
 		// 3
 		if (caseSensitivity == 1){
 			text.text = input_txt.toUpperCase();
@@ -186,9 +186,6 @@ class CanvasController extends iron.Trait {
 	}
 }
 ```
-1. Get text value from `input_txt` and assign to `input_txt`.
-2. Get position value from `dd_case` and assign it to `caseSensitivity` *(position get value of select value in order, i.e., `Default Case` = 0, `Upper Case` = 1, `Lower Case` = 2)*
-3. check the value of `caseSensitivity`, then change case sensitivity according to it using `toUpperCase()`/`toLowerCase()` or else keep the case.
 
 And lastly rotation of Text `txt` using Radio `visibility`:
 
@@ -200,7 +197,7 @@ class CanvasController extends iron.Trait {
 
 	public function applyCanvas() {
 		~
-		set_rotation();// 3
+		set_rotation();
 	}
 
 	public function set_rgb() { ~ }
@@ -210,21 +207,20 @@ class CanvasController extends iron.Trait {
 	public function set_input_txt() { ~ }
 
 	public function set_rotation(){
-		var rotate = canvas.getHandle("rotate").position;// 1
-		if (rotate == 0){// 2
+		//Just like dropdown's case use position to get selected value.
+		var rotate = canvas.getHandle("rotate").position;
+		//Set text's rotation according to selected radio's value.
+		if (rotate == 0){
 			text.rotation = 0;
 		}else if (rotate == 1){
-			text.rotation = 90*3.14/180;
+			text.rotation = 90 * 3.14 / 180;
 		}else if (rotate == 2){
-			text.rotation = 180*3.14/180;
+			text.rotation = 180 * 3.14 / 180;
 		}
 	}
 }
 ```
-1. Get `rotate` position value and assign it to rotate.
-2. Set text rotation according to the value.
-3. Finally call `set_rotation()` in `apply_canvas()`.
-4. *`degrees x 3.14/180`, will convert degrees to radians that armory uses*.
+!> Armory uses radians almost everywhere so be sure to convert it to degrees.
 
 Now on playing it, you should get our goal.
 

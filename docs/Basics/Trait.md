@@ -16,7 +16,8 @@ There are 4 different types of `traits`:
 
 3. **Canvas Trait**: This is trait for UI, canvas can be made using [Armory2D](https://github.com/armory3d/armory2d), but you can create it yourself with Armory2D as canvas use `.json`.
 
-4. **[WebAssembly(WASM)](https://webassembly.org/)**: This is also scripting trait, you can write your game logic in [`Rust`](https://www.rust-lang.org/)/[`C`](https://en.wikipedia.org/wiki/C_%28programming_language%29)/[`C++`](https://en.wikipedia.org/wiki/C%2B%2B) and than compiling the code to `WASM` to use it in Armory.
+4. **WebAssembly(WASM)**: [WebAssembly](https://webassembly.org/) can also be used as scripting trait, to write game logic in [`Rust`](https://www.rust-lang.org/)/[`C`](https://en.wikipedia.org/wiki/C_%28programming_language%29)/[`C++`](https://en.wikipedia.org/wiki/C%2B%2B) and than compiling the code to `WASM` to use it in Armory.
+WASM is very usefull when it comes to plugins, you can use Libraries made in `Rust`/`C`/`C++` and compile it to WASM and then use it in `Armory` and `Kha`. Two examples that are used in `ArmorPaint`: [Texture-synthesis(Rust)](https://twitter.com/luboslenco/status/1173942414966439938), [Chips(C)](https://twitter.com/luboslenco/status/1172536139573538816).
 
 ---
 
@@ -46,26 +47,25 @@ import iron.math.Vec4;
 import iron.Scene;
 
 class HaxeScript extends iron.Trait {
-
-	var haxeCube:Object;// 1
+	//Initialise haxeCube as Object
+	var haxeCube:Object;
 
 	public function new() {
 		super();
-
-		notifyOnInit(function() {// 3
-			haxeCube = Scene.active.getChild("Haxe");// 1
+		//NotifyOnInit function get excuted when the 'trait' is initiated.
+		notifyOnInit(function() {
+			//Get haxeCube Object from active Scene.
+			haxeCube = Scene.active.getChild("Haxe");
 		});
-
-		notifyOnUpdate(function() {// 3
-			haxeCube.transform.rotate(new Vec4(0.0, 0.0, 1.0), 0.01);// 2
+		
+		//NotifyOnUpdate function get excuted every tick.
+		notifyOnUpdate(function() {
+			//Rotate haxeCube with Vec4(x, y, z) and speed.
+			haxeCube.transform.rotate(new Vec4(0.0, 0.0, 1.0), 0.01);
 		});
 	}
 }
 ```
-1. Initialise `haxeCube` as `Object` and then set it on `notifyOnInit`.
-2. Rotate `haxeCube` on z-axis, with speed of `0.05`.
-3. `notifyOnInit(*function*)`, will call `*function*` when the trait it is attached to initialised, in our instance, it will call the `*function*` when the haxe cube is initialises.
-4. `notifyOnUpdate(*function*)`, will call `*function*` every tick.
 
 Now, if you were to play it, you should see `Haxe` cube rotating!.
 

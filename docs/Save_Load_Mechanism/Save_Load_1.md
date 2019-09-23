@@ -17,30 +17,28 @@ class SaveLoadMechanism extends iron.Trait {
         super();
 
         notifyOnInit(function() {
+            //This is platform specific block, you can define 
+            //different behaviour for different platforms.
+            #if kha_krom
+            //Set json structure with text as hello World!
+            var saveData = { text: "Hello World!" };
+            //Converts above structure to json string.
+            var saveDataJSON = haxe.Json.stringify(saveData);
 
-            #if kha_krom // 1
-            var saveData = { text: "Hello World!" }; // 2
-            var saveDataJSON = haxe.Json.stringify(saveData); // 3
+            //Get Krom's location path and add path for save_game.json.
+            //This will be saved at root_folder/build_file/debug/krom/save_game.json.
+            var path = Krom.getFilesLocation() + "/save_game.json";
 
-            // will be saved at root_folder/build_file/debug/krom/my_file.json
-            var path = Krom.getFilesLocation() + "/save_game.json"; // 4
-
-            // Write file
-            var bytes = haxe.io.Bytes.ofString(saveDataJSON); // 5
-            Krom.fileSaveBytes(path, bytes.getData()); // 6
+            //Write json string to bytes.
+            var bytes = haxe.io.Bytes.ofString(saveDataJSON);
+            //Save to file from path specified above with data from bytes.
+            Krom.fileSaveBytes(path, bytes.getData());
             #end
         });
 
     }
 }
 ```
-Let go and understand the code line-by-line:
-1. This is `guard`, it will tell [Kha](https://github.com/Kode/Kha) to use code(in-between guard) when guard's condition is met, here it will tell Kha to save our file only if the target the game is running on is Krom. We are using it here so that the game will not cause any errors because we are using target specific function in our code `// 6`
-2. Here variable `saveData` have little json structure defined, it only have `text: Hello World!` for now, we will add more as we go.
-3. haxe.Json.stringify will convert our json structure to string json for saving to file.
-4. Krom.getFilesLocation() will get path of build folder and add `"/save_game.json"` to it for complete path.
-5. This will take our `saveDataJSON` string and than it will write it to bytes to save.
-6. Krom.fileSaveBytes(*path*, bytes.getData()); will save bytes to path specified.
 
 Now, if you play the game and go over to `root_folder/build_file/debug/krom/` you should find `save_game.json` and on opening it should read `{"text":"Hello World!"}`, if you do, then Congratulation! You did it!
 
@@ -51,31 +49,32 @@ Let save `save_game.json` to proper place and add some keyboard input code to ha
 
 package arm;
 
-import iron.system.Input;// 1
+import iron.system.Input;
 
 class SaveLoadMechanism extends iron.Trait {
-
-    var kb = Input.getKeyboard();// 1
+    //Get keyboard's input.
+    var kb = Input.getKeyboard();
 
 	public function new() {
 		super();
 
-        notifyOnUpdate(function() { // 2
-            if(kb.started("f")){ // 3
+        notifyOnUpdate(function() {
+            //Call save() when 'f' key is pressed.
+            if(kb.started("f")){
                 save();
             }
         });
 	}
-    // 4
+
     public function save(){
         #if kha_krom
         var saveData = { text: "Hello World!" };
         var saveDataJSON = haxe.Json.stringify(saveData);
 
-        // will be saved at file_write/build_file/debug/krom/my_file.json
-        var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";/// 5
+        // Adds '/../../../' to path to move out of 3 directories.
+        // And then go to bundled/save_game.json.
+        var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";
 
-        // Write file
         var bytes = haxe.io.Bytes.ofString(saveDataJSON);
         Krom.fileSaveBytes(path, bytes.getData());
         trace("Saved!");
@@ -83,12 +82,6 @@ class SaveLoadMechanism extends iron.Trait {
     }
 }
 ```
-1. We import and initialize keyboard input variable.
-2. We use `notifyOnUpdate` instead.
-3. This check if keyboard key `f` is started, if so then it will call the save function.
-4. We move all save functionality to it own function `save()`.
-5. Here, we get out of build files and get bundled path, this will help us in reading the `save_game.json` later (`/..` means out of a directory).
-Now, if you play and press `f` then it should save `save_game.json` to Bundled.
 
 ![savejsonbundled](/../../docassets/save_load_4.png ':size=700')
 
@@ -105,13 +98,13 @@ Now let get to code:
 package arm;
 
 import iron.system.Input;
-import iron.data.Data;//<===
+import iron.data.Data;
 
 class SaveLoadMechanism extends iron.Trait {
-    
-    var kb = Input.getKeyboard();//<===
 
-    var saveFile = "save_game.json";//<===
+    var kb = Input.getKeyboard();
+
+    var saveFile = "save_game.json";
 
 	public function new() {
 		super();
@@ -119,7 +112,7 @@ class SaveLoadMechanism extends iron.Trait {
 		notifyOnUpdate(function() {
             if(kb.started("f")){
                 save();
-            }else if(kb.started("g")){// 1
+            }else if(kb.started("g")){
                 load();
             }
 		});
@@ -127,24 +120,20 @@ class SaveLoadMechanism extends iron.Trait {
 
     public function save() { ~ }
 
-    // 2
-    public function load(){
-        Data.getBlob(saveFile, function(bytes:kha.Blob) {// 3
-            var jsonString = bytes.toString();// 4
 
-            // Get json from string
-            var json = haxe.Json.parse(jsonString);// 5
-            trace(json.text);// 6
+    public function load(){
+        //Get Blob, it director is defaulty set to bundled.
+        Data.getBlob(saveFile, function(bytes:kha.Blob) {
+            //Converts bytes to string.
+            var jsonString = bytes.toString();
+
+            //Parse value from stringy json.
+            var json = haxe.Json.parse(jsonString);
+            trace(json.text);
         });
     }
 }
 ```
-1. We add key check for load function too.
-2. Create `load()` function.
-3. Data.getBlob(`*file name*`, `*function*`) will get `*file name*` from Bundled folder and then do `*function*`.
-4. We convert loaded bytes to string and assign it to `jsonString`
-5. Parse json from `jsonString`
-6. We finally print/trace `text` from json
 
 Hit `Play`, try pressing `f` and then `g`, `Hello World!` should appear in debug console, if it do than that means saving and loading work perfectly!
 

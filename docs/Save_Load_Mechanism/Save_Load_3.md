@@ -4,7 +4,7 @@ In this third and the last part we will add UI to our game for gamey effect.
 
 ---
 
-Create a new scene Canvas trait(`SaveLoad`) and add following:
+Create a new scene Canvas trait(`SaveLoad`) and add following elements and set their event as 'save_btn' and 'load_btn':
 
 ![canvasbtn](/../../docassets/save_load_12.png ':size=700')
 
@@ -18,7 +18,7 @@ Now to button functionality, we will implement it in `SaveLoadMechanism.hx`
 // In SaveLoadMechanism.hx
 package arm;
 
-import armory.system.Event;//<===
+import armory.system.Event;
 import iron.Scene;
                 ~
 class SaveLoadMechanism extends iron.Trait {
@@ -26,16 +26,15 @@ class SaveLoadMechanism extends iron.Trait {
 	public function new() {
 		super();
 
-		notifyOnInit(function(){// 1
-			Event.add("save_btn", save);// 2
-			Event.add("load_btn", load);// 2
+		notifyOnInit(function(){
+			//Add event listener with string defined in Armory2D.
+			Event.add("save_btn", save);
+			Event.add("load_btn", load);
 		});
 
 	}
                 ~
 ```
-1. We change notifyOnUpdate to notifyOnInit
-2. Adding Event listener. In Event.add(`*name*`, `*function*`), `*name*` is name the of event, like we added to buttons to canvas in Armory2D(__Flashback__), and `*function*` is what it should do after it getting notified of event. So, here it will call function `save/load` after getting notified about event `save_btn/load_btn`.
 
 For our last and final feature, we are going to hide buttons on start and then we will able to show and hide them with `m`.
 
@@ -49,17 +48,18 @@ typedef Cube = { loc : Vec4, rot : Vec4 }
 
 class SaveLoadMechanism extends iron.Trait {
 				~
-	var canvas:CanvasScript;// 1
+	var canvas:CanvasScript;
 
-	var isButtonsHidden:Bool;// 2
+	var isButtonsHidden:Bool;
 
 	public function new() {
 		super();
 
 		notifyOnInit(function(){
-			canvas = Scene.active.getTrait(CanvasScript);// 1
-			hideButtons(); // 3
-			isButtonsHidden = true;// 3
+			//Get CanvasScript trait from active scene.
+			canvas = Scene.active.getTrait(CanvasScript);
+			hideButtons();
+			isButtonsHidden = true;
 						~
 		});
 		// 4
@@ -77,25 +77,22 @@ class SaveLoadMechanism extends iron.Trait {
 	public function save() { ~ }
 
 	public function load() { ~ }
-	// 5
+
 	public function hideButtons() {
+		//Set Element visible property to false to hide the element
 		canvas.getElement("save_btn").visible = false;
 		canvas.getElement("load_btn").visible = false;
 		isButtonsHidden = true;
 	}
-	// 5
+
 	public function showButtons() {
+		//Set Element visible property to true to show the element
 		canvas.getElement("save_btn").visible = true;
 		canvas.getElement("load_btn").visible = true;
 		isButtonsHidden = false;
 	}
 }
 ```
-1. Import, initialize `CanvasScript` trait.
-2. Create `isHiddenButton` Bool.
-3. We hide buttons and set `isButtonsHidden` to true on init.
-4. We create `notifyOnUpdate()` function and add key check for `m` and on key `m` started it will check if the button is hidden, if so than it will call `showButtons()`, if not then it will call `hideButtons()`.
-5. We create `hideButtons()`/`showButtons()` and then get canvas's element by name(name that we gave to butttons in Canavs __Flashback__) and then get it visible property and set it to `true`/`false` respective to the function, and then finally set `isButtonsHidden` to `true`/`false` again respective to the function.
 
 You should get the following result:
 
