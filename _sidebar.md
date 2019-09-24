@@ -13,10 +13,10 @@
 ---
 
 * Mechanisms
-    * [Save & Load](docs/Save_Load_Mechanism/Save_Load_Mechanism.md "Intro to Save/Load Mechanism")
-        * [Save & Load I](docs/Save_Load_Mechanism/Save_Load_1.md "Save/Load Mechanism I")
-        * [Save & Load II](docs/Save_Load_Mechanism/Save_Load_2.md "Save/Load Mechanism II")
-        * [Save & Load III](docs/Save_Load_Mechanism/Save_Load_3.md "Save/Load Mechanism III")
+    * [Save & Load game](docs/Save_Load_Mechanism/Save_Load_Mechanism.md "Intro to Save/Load Mechanism")
+        * [Read & Write file](docs/Save_Load_Mechanism/Save_Load_1.md "Save & Load - Read & Write file")
+        * [Save & Load game data](docs/Save_Load_Mechanism/Save_Load_2.md "Save & Load - Save/Load game data")
+        * [Controlling with UI](docs/Save_Load_Mechanism/Save_Load_3.md "Save & Load - Controlling with UI")
 
 - **Themes**
 - <a href="#" data-link-title="dark"> :black_large_square: Dark</a>

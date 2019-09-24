@@ -58,7 +58,7 @@ class HaxeScript extends iron.Trait {
 			haxeCube = Scene.active.getChild("Haxe");
 		});
 		
-		//NotifyOnUpdate function get excuted every tick.
+		//NotifyOnUpdate function get excuted every frame.
 		notifyOnUpdate(function() {
 			//Rotate haxeCube with Vec4(x, y, z) and speed.
 			haxeCube.transform.rotate(new Vec4(0.0, 0.0, 1.0), 0.01);

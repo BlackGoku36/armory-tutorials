@@ -55,7 +55,7 @@ Let add elements:
 8. `Image`: Add `logo`, we use this to for image assets.
 9. `Shape`: Add `h_1`, we use this add shape.
 
-!> We set text of our combo and radio as `option1;option2;option3` because it seperate options by `;`.
+?> We set text of our combo and radio as `option1;option2;option3` because it seperate options by `;`.
 
 When you run the game, you should see something like this:
 
@@ -220,7 +220,7 @@ class CanvasController extends iron.Trait {
 	}
 }
 ```
-!> Armory uses radians almost everywhere so be sure to convert it to degrees.
+?> Armory uses radians almost everywhere so be sure to convert it to degrees.
 
 Now on playing it, you should get our goal.
 

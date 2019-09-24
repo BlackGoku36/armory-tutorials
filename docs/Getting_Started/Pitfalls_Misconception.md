@@ -1,4 +1,4 @@
-# Misconceptions
+# Misconceptions {docsify-ignore-all}
 
 **-> I choosed `EEVEE`/`Cycles` renderer but still get this error.**
 
@@ -20,4 +20,4 @@ That issue is because of triangulation bug, try triangulating your mesh.
 
 **-> Error says that it can't find some file**
 
-Make sure your blend file isn't directly exposed to any drive and also check if your folders's name have any spaces.
+Make sure your blend file isn't directly exposed to any drive and also check if your folders's name have any illegal characters.

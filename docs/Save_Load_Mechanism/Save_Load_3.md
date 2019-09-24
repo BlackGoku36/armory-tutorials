@@ -1,8 +1,6 @@
-## Part-III
+## Controlling with UI
 
 In this third and the last part we will add UI to our game for gamey effect.
-
----
 
 Create a new scene Canvas trait(`SaveLoad`) and add following elements and set their event as 'save_btn' and 'load_btn':
 
@@ -62,7 +60,7 @@ class SaveLoadMechanism extends iron.Trait {
 			isButtonsHidden = true;
 						~
 		});
-		// 4
+
 		notifyOnUpdate(function (){
 			if (kb.started("m")){
 				if (isButtonsHidden){
@@ -104,6 +102,6 @@ You should get the following result:
 ---
 
 For further improving, you can:
-1. Make the file secure, so that people don't cheat.
+1. Encrypt the file, so that people don't cheat.
 2. Add more value for it to save.
 3. Make GTA XII
