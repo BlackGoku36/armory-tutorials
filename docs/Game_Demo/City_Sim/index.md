@@ -1,7 +1,7 @@
 # Introduction
 !> W.I.P
 
-We will be creating [city building sim](https://en.wikipedia.org/wiki/City-building_game) game demo in Armory3D game engine.
+This tutorial is on creating 3d [city building sim](https://en.wikipedia.org/wiki/City-building_game) game demo in Armory3D game engine.
 We will try to reach features of engine as much as we can and utilize it.
 
 ## Concept
@@ -34,9 +34,14 @@ We will try to reach features of engine as much as we can and utilize it.
 
 | In-game Feature                                  | Tutorial's feature                             |
 | ------------------------------------------------ | ---------------------------------------------- |
-| Game can be saved/loaded locally| Extend upon [save/load tutorial](docs/Save_Load_Mechanism/Save_Load_Mechanism.md) and add little encryption feature like, Caesar Chipers|
+| Game can be saved/loaded locally                 | Extend upon [save/load tutorial](docs/Save_Load_Mechanism/Save_Load_Mechanism.md) and add little encryption feature like, [Caesar chiper](https://en.wikipedia.org/wiki/Caesar_cipher)|
 | Spawning, removing, selecting moving of building | Will uses physics and raycasting stuffs        |
 | Layout Editing                                   | Handling of different scenes                   |
 | Settings                                         | Handling of screen size, graphics, etc. with UI|
 
+## Tutorial
+This tutorial will be divided into many parts:
+1. In this part we, will implement the basics, such as buildings moving, placing, rotating, removing, arcball camera.
+
+Now before we go, make sure to start up armory and run it, to make sure everything is working correctly.
 !> W.I.P
