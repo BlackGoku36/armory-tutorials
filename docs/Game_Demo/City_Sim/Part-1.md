@@ -71,7 +71,7 @@ In `Physics` tab:
 ?> Collision filter mask make raycast ignore the object.
 
 
-1. Create new cube `Cursor`, we will move it with mouse across the ground with ray-casting, i.e., we will use it as 3D cursor, and it will check if it is over-lapping with any building and then select it, set it's collision filter mask to 2nd too.
+1. Create new cube object `Cursor`, we will move it with mouse across the ground with ray-casting, i.e., we will use it as 3D cursor, and it will check if it is over-lapping with any building and then select it, set it's collision filter mask to 2nd too.
 2. Create new Haxe script `PlayerController` and assign it to our scene.
 
 ```haxe
@@ -110,14 +110,14 @@ class PlayerController extends iron.Trait {
 
 	function cursorMovement() {
 		if(!mouse.down("right")){
-			var from = new Vec4();
-			var to = new Vec4();
+			var start = new Vec4();
+			var end = new Vec4();
 			var camera = Scene.active.getCamera("Camera");
-            //Get Ray-cast direction from, to with mouse's x/y and camera.
-			RayCaster.getDirection(from, to, mouse.x, mouse.y, camera);
-            //cast ray from camera to to.
-			var hit = physics.rayCast(camera.transform.world.getLoc(), to);
-            //Check if hit isn't null, and get rigidbody of where the ray is hited.
+            // Get Ray-cast direction from start to end with mouse's x/y and camera.
+			RayCaster.getDirection(start, end, mouse.x, mouse.y, camera);
+            // cast ray from camera's loc in world space to end vec.
+			var hit = physics.rayCast(camera.transform.world.getLoc(), end);
+            // Check if hit isn't null, and get rigidbody of where the ray is hited.
 			var rigidbody = (hit != null) ? hit.rb : null;
             // Check if rigidbody isn't null and rigidbody's name is `Ground`
 			if(rigidbody != null){
@@ -125,9 +125,9 @@ class PlayerController extends iron.Trait {
                     //Make cursor visible.
 					cursor.visible = true;
                     // Floor the hit position and set it as hitPointLoc.
-                    //(Z-axis will remain 1.0 as we don't want to build buildings lower or higher the ground)
+                    // (Z-axis will remain 1.0 as we don't want to build buildings lower or higher the ground)
 					hitPointLoc.set(Math.ffloor(hit.pos.x), Math.ffloor(hit.pos.y), 1.0);
-                    //Set location of cursor from hitPointLoc
+                    // Set location of cursor from hitPointLoc
 					cursor.transform.loc.setFrom(hitPointLoc);
 					cursor.transform.buildMatrix();
 				}
@@ -142,5 +142,9 @@ class PlayerController extends iron.Trait {
 ```
 
 ?> We floor the hit.pos.x and hit.pos.y for grid snapping effect
+
+We get:
+
+![](/../../../docassets/CBS_part1_2.gif ':size=400')
 
 !> W.I.P
