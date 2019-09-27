@@ -1,6 +1,6 @@
 # armory-tutorials
 
-Tutorials on Armory3d game engine
+Tutorials for Armory3d game engine
 
 ## Building Docsify Locally
 You can do it two way:

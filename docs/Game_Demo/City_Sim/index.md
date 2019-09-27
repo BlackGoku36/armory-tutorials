@@ -44,4 +44,5 @@ This tutorial will be divided into many parts:
 1. In this part we, will implement the basics, such as buildings moving, placing, rotating, removing, arcball camera.
 
 Now before we go, make sure to start up armory and run it, to make sure everything is working correctly.
+
 !> W.I.P
