@@ -12,3 +12,6 @@
     --code-inline-background       :#F1F1F1;
     --code-inline-color            :rgb(202, 202, 202);
 } */
+:root{
+    --base-font-size               : 17px;
+}

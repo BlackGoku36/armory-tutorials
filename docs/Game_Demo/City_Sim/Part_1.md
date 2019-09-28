@@ -1,6 +1,8 @@
-# Part I
+# Basics
 
-In this part, we will implement the basics, such as moving, placing, rotating, removing, of buildings and arcball camera.
+In `Basics` part we will do :
+    * Create Arcball style rotating camera, to look around the buildings.
+    * Create core of Selecting, moving, placing, removing, rotating and on-contact with other buildings.
 
 ---
 
@@ -60,9 +62,7 @@ You should get this:
 
 # Placing, Moving, Removing, Rotating, On Contact
 
-For Placing, moving, removing and rotating of buildings, we will use physics `ray-casting`.
-
-First we will `ray-cast` from mouse position on screen to ground and then transform it to world coords, then we will get `hit` result.
+* For selecting and moving building we will use physics [Ray-casting](https://en.wikipedia.org/wiki/Ray_casting), we will ray cast from camera to mouse's position in world space and than get the `rigidbody` it hit and the location the ray intersected.
 
 Now:
 
@@ -268,33 +268,28 @@ class PlayerController extends iron.Trait {
 	}
 
 	function update() {
-        //On left mouse btn, select building
-        //On right mouse btn, check if building isn't in contact then unselect building
-		if (mouse.started()) {
-			buildings.selectBuiliding();
-		}else if (mouse.started("right")) {
-			if (!buildings.buildingInContact) {
-				buildings.unselectBuilding();
+        //If any building isn't selected then can select building or spawn one.
+		if(!buildings.isBuildingSelected){
+			if (mouse.started()){
+				buildings.selectBuiliding();
 			}
-		}
-        //If building is selected, than check it contact
-        //  If 'm' key is pressed then set buildingMove to true
-        //  If 'f' key is pressed then remove building
-        //  If 'r' key is pressed then rotate building.
-        //Else
-        //  If 'p' key is pressed then spawn building type
-		if (buildings.isBuildingSelected) {
-			buildings.buildingContact();
-			if (kb.started("m")) {
-				buildings.buildingMove = true;
-			}else if (kb.started("f")) {
-				buildings.removeBuilding();
-			}else if (kb.started("r")) {
-				buildings.rotateBuilding();
+			if (kb.started("p")){
+				buildings.spawnBuilding(buildingType);
 			}
 		}else{
-			if (kb.started("p")) {
-				buildings.spawnBuilding(buildingType);
+            //If builidng is selected then get contact, unselect, move, remove, rotate building
+			buildings.buildingContact();
+			if (mouse.started("right")) {
+				if (!buildings.buildingInContact){
+					buildings.unselectBuilding();
+				}
+			}
+			if (kb.started("m")){
+				buildings.buildingMove = true;
+			}else if (kb.started("f")){
+				buildings.removeBuilding();
+			}else if (kb.started("r")){
+				buildings.rotateBuilding();
 			}
 		}
         //If buildingMove is true than move building
@@ -318,5 +313,9 @@ class PlayerController extends iron.Trait {
 
 ```
 <!-- tabs:end -->
+
+Now try creating more building such as gardens, parks, sawmills, etc and apply same physics as `bld_hs`, and we are done!
+
+Now, you should be ready to replace cube buildings, with your own assets!
 
 !> W.I.P
