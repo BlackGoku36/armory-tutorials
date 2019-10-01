@@ -110,11 +110,9 @@ class BuildingsController extends iron.Trait {
 	var physics = PhysicsWorld.active;
 
 	var hitPointLoc = new Vec4();
-    //Declare arrays of buildings
-	public var buildings: Array<Building> = [];
+
     //Building's Id, eg: bld_hs1, bld_pw2, etc.
 	public var buildingId = 0;
-
     //Declare selectedBuilding, i.e., name of building currently selected.
 	public var selectedBuilding:String = "";
     //Selected Building Object
@@ -165,14 +163,6 @@ class BuildingsController extends iron.Trait {
 			selectedBuildingObj.transform.loc.setFrom(hitPointLoc);
 		}
 	}
-    //Get name of all building in buildings array
-	public function getBuildingName():String {
-		var name:String = "";
-		for (building in buildings){
-			name = building.name;
-		}
-		return name;
-	}
 
 	public function rotateBuilding() {
         //Get Eular of selected building
@@ -193,17 +183,7 @@ class BuildingsController extends iron.Trait {
 			bld.transform.buildMatrix();
             //Change name
 			bld.name = "bld_"+type+buildingId;
-			addBuilding(bld.name);
 		}, false);
-	}
-
-	public function addBuilding(name: String) {
-        //Define new Building with name
-		var building: Building = {
-			name: name
-		}
-        //Push to array of buildings
-		buildings.push(building);
 	}
 
 	public function removeBuilding() {
