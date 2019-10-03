@@ -15,4 +15,5 @@
     --search-input-background-color: rgb(40, 43, 49);
     --hr-border                    : 2px solid rgb(89, 80, 122);
     --pagination-border-top        : 3px solid rgb(89, 80, 122);
+    --content-max-width            : 60em;
 }

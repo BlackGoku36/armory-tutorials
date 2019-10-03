@@ -14,4 +14,5 @@
 } */
 :root{
     --base-font-size               : 17px;
+    --content-max-width            : 60em;
 }
