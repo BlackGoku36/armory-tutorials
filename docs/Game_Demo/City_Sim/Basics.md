@@ -1,29 +1,30 @@
 # Basics
 
-In `Basics` part we will do :
-    * Create Arcball style rotating camera, to look around the buildings.
-    * Create core of Selecting, moving, placing, removing, rotating and on-contact with other buildings.
+In `Basics` part we will establish basics of city buildings, such as placing, moving, etc of buildings with player interaction.
 
 ---
 
 Table of contents:
 * [Arcball Camera](docs/Game_Demo/City_Sim/Part-1#Arcball-camera)
-* [Placing Moving Rotating Removing](docs/Game_Demo/City_Sim/Part-1#Placing-Moving-Removing-Rotating-On-Contact)
+* [Buildings](docs/Game_Demo/City_Sim/Part-1#Buildings)
+* [Player](docs/Game_Demo/City_Sim/Part-1#Player)
 
 ---
 
 # Arcball camera
 
-Arcball rotation is *rotation of an object around a point*.
+To view around our scene's environment, we will use arcball camera rotation. Now, arcball rotation is *rotation of an object around a point*. We will arcball rotate the camera when right mouse button is pressed and hold.
 
-Here, when the right-mouse-button is pressed-hold, we will `Arcball rotate` the camera with an `empty` as center point.
+To do so:
 
 1. Create an empty `CameraEmpty` and position it to center of world and then set parent of our camera to this empty.
 2. Create new haxe trait `CameraController` and assign it to our camera, we will use this to control behavior of our camera.
 
-```haxe
-// In CameraController.hx
+<!-- tabs:start -->
 
+#### **CameraController.hx**
+
+```haxe
 import iron.Scene;
 import iron.system.Input;
 import iron.math.Vec4;
@@ -36,7 +37,6 @@ class CameraController extends iron.Trait {
 
 	public function new() {
 		super();
-        
         notifyOnUpdate(update);
 	}
 
@@ -53,6 +53,25 @@ class CameraController extends iron.Trait {
 	}
 }
 ```
+---
+
+<details>
+	<summary>Explanation</summary>
+
+1. We declare our cameraEmpty and mouse.
+
+2. We call `update()` function every frame.
+
+3. We get empty's transform and and set it z-axis rotation to reverse of our mouse moment on x-axis and slow it down by 200, and then `buildMatrix()`.
+
+4. We rotate our empty again but on object's right location in world-space and with our mouse's moment on y-axis and again call `buildMatrix()`.
+
+You can learn more about transforms [here](https://armory3d.org/manual/#/code/transform).
+</details>
+
+---
+
+<!-- tabs:end -->
 
 You should get this:
 
@@ -60,9 +79,13 @@ You should get this:
 
 ---
 
-# Placing, Moving, Removing, Rotating, On Contact
+# Buildings
 
-* For selecting and moving building we will use physics [Ray-casting](https://en.wikipedia.org/wiki/Ray_casting), we will ray cast from camera to mouse's position in world space and than get the `rigidbody` it hit and the location the ray intersected.
+To manage our city, we will need to spawn, move, remove, rotate our buildings. 
+
+## Placing, Moving, Removing, Rotating, On Contact
+
+We will use physics [ray-casting](https://en.wikipedia.org/wiki/Ray_casting) for selecting and moving buildings.
 
 Now:
 
@@ -80,18 +103,18 @@ Now:
 	* RigidBody Type -> Passive
 	* Collision shape -> Box
 
-?> The reason for having seperate base and building, is for optimization, we want to restrict physics to just plane, not cube or complex shape.
-
 ?> Collision filter mask will make ray-cast ignore the object.
 
-3. Create 2 new Haxe script `PlayerController` and `BuildingController` and assign it to scene.
-	1. In `PlayerController`, we will use it as player interaction with game.
-	2. In `BuildingController`, we will use it for controlling building's state/interaction and other stuffs tied to it.
+3. Create new Haxe trait `BuildingController` and assign it to scene.
 
 <!-- tabs:start -->
 
 #### **BuildingController.hx**
-Explanation:
+
+---
+
+<details>
+	<summary>Explanation</summary>
 
 1. First we will define structure of our building, that is its special name and it types, we use this for 'organised manner' purpose, with this it will be alot easier to manage buildings(add, remove, etc).
 
@@ -113,9 +136,11 @@ Explanation:
 
 10. For last feature i.e. rotating, we will create `rotateBuilding()`, get eular rotation of our building, add 90 deg to z-axis and set our building eular rotation every time this function is called.
 
-```haxe
-package arm;
+</details>
 
+---
+
+```haxe
 import armory.trait.physics.RigidBody;
 import armory.trait.physics.PhysicsWorld;
 
@@ -125,17 +150,15 @@ import iron.math.RayCaster;
 import iron.system.Input;
 import iron.object.Object;
 
-//Define structure for buildings
+//Define structure of buildings
 typedef Buildings = {
 	name:String,
 	type:String
 }
 
 class BuildingsController extends iron.Trait {
-
 	var physics = PhysicsWorld.active;
 
-	var hitPointLoc = new Vec4();
 	//Declare arrays of buildings
 	public var buildings: Array<Building> = [];
     //Building's Id, eg: bld_hs1, bld_pw2, etc.
@@ -154,7 +177,6 @@ class BuildingsController extends iron.Trait {
 	public function new() {
 		super();
 	}
-
 	public function selectBuiliding() {
         //Get rigid body from raycast from group 2.
 		var rigidbody = getRaycast(2).rigidbody;
@@ -168,23 +190,18 @@ class BuildingsController extends iron.Trait {
 			isBuildingSelected = false;
 		}
 	}
-
 	public function unselectBuilding() {
 		selectedBuilding = null;
 		isBuildingSelected = false;
 		buildingMove = false;
 	}
-
 	public function moveBuilding() {
 		var raycast = getRaycast(1);
 		if(raycast.rigidbody != null && raycast.rigidbody.object.name == "Ground") {
-            // Set location of house as floor of ray hit position's x, y and z as 0.4.
-			hitPointLoc.set(Math.floor(raycast.hit.pos.x), Math.floor(raycast.hit.pos.y), 0.4);
-            //Set loc of selected building
-			Scene.active.getChild(selectedBuilding).transform.loc.setFrom(hitPointLoc);
+            //Set loc of selected building as floor of ray hit position's x, y and z as 0.4.
+			Scene.active.getChild(selectedBuilding).transform.loc.set(Math.floor(raycast.hit.pos.x), Math.floor(raycast.hit.pos.y), 0);
 		}
 	}
-
 	public function rotateBuilding() {
         //Get Eular of selected building
 		var buildingEular = Scene.active.getChild(selectedBuilding).transform.rot.getEuler();
@@ -193,13 +210,12 @@ class BuildingsController extends iron.Trait {
         //Set Eular rotation of selected building
 		Scene.active.getChild(selectedBuilding).transform.rot.fromEuler(buildingEular.x, buildingEular.y, buildingEular.z);
 	}
-
 	public function spawnBuilding(type: String) {
         //Spawn object with name = "bld_"+type
 		Scene.active.spawnObject("bld_"+type, null, function(bld: Object){
             //Increment buildingID
 			buildingId++;
-            //set loc to center
+            //Set loc to center
 			bld.transform.loc.set(0.0, 0.0, 0.0);
 			bld.transform.buildMatrix();
             //Change name
@@ -211,16 +227,14 @@ class BuildingsController extends iron.Trait {
 			});
 		});
 	}
-
 	public function removeBuilding() {
         //Remove Selected building
 		Scene.active.getChild(selectedBuilding).remove();
-		//remove selected building from buildings array
+		//Remove selected building from buildings array
 		removefromArray(selectedBuilding, buildings);
 		//Unselect building
 		unselectBuilding();
 	}
-
 	public function buildingContact() {
         //Get contact of selected building
 		var contact = physics.getContacts(Scene.active.getChild(selectedBuilding).getTrait(RigidBody));
@@ -230,7 +244,6 @@ class BuildingsController extends iron.Trait {
 			buildingInContact = false;
 		}
 	}
-
 	function getRaycast(group:Int){
         var mouse = Input.getMouse();
 		var start = new Vec4();
@@ -247,7 +260,6 @@ class BuildingsController extends iron.Trait {
 			hit: hit
 		};
 	}
-
 	function removefromArray(name: String, buildings: Array<Buildings>){
 		//Define building and set it to null
 		var building:Buildings = null;
@@ -271,13 +283,40 @@ class BuildingsController extends iron.Trait {
 
 ```
 
+<!-- tabs:end -->
+
+
+# Player
+
+## Handling building controller
+
+To let player control the buildings, such as moving, removing, etc.
+
+1. Create new Haxe trait `PlayerController`, we will use it as player interaction with game.
+
+<!-- tabs:start -->
+
 #### **PlayerController.hx**
 
+---
+
+<details>
+	<summary>Explanation</summary>
+
+1. First we initialize some variables.
+
+2. Call update function every frame.
+
+3. Check if any building isn't selected, if not, then press left mouse button to select building and press `p` to spawn buildings. else if any building is selected, continuously check its contacts, if right mouse button is pressed than check if it is in any contact, if not then unselect building. If key button `m`, `f`, `r` is pressed, then move, remove, rotate building respectively.
+
+4. Use number key button to select building type.
+</details>
+
+---
 
 ```haxe
-package arm;
-
 import iron.system.Input;
+
 //Import previously made BuildingController
 import arm.BuildingsController;
 
@@ -295,7 +334,6 @@ class PlayerController extends iron.Trait {
 	}
 
 	function update() {
-        //If any building isn't selected then can select building or spawn one.
 		if(!buildings.isBuildingSelected){
 			if (mouse.started()){
 				buildings.selectBuiliding();
@@ -304,7 +342,6 @@ class PlayerController extends iron.Trait {
 				buildings.spawnBuilding(buildingType);
 			}
 		}else{
-            //If builidng is selected then get contact, unselect, move, remove, rotate building
 			buildings.buildingContact();
 			if (mouse.started("right")) {
 				if (!buildings.buildingInContact){
@@ -319,13 +356,11 @@ class PlayerController extends iron.Trait {
 				buildings.rotateBuilding();
 			}
 		}
-        //If buildingMove is true than move building
+
 		if (buildings.buildingMove) {
 			buildings.moveBuilding();
 		}
-		//If key 1 is pressed than set building type to house
-        //Else if key 2 is pressed than set building type to park
-        //...
+
 		if (kb.started("1")) buildingType = "hs";
 		else if (kb.started("2")) buildingType = "pk";
 		else if (kb.started("3")) buildingType = "gd";
@@ -335,11 +370,11 @@ class PlayerController extends iron.Trait {
 		else if (kb.started("7")) buildingType = "sw";
 		else if (kb.started("8")) buildingType = "pw";
 	}
-
 }
-
 ```
+
 <!-- tabs:end -->
+
 
 Now try creating more building such as gardens, parks, sawmills, etc and apply same physics as `bld_hs`, and we are done!
 
