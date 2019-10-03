@@ -116,11 +116,11 @@ Now:
 <details>
 	<summary>Explanation</summary>
 
-1. First we will define structure of our building, that is its special name and it types, we use this for 'organised manner' purpose, with this it will be alot easier to manage buildings(add, remove, etc).
+1. First we will define structure of our building, that is its special name and it types, we use this for 'organized manner' purpose, with this it will be a lot easier to manage buildings(add, remove, etc).
 
 2. We create `getRaycast(*group*)` specially, as we don't want to repeat this function during selecting and moving of building. This will ray-cast for specific group from camera to mouse's x/y location in world space, and get hit and rigidbody.
 
-3. We create `selectBuiliding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hited object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
+3. We create `selectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
 
 4. We then create `moveBuilding()`, to drag building around, we can do so, by ray-casting(`getRaycast()`) and get hit location and update building location each frame, we will floor the hit location for grid-snapping effect and set building's z-axis location to 0 as we don't want building to be higher or lower.
 
@@ -134,7 +134,7 @@ Now:
 
 9. To get contact of our buildings with any object that is rigidbody, we do so by creating `buildingContact()`, we get physics object that is in contact with our building's rigidbody, if there is any rigidbody contacting with our building, set buildingInContact to true, else false.
 
-10. For last feature i.e. rotating, we will create `rotateBuilding()`, get eular rotation of our building, add 90 deg to z-axis and set our building eular rotation every time this function is called.
+10. For last feature i.e. rotating, we will create `rotateBuilding()`, get euler rotation of our building, add 90 deg to z-axis and set our building euler rotation every time this function is called.
 
 </details>
 
@@ -182,7 +182,7 @@ class BuildingsController extends iron.Trait {
 		var rigidbody = getRaycast(2).rigidbody;
         //Check if rigidbody isn't null and rigidbody's name start with "bld"
 		if(rigidbody != null && StringTools.startsWith(rigidbody.object.name, "bld")){
-            //Set selected building to hited rigidbody name
+            //Set selected building to hit rigidbody name
 			selectedBuilding = rigidbody.object.name;
 			isBuildingSelected = true;
 		}else {
@@ -203,12 +203,12 @@ class BuildingsController extends iron.Trait {
 		}
 	}
 	public function rotateBuilding() {
-        //Get Eular of selected building
-		var buildingEular = Scene.active.getChild(selectedBuilding).transform.rot.getEuler();
+        //Get euler of selected building
+		var buildingEuler = Scene.active.getChild(selectedBuilding).transform.rot.getEuler();
         //Add 90 deg to z-axis
-		buildingEular.z += 90 * 3.14 / 180;
-        //Set Eular rotation of selected building
-		Scene.active.getChild(selectedBuilding).transform.rot.fromEuler(buildingEular.x, buildingEular.y, buildingEular.z);
+		buildingEuler.z += 90 * 3.14 / 180;
+        //Set Euler rotation of selected building
+		Scene.active.getChild(selectedBuilding).transform.rot.fromEuler(buildingEuler.x, buildingEuler.y, buildingEuler.z);
 	}
 	public function spawnBuilding(type: String) {
         //Spawn object with name = "bld_"+type
@@ -271,7 +271,7 @@ class BuildingsController extends iron.Trait {
 				building = i;
 			}
 		}
-		//Get idndex of building in buildings array
+		//Get index of building in buildings array
 		var index = buildings.indexOf(building);
 		//If it exist(doesn't exist = -1)
 		if (index > -1){
@@ -336,7 +336,7 @@ class PlayerController extends iron.Trait {
 	function update() {
 		if(!buildings.isBuildingSelected){
 			if (mouse.started()){
-				buildings.selectBuiliding();
+				buildings.selectBuilding();
 			}
 			if (kb.started("p")){
 				buildings.spawnBuilding(buildingType);
