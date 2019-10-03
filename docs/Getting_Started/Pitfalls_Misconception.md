@@ -12,7 +12,7 @@ Let me stop you right there, Armory now uses Blender 2.8 and support for Blender
 
 **-> I made changes to my game. Why don’t they show up when I start the game?**
 
-Armory caches builds of the game. Sometimes you need to clean this cache, click `Clean` button next to `Play` button under `Scene Tab` in `Armory Player`, and you are good to go!
+Armory caches builds of the game. Sometimes you need to clean this cache, click `Clean` button next to `Play` button under `Render Tab` in `Armory Player`, or if you don't want to clean build everytime, you can entirely disable it by `Render Tab - Armory Project - Flags` and unselect `Cache Build`.
 
 **-> My mesh look all weird, how do I fix this?**
 
