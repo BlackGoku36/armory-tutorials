@@ -1,4 +1,4 @@
-City building simulator
+City Building Simulator (CBS)
 
 ---
 

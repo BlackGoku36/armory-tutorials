@@ -1,11 +1,12 @@
 # Save/Load Mechanism
 
-Saving and loading mechanism can be done by simply writing data into file and reading from it.
+Save/load is one of the most important feature in game, whether it is single-player or multi-player game. In case of single-player, the game data can be saved to local drive, with encryption so that cheating is not made easy. On other hand, in multi-players game, game data is saved to server hosted by the game development group.
 
-[Json](https://en.wikipedia.org/wiki/JSON) and [Xml](https://en.wikipedia.org/wiki/XML) file formats are popularly used for this purpose. To prevent cheating by just re-writing the file you can encrypt it, if you are making small games and don't want your friend to cheat, just use `serialization`.
+Ever wondered how this is generally done? Well, Saving and loading mechanism can be done by simply writing data into file and reading from it. [Json](https://en.wikipedia.org/wiki/JSON) and [Xml](https://en.wikipedia.org/wiki/XML) file formats are popularly used for this purpose for small game, but you can write your own format *(structure, parser, encryption, etc)* if you are into writing your own stuffs. *(we are talking about small game that you share with friend, for fun and nothing serious, writing save/load mechanism for AAA games involves lot of other things)*.
 
-We will be creating save/load game mechanism in `Armory3D`. At the end of this tutorial you should be at-least be able to save data into `json` and parse from it with UI.
-We will be using `json` here and for simplicity sake, we will not do any sort of encryption.
+We will be creating save/load game mechanism in `Armory3D`. For simplicity sake, we will be using `Json` to store in our game data and not use any sort of encrytion *(this kind of stuffs are left for you as 'DIY')*.
+
+At the end of this tutorial you should be at-least be able to save data into `json`, read from it and control it with UI.
 
 This tutorial is divided into 3 parts:
 1. Setup the mechanism, we will only look into writing and reading file in-game.

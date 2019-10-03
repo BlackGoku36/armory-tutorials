@@ -1,16 +1,19 @@
-# Introduction
+# INTRODUCTION
 !> W.I.P
 
-This tutorial is on creating 3d [city building sim](https://en.wikipedia.org/wiki/City-building_game) game demo in Armory3D game engine.
-We will try to reach features of engine as much as we can and utilize it.
+**Quick introduction on Armory3D**: `Armory3D` is game engine integrated in `Blender` to provide excellent workflow from start to finish, it uses ultimate cross-platform tool-kit and framework that is `Haxe` and `Kha`. said enough.
 
-## Concept
+**Quick introduction on City Building Simulator game genre**: `CBS` game is `strategic-management` type game where you act as `Mayor` of the city you are building. One of the main concept of `CBS` game is simple, you build houses and get money from it, get resources such as wood, stones, etc from buildings such sawmill, quarry, etc. your main goal is to increase your city level *(keep in mind, that we are talking about small CBS game her, not the one made by AAA studios)*.
 
-* **Art type**: [Voxels](https://duckduckgo.com/?q=voxel+art&t=ffab&atb=v164-1&iax=images&ia=images)
+Here, we will make small `CBS` game demo in `Armory3D`, but with some twist in concept.
+
+## CONCEPT
+
+* **Art type**: Voxels *(those blocky things)*
 
 * **Goal**: Your goal is to keep your citizens happy, go below the line of happiness, and you loses.
 
-* **How game work?**:
+* **How this game work**:
     * You start playing the game with happiness at half.
     * Building such as Housing, Amusement park, small gardens, sports court increases happiness.
     * Building such as Sawmills, quarry, steelworks, powerplants increases pollution bar.
@@ -39,7 +42,7 @@ We will try to reach features of engine as much as we can and utilize it.
 | Layout Editing                                   | Handling of different scenes                   |
 | Settings                                         | Handling of screen size, graphics, etc. with UI|
 
-## Tutorial
+## TUTORIAL
 This tutorial will be divided into many parts:
 1. In `Basic` part, we will implement basics of our city building game such as placing, moving, etc with player interaction.
 

@@ -1,4 +1,4 @@
-# Basics
+# BASICS
 
 In `Basics` part we will establish basics of city buildings, such as placing, moving, etc of buildings with player interaction.
 
@@ -11,7 +11,7 @@ Table of contents:
 
 ---
 
-# Arcball camera
+# ARCBALL CAMERA
 
 To view around our scene's environment, we will use arcball camera rotation. Now, arcball rotation is *rotation of an object around a point*. We will arcball rotate the camera when right mouse button is pressed and hold.
 
@@ -79,11 +79,11 @@ You should get this:
 
 ---
 
-# Buildings
+# BUILDINGS
 
 To manage our city, we will need to spawn, move, remove, rotate our buildings. 
 
-## Placing, Moving, Removing, Rotating, On Contact
+## PLACING, MOVING, REMOVING, ROTATING, AND ON-CONTACT
 
 We will use physics [ray-casting](https://en.wikipedia.org/wiki/Ray_casting) for selecting and moving buildings.
 
@@ -91,17 +91,17 @@ Now:
 
 1. Create a cube `hs`(stand for house), we will use this for assets, it will do nothing else of sort.
 2. Create a plane `bld_hs`, and parent `hs` to this plane, we will use this as base, and use this for interaction. Set its physics as:
-	* Physics type -> RigidBody
-	* RigidBody Type -> Passive
-	* Setting -> Animated
-	* Collision shape -> Box
-	* Collision Collection -> 2nd Group
-	* Collision Filter mask -> 2nd Group
+	- Physics type -> RigidBody
+	- RigidBody Type -> Passive
+	- Setting -> Animated
+	- Collision shape -> Box
+	- Collision Collection -> 2nd Group
+	- Collision Filter mask -> 2nd Group
 
 1. Set plane (ground) physics as:
-	* Physics type -> RigidBody
-	* RigidBody Type -> Passive
-	* Collision shape -> Box
+	- Physics type -> RigidBody
+	- RigidBody Type -> Passive
+	- Collision shape -> Box
 
 ?> Collision filter mask will make ray-cast ignore the object.
 
@@ -110,35 +110,6 @@ Now:
 <!-- tabs:start -->
 
 #### **BuildingController.hx**
-
----
-
-<details>
-	<summary>Explanation</summary>
-
-1. First we will define structure of our building, that is its special name and it types, we use this for 'organized manner' purpose, with this it will be a lot easier to manage buildings(add, remove, etc).
-
-2. We create `getRaycast(*group*)` specially, as we don't want to repeat this function during selecting and moving of building. This will ray-cast for specific group from camera to mouse's x/y location in world space, and get hit and rigidbody.
-
-3. We create `selectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
-
-4. We then create `moveBuilding()`, to drag building around, we can do so, by ray-casting(`getRaycast()`) and get hit location and update building location each frame, we will floor the hit location for grid-snapping effect and set building's z-axis location to 0 as we don't want building to be higher or lower.
-
-5. We creates `unselectBuilding()` and we do so by setting selectedBuilding, isBuildingSelected, buildingMove to null, false, false respectively.
-
-6. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it location to center of world, set it name to "bld_"+its type+ its buildingId, and finally pushes this building to our buildings array.
-
-7. We will create a utility function to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
-
-8. Now to remove building, we will create `removeBuilding()`, with it we will remove building object from game and then remove it from out buildings array and finally unselect building.
-
-9. To get contact of our buildings with any object that is rigidbody, we do so by creating `buildingContact()`, we get physics object that is in contact with our building's rigidbody, if there is any rigidbody contacting with our building, set buildingInContact to true, else false.
-
-10. For last feature i.e. rotating, we will create `rotateBuilding()`, get euler rotation of our building, add 90 deg to z-axis and set our building euler rotation every time this function is called.
-
-</details>
-
----
 
 ```haxe
 import armory.trait.physics.RigidBody;
@@ -283,12 +254,41 @@ class BuildingsController extends iron.Trait {
 
 ```
 
+---
+
+<details>
+	<summary>Code explanation</summary>
+
+1. First we will define structure of our building, that is its special name and it types, we use this for 'organized manner' purpose, with this it will be a lot easier to manage buildings(add, remove, etc).
+
+2. We create `getRaycast(*group*)` specially, as we don't want to repeat this function during selecting and moving of building. This will ray-cast for specific group from camera to mouse's x/y location in world space, and get hit and rigidbody.
+
+3. We create `selectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
+
+4. We then create `moveBuilding()`, to drag building around, we can do so, by ray-casting(`getRaycast()`) and get hit location and update building location each frame, we will floor the hit location for grid-snapping effect and set building's z-axis location to 0 as we don't want building to be higher or lower.
+
+5. We creates `unselectBuilding()` and we do so by setting selectedBuilding, isBuildingSelected, buildingMove to null, false, false respectively.
+
+6. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it location to center of world, set it name to "bld_"+its type+ its buildingId, and finally pushes this building to our buildings array.
+
+7. We will create a utility function to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
+
+8. Now to remove building, we will create `removeBuilding()`, with it we will remove building object from game and then remove it from out buildings array and finally unselect building.
+
+9. To get contact of our buildings with any object that is rigidbody, we do so by creating `buildingContact()`, we get physics object that is in contact with our building's rigidbody, if there is any rigidbody contacting with our building, set buildingInContact to true, else false.
+
+10. For last feature i.e. rotating, we will create `rotateBuilding()`, get euler rotation of our building, add 90 deg to z-axis and set our building euler rotation every time this function is called.
+
+</details>
+
+---
+
 <!-- tabs:end -->
 
 
-# Player
+# PLAYER
 
-## Handling building controller
+## HANDLING BUILDINGS CONTROLLER
 
 To let player control the buildings, such as moving, removing, etc.
 
@@ -297,22 +297,6 @@ To let player control the buildings, such as moving, removing, etc.
 <!-- tabs:start -->
 
 #### **PlayerController.hx**
-
----
-
-<details>
-	<summary>Explanation</summary>
-
-1. First we initialize some variables.
-
-2. Call update function every frame.
-
-3. Check if any building isn't selected, if not, then press left mouse button to select building and press `p` to spawn buildings. else if any building is selected, continuously check its contacts, if right mouse button is pressed than check if it is in any contact, if not then unselect building. If key button `m`, `f`, `r` is pressed, then move, remove, rotate building respectively.
-
-4. Use number key button to select building type.
-</details>
-
----
 
 ```haxe
 import iron.system.Input;
@@ -372,6 +356,22 @@ class PlayerController extends iron.Trait {
 	}
 }
 ```
+
+---
+
+<details>
+	<summary>Code explanation</summary>
+
+1. First we initialize some variables.
+
+2. Call update function every frame.
+
+3. Check if any building isn't selected, if not, then press left mouse button to select building and press `p` to spawn buildings. else if any building is selected, continuously check its contacts, if right mouse button is pressed than check if it is in any contact, if not then unselect building. If key button `m`, `f`, `r` is pressed, then move, remove, rotate building respectively.
+
+4. Use number key button to select building type.
+</details>
+
+---
 
 <!-- tabs:end -->
 
