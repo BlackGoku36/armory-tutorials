@@ -31,7 +31,7 @@ import iron.math.Vec4;
 
 class CameraController extends iron.Trait {
     //Get our CameraEmpty
-	var cameraEmpty = Scene.active.getEmpty("CameraEmpty");
+	var cameraEmpty = Scene.active.getEmpty("CameraEmpty").transform;
     //Get mouse
 	var mouse = Input.getMouse();
 
@@ -49,10 +49,10 @@ class CameraController extends iron.Trait {
 		if(mouse.down("right")){
             // Rotate our empty on z-axis in opposite direction of our mouse-x movement.
             // Mouse movement is divided by 200 to slow the rotation.
-			cameraEmpty.transform.rotate(new Vec4(0, 0, 1), -mouse.movementX / 200);
-			cameraEmpty.transform.buildMatrix();
-			cameraEmpty.transform.rotate(object.transform.world.right(), -mouse.movementY / 200);
-			cameraEmpty.transform.buildMatrix();
+			cameraEmpty.rotate(new Vec4(0, 0, 1), -mouse.movementX / 200);
+			cameraEmpty.buildMatrix();
+			cameraEmpty.rotate(object.transform.world.right(), -mouse.movementY / 200);
+			cameraEmpty.buildMatrix();
 		}
 
 		if (mouse.wheelDelta != 0){
