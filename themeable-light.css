@@ -13,6 +13,17 @@
     --code-inline-color            :rgb(202, 202, 202);
 } */
 :root{
+    --cover-background-color       :rgb(253, 188, 188);
     --base-font-size               : 17px;
     --content-max-width            : 60em;
+    --base-background-color        :rgb(250, 250, 250);
+    --base-color                   :rgb(77, 77, 77);
+    --cover-heading-color          :rgb(90, 90, 90);
+    --sidebar-background           :rgb(250, 250, 250);
+    --sidebar-border-color         :rgb(255, 147, 147);
+    --theme-color                  :rgb(255, 50, 50);
+    --link-color                   :rgb(255, 50, 50);
+    --hr-border                    : 1px solid rgb(255, 147, 147);
+    --heading-h2-border-color      :rgb(255, 147, 147);
+    --code-theme-background        :rgb(237, 237, 237);
 }

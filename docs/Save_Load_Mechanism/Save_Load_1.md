@@ -1,14 +1,17 @@
 ## Read & Write file
-In this part we will implement basic of file reading and writing from in-game. At the end of this part you should be able to save/write json to `Bundled` and then load/read json from `Bundled` both during in-game.
+First we will implement basics of file reading and writing for krom in-game. At the end of this part you should be able to save/load json from `Bundled` folder, when in-game.
 
 ---
 
-Let create a Haxe trait(`SaveLoadMechanism`) for handling our save and load mechanism.
+We will first set-up the saving mechanism for hard-coded value.
 
-Now, for learning sake, we will be using [json](https://en.wikipedia.org/wiki/JSON) to store and read information from, later you can do stuff to make it unreadable to us humans to prevent cheating. [Haxe](https://haxe.org/) provide really good support for json and xml parsing and writing, making it easier for us to use.
+1. Create a Haxe trait `SaveLoadMechanism`, we will use this for handling our save and load mechanism.
+
+<!-- tabs:start -->
+
+#### **SaveLoadMechanism.hx**
 
 ```haxe
-// In SaveLoadMechanism.hx
 
 package arm;
 
@@ -17,18 +20,14 @@ class SaveLoadMechanism extends iron.Trait {
         super();
 
         notifyOnInit(function() {
-            //This is platform specific block, you can define 
-            //different behaviour for different platforms.
+            //Only compile the code for krom platform
             #if kha_krom
-            //Set json structure with text as hello World!
+            //Set json structure with text as 'hello World!'
             var saveData = { text: "Hello World!" };
             //Converts above structure to json string.
             var saveDataJSON = haxe.Json.stringify(saveData);
-
             //Get Krom's location path and add path for save_game.json.
-            //This will be saved at root_folder/build_file/debug/krom/save_game.json.
             var path = Krom.getFilesLocation() + "/save_game.json";
-
             //Write json string to bytes.
             var bytes = haxe.io.Bytes.ofString(saveDataJSON);
             //Save to file from path specified above with data from bytes.
@@ -39,16 +38,31 @@ class SaveLoadMechanism extends iron.Trait {
     }
 }
 ```
+---
+
+<details>
+    <summary>Code Explanation</summary>
+
+1. `#if some_condition` is called [Conditional Compiling](https://en.wikipedia.org/wiki/Conditional_compilation) expression, here, our code will only be compiled to Krom platform.
+2. We define structure and convert the structure into json.
+3. We get Krom's file location (during playing from armory, krom's file location is `root_folder/build_file/debug/krom/save_game.json`) and append our `save_game.json` to the path.
+4. Convert our stringy json to bytes.
+5. Save data from bytes to path specified.
+</details>
+
+---
+<!-- tabs:end -->
 
 Now, if you play the game and go over to `root_folder/build_file/debug/krom/` you should find `save_game.json` and on opening it should read `{"text":"Hello World!"}`, if you do, then Congratulation! You did it!
 
-Let save `save_game.json` to proper place and add some keyboard input code to handle saving manualy instead of saving when the game initiate.
+Let save `save_game.json` to proper place and add some keyboard input code to handle saving manually instead of saving when the game initiate.
+
+<!-- tabs:start -->
+
+#### **SaveLoadMechanism.hx**
 
 ```haxe
-// In SaveLoadMechanism.hx
-
 package arm;
-
 import iron.system.Input;
 
 class SaveLoadMechanism extends iron.Trait {
@@ -59,7 +73,6 @@ class SaveLoadMechanism extends iron.Trait {
 		super();
 
         notifyOnUpdate(function() {
-            //Call save() when 'f' key is pressed.
             if(kb.started("f")){
                 save();
             }
@@ -67,34 +80,41 @@ class SaveLoadMechanism extends iron.Trait {
 	}
 
     public function save(){
-        #if kha_krom
-        var saveData = { text: "Hello World!" };
+        ~
         var saveDataJSON = haxe.Json.stringify(saveData);
-
-        // Adds '/../../../' to path to move out of 3 directories.
-        // And then go to bundled/save_game.json.
+        //Move out of 3 dirs
         var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";
-
         var bytes = haxe.io.Bytes.ofString(saveDataJSON);
-        Krom.fileSaveBytes(path, bytes.getData());
-        trace("Saved!");
+        ~
         #end
     }
 }
 ```
+---
+
+<details>
+    <summary>Code Explanation</summary>
+
+1. On every frame, check if key `f` is pressed, than call `save()`
+2. We add `/../../../` before path to move out of three directory.
+</details>
+
+---
+<!-- tabs:end -->
 
 ![savejsonbundled](/../../docassets/save_load_4.png ':size=700')
 
 !> Don't forget to create Bundled folder in your root directory!
 
-We will now add reading functionality, we will read `save_game.json` from `Bundled` folder and print `text` value in debug console. To enable debug console for debugging(ofc!), head over to `Render - Armory Project - Flags` and select `Debug Console`.
-
-![debugconsole](/../../docassets/save_load_5.png ':size=700')
+We will now add reading functionality, we will read `save_game.json` from `Bundled` folder and print `text` value in debug console.
 
 Now let get to code:
-```haxe
-// In SaveLoadMechanism.hx
 
+<!-- tabs:start -->
+
+#### **SaveLoadMechanism**
+
+```haxe
 package arm;
 
 import iron.system.Input;
@@ -103,9 +123,7 @@ import iron.data.Data;
 class SaveLoadMechanism extends iron.Trait {
 
     var kb = Input.getKeyboard();
-
     var saveFile = "save_game.json";
-
 	public function new() {
 		super();
 
@@ -120,13 +138,11 @@ class SaveLoadMechanism extends iron.Trait {
 
     public function save() { ~ }
 
-
     public function load(){
-        //Get Blob, it director is defaulty set to bundled.
+        //Get Blob, from `Bundled`
         Data.getBlob(saveFile, function(bytes:kha.Blob) {
             //Converts bytes to string.
             var jsonString = bytes.toString();
-
             //Parse value from stringy json.
             var json = haxe.Json.parse(jsonString);
             trace(json.text);
@@ -134,6 +150,19 @@ class SaveLoadMechanism extends iron.Trait {
     }
 }
 ```
+---
+
+<details>
+    <summary>Code Explanation</summary>
+
+1. Check if `f`, `g` is pressed and then call `save()`, `load()` respectively.
+1. Load blob from path specified.
+2. Convert the file to string and then parse json from it.
+</details>
+
+---
+
+<!-- tabs:end -->
 
 Hit `Play`, try pressing `f` and then `g`, `Hello World!` should appear in debug console, if it do than that means saving and loading work perfectly!
 
