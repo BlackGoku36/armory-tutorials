@@ -346,7 +346,7 @@ ___
 
 ## ROTATING AND ON-CONTACT
 
-We will get contact between buildings to avoid putting them on top of each other. And add rotation, because buildings can be faced any side.
+We will get contact between buildings to avoid putting them on top of each other. And also add rotation, because buildings can faced any side!.
 
 <!-- tabs:start -->
 

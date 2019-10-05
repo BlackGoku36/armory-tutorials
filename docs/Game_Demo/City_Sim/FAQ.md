@@ -20,4 +20,4 @@ Feel free to ask anything!
 
 ### -> YOUR TUTORIALS ARE GOOD! DO I HAVE PERMISSION TO TRANSLATE IT TO OTHER LANGUAGE?
 
-Yes, you can translate it to whatever language you want, whether it is `Gujarati`, `Hindi`, `Japanese`, `Portuguese`, or even `MC enchanting table language`, feel free to do so. The only thing you gotta do is credit me and not claim as original author, other than that, you are good.
+Yes, you can translate it to whatever language you want, whether it is `Gujarati`, `Hindi`, `Japanese`, `Portuguese`, or even `MC enchanting table language`, feel free to do so. The only thing you gotta do is credit me and not claim yourself as original author, other than that, you are good.

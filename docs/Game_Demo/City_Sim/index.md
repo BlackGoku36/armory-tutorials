@@ -5,7 +5,7 @@
 
 **Quick introduction on City Building Simulator game genre**: `CBS` game is `strategic-management` type game where you act as `Mayor` of the city you are building. One of the main concept of `CBS` game is simple, you build houses and get money from it, get resources such as wood, stones, etc from buildings such sawmill, quarry, etc. your main goal is to increase your city level *(keep in mind, that we are talking about small CBS game her, not the one made by AAA studios)*.
 
-Here, we will make small `CBS` game demo in `Armory3D`, but with little twist in concept.
+So, let make a small `CBS` game demo in `Armory3D`, but with little twist in concept.
 
 ## CONCEPT
 
