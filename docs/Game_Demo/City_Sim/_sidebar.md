@@ -1,6 +1,9 @@
-City Building Simulator (CBS)
+
+- **City Building Simulator (CBS)**
+    - [Introduction (W.I.P)](docs/Game_Demo/City_Sim/index.md "CBS - Introduction")
+    - [Basics (W.I.P)](docs/Game_Demo/City_Sim/Basics.md "CBS - Basics")
 
 ---
 
-* [Introduction (W.I.P)](docs/Game_Demo/City_Sim/index.md "Intro - City Building Sim Tutorial")
-* [Basics (W.I.P)](docs/Game_Demo/City_Sim/Basics.md "Part-1")
+- **Extras**
+    - [FAQ](docs/Game_Demo/City_Sim/FAQ.md "CBS - FAQ")
