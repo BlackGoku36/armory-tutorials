@@ -127,7 +127,7 @@ import iron.math.Vec4;
 import iron.math.RayCaster;
 import iron.system.Input;
 
-class BuildingsController extends iron.Trait {
+class BuildingController extends iron.Trait {
 	var physics = PhysicsWorld.active;
 
     //Declare selectedBuilding, i.e., name of building currently selected.
@@ -205,7 +205,7 @@ We will physics ray-cast to group 1 and check if it hit plane, if it do than upd
 ```haxe
 ~
 
-class BuildingsController extends iron.Trait {
+class BuildingController extends iron.Trait {
 	var physics = PhysicsWorld.active;
 	~
 	//Should building move
@@ -255,18 +255,19 @@ We will define structure of our building, that is its special name and it types,
 #### **BuildingController.hx**
 
 ```haxe
+import iron.object.Object;
 ~
 //Define structure of buildings
-typedef Buildings = {
+typedef Building = {
 	name:String,
 	type:String
 }
 
-class BuildingsController extends iron.Trait {
+class BuildingController extends iron.Trait {
 	var physics = PhysicsWorld.active;
 	~
 	//Declare arrays of buildings
-	public var buildings: Array<Buildings> = [];
+	public var buildings: Array<Building> = [];
     //Building's Id, eg: bld_hs1, bld_pw2, etc.
 	public var buildingId = 0;
 
@@ -304,9 +305,9 @@ class BuildingsController extends iron.Trait {
 
 	function getRaycast(group:Int){ ~ }
 
-	function removefromArray(name: String, buildings: Array<Buildings>){
+	function removefromArray(name: String, buildings: Array<Building>){
 		//Define building and set it to null
-		var building:Buildings = null;
+		var building:Building = null;
 		//loop through buildings array
 		for (i in buildings){
 			//if building's name match, with name parameter
@@ -353,10 +354,11 @@ We will get contact between buildings to avoid putting them on top of each other
 #### **BuildingController.hx**
 
 ```haxe
+import armory.trait.physics.RigidBody;
 ~
 typedef Buildings = { ~ }
 
-class BuildingsController extends iron.Trait {
+class BuildingController extends iron.Trait {
 	var physics = PhysicsWorld.active;
 	~
 	//Is building in any contact
@@ -424,14 +426,14 @@ We will need to let player control the buildings, such as moving, removing, etc.
 import iron.system.Input;
 
 //Import previously made BuildingController
-import arm.BuildingsController;
+import arm.BuildingController;
 
 class PlayerController extends iron.Trait {
 
 	var mouse = Input.getMouse();
 	var kb = Input.getKeyboard();
 
-	var buildings = new BuildingsController();
+	var buildings = new BuildingController();
 	var buildingType: String = "hs";
 
 	public function new() {
@@ -440,31 +442,31 @@ class PlayerController extends iron.Trait {
 	}
 
 	function update() {
-		if(!buildings.isBuildingSelected){
+		if(!building.isBuildingSelected){
 			if (mouse.started()){
-				buildings.selectBuilding();
+				building.selectBuilding();
 			}
 			if (kb.started("p")){
-				buildings.spawnBuilding(buildingType);
+				building.spawnBuilding(buildingType);
 			}
 		}else{
-			buildings.buildingContact();
+			building.buildingContact();
 			if (mouse.started("right")) {
-				if (!buildings.buildingInContact){
-					buildings.unselectBuilding();
+				if (!building.buildingInContact){
+					building.unselectBuilding();
 				}
 			}
 			if (kb.started("m")){
-				buildings.buildingMove = true;
+				building.buildingMove = true;
 			}else if (kb.started("f")){
-				buildings.removeBuilding();
+				building.removeBuilding();
 			}else if (kb.started("r")){
-				buildings.rotateBuilding();
+				building.rotateBuilding();
 			}
 		}
 
-		if (buildings.buildingMove) {
-			buildings.moveBuilding();
+		if (building.buildingMove) {
+			building.moveBuilding();
 		}
 
 		if (kb.started("1")) buildingType = "hs";
