@@ -1,4 +1,4 @@
-# armory-tutorials
+# ARMORED-TUT
 
 Tutorials for Armory3d game engine
 
@@ -9,9 +9,9 @@ You can do it two way:
 
 after doing it. It should output something like:
 ```bash
-Serving HTTP on 0.0.0.0 port x000 ...
+Serving HTTP on 0.0.0.0 port 3000 ...
 ```
-and then open `http://localhost:x000` in your browser (with x as your port number).
+and then open `http://localhost:3000` in your browser.
 
 ### Docsify-cli
 ```bash

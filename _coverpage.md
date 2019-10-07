@@ -1,6 +1,6 @@
-# Armory-tutorial
+# ARMORED-TUT ⛨
 
 > Tutorials for Armory3D game engine.
 
+[Get Started](docs/Getting_Started/Introduction.md)
 [GitHub](https://github.com/BlackGoku36/armory-tutorials)
-[Get Started](docs/Getting_Started/Getting_Started.md)

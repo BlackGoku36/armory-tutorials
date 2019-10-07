@@ -26,4 +26,5 @@
     --hr-border                    : 1px solid rgb(255, 147, 147);
     --heading-h2-border-color      :rgb(255, 147, 147);
     --code-theme-background        :rgb(237, 237, 237);
+    --cover-background-image       : url("docassets/cover.png");
 }

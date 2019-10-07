@@ -17,4 +17,5 @@
     --heading-h2-border-color      :rgb(103, 92, 143);
     --pagination-border-top        : 3px solid rgb(89, 80, 122);
     --content-max-width            : 60em;
+    --cover-background-image       : url("docassets/cover.png");
 }

@@ -26,5 +26,5 @@
 ---
 
 - **Themes**
-- <a href="#" data-link-title="dark"> :black_large_square: Dark</a>
-- <a href="#" data-link-title="light"> :white_large_square: Light</a>
+- <a href="#" title="ARMORED-TUT" data-link-title="d"> :black_large_square: Dark</a>
+- <a href="#" title="ARMORED-TUT" data-link-title="l"> :white_large_square: Light</a>
