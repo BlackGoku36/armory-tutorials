@@ -356,7 +356,7 @@ We will get contact between buildings to avoid putting them on top of each other
 ```haxe
 import armory.trait.physics.RigidBody;
 ~
-typedef Buildings = { ~ }
+typedef Building = { ~ }
 
 class BuildingController extends iron.Trait {
 	var physics = PhysicsWorld.active;
@@ -433,7 +433,7 @@ class PlayerController extends iron.Trait {
 	var mouse = Input.getMouse();
 	var kb = Input.getKeyboard();
 
-	var buildings = new BuildingController();
+	var building = new BuildingController();
 	var buildingType: String = "hs";
 
 	public function new() {
@@ -443,7 +443,7 @@ class PlayerController extends iron.Trait {
 
 	function update() {
 		if(!building.isBuildingSelected){
-			if (mouse.started()){
+			if (mouse.started()){ //mouse.started() defaults to "left" if no button is provided.
 				building.selectBuilding();
 			}
 			if (kb.started("p")){
