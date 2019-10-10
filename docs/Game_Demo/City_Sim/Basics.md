@@ -93,7 +93,7 @@ You should get this:
 To manage our city, we will need to spawn, move, remove, rotate our buildings. 
 
 1. Create a cube `hs`(stand for house), we will use this for assets, it will do nothing else of sort.
-2. Create a plane `bld_hs`, and parent `hs` to this plane, we will use this as base, and use this for interaction. Set its physics as:
+2. Create a plane `bld_hs`, and make `hs` as child to this plane, we will use this as base, and for interaction. Set its physics as:
 	- Physics type -> RigidBody
 	- RigidBody Type -> Passive
 	- Setting -> Animated
