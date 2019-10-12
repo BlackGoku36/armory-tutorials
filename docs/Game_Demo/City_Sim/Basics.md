@@ -263,8 +263,8 @@ import iron.object.Object;
 ~
 //Define structure of buildings
 typedef Building = {
-	name:String,
-	type:String
+	name: String,
+	type: Int
 }
 
 class BuildingController extends iron.Trait {
@@ -279,7 +279,7 @@ class BuildingController extends iron.Trait {
 	public static function unselectBuilding() { ~ }
 	public static function moveBuilding() { ~ }
 
-	public static function spawnBuilding(type: String) {
+	public static function spawnBuilding(type: Int) {
         //Spawn object with name = "bld_"+type
 		Scene.active.spawnObject("bld_"+type, null, function(bld: Object){
             //Increment buildingID
@@ -288,10 +288,10 @@ class BuildingController extends iron.Trait {
 			bld.transform.loc.set(0.0, 0.0, 0.0);
 			bld.transform.buildMatrix();
             //Change name
-			bld.name = "bld_"+type+buildingId;
+			bld.name = "bld_"+type+"_"+buildingId;
 			//Add new building to add with name and type
 			buildings.push({
-				name: "bld_"+type+buildingId,
+				name: "bld_"+type+"_"+buildingId,
 				type: type
 			});
 			unselectBuilding();
@@ -438,8 +438,8 @@ class PlayerController extends iron.Trait {
 	var mouse = Input.getMouse();
 	var kb = Input.getKeyboard();
 
-	var building = new BuildingController();
-	var buildingType: String = "hs";
+	var building = BuildingController;
+	var buildingType: Int = 1;
 
 	public function new() {
 		super();
@@ -474,14 +474,14 @@ class PlayerController extends iron.Trait {
 			building.moveBuilding();
 		}
 
-		if (kb.started("1")) buildingType = "hs";
-		else if (kb.started("2")) buildingType = "pk";
-		else if (kb.started("3")) buildingType = "gd";
-		else if (kb.started("4")) buildingType = "sc";
-		else if (kb.started("5")) buildingType = "sm";
-		else if (kb.started("6")) buildingType = "qa";
-		else if (kb.started("7")) buildingType = "sw";
-		else if (kb.started("8")) buildingType = "pw";
+		if (kb.started("1")) buildingType = 1;
+		else if (kb.started("2")) buildingType = 2;
+		else if (kb.started("3")) buildingType = 3;
+		else if (kb.started("4")) buildingType = 4;
+		else if (kb.started("5")) buildingType = 5;
+		else if (kb.started("6")) buildingType = 6;
+		else if (kb.started("7")) buildingType = 7;
+		else if (kb.started("8")) buildingType = 8;
 	}
 }
 ```
