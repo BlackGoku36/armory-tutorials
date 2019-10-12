@@ -93,7 +93,7 @@ You should get this:
 To manage our city, we will need to spawn, move, remove, rotate our buildings. 
 
 1. Create a cube `hs`(stand for house), we will use this for assets, it will do nothing else of sort.
-2. Create a plane `bld_hs`, and make `hs` as child to this plane, we will use this as base, and for interaction. Set its physics as:
+2. Create a plane `bld_1`(we will use numbers for types), and make `hs` as child to this plane, we will use this as base, and for interaction. Set its physics as:
 	- Physics type -> RigidBody
 	- RigidBody Type -> Passive
 	- Setting -> Animated
@@ -151,17 +151,6 @@ class BuildingController extends iron.Trait {
 		}
 	}
 
-	public static function selectBuilding(name: String) {
-		selectedBuilding = name;
-		isBuildingSelected = true;
-		buildingMove = true;
-	}
-
-	public static function unselectBuilding() {
-		selectedBuilding = null;
-		isBuildingSelected = false;
-	}
-
 	function getRaycast(group:Int){
 		var physics = PhysicsWorld.active;
         var mouse = Input.getMouse();
@@ -191,8 +180,6 @@ ___
 
 2. We create `selectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
 
-3. We creates `unselectBuilding()` and we do so by setting selectedBuilding, isBuildingSelected to null, false respectively.
-
 </details>
 
 ___
@@ -218,12 +205,6 @@ class BuildingController extends iron.Trait {
 	public static function new() { ~ }
 	public static function selectBuiliding() { ~ }
 
-	public static function unselectBuilding() {
-		selectedBuilding = null;
-		isBuildingSelected = false;
-		buildingMove = false;
-	}
-
 	public static function moveBuilding() {
 		var raycast = getRaycast(1);
 		if(raycast.rigidbody != null && raycast.rigidbody.object.name == "Ground") {
@@ -241,8 +222,6 @@ ___
 	<summary>Code Explanation</summary>
 
 1. We then create `moveBuilding()`, to drag building around, we can do so, by ray-casting(`getRaycast()`) and get hit location and update building location each frame, we will floor the hit location for grid-snapping effect and set building's z-axis location to 0 as we don't want building to be higher or lower.
-
-2. Set buildingMove to false when unselected.
 
 </details>
 
@@ -276,8 +255,18 @@ class BuildingController extends iron.Trait {
 
 	public function new() { ~ }
 	public static function selectBuiliding() { ~ }
-	public static function unselectBuilding() { ~ }
 	public static function moveBuilding() { ~ }
+
+	public static function selectBuilding(name: String) {
+		selectedBuilding = name;
+		isBuildingSelected = true;
+		buildingMove = true;
+	}
+
+	public static function unselectBuilding() {
+		selectedBuilding = null;
+		isBuildingSelected = false;
+	}
 
 	public static function spawnBuilding(type: Int) {
         //Spawn object with name = "bld_"+type
@@ -337,11 +326,15 @@ ___
 <details>
 	<summary>Code Explanation</summary>
 
-2. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it location to center of world, set it name to "bld_"+its type+ its buildingId, and finally pushes this building to our buildings array.
+1. We creates `selectBuilding(*name*)` and we do so by setting selectedBuilding to *name*, isBuildingSelected to true, and buildingMove to true.
 
-3. We will create a utility function to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
+2. We creates `unselectBuilding()` and we do so by setting selectedBuilding, isBuildingSelected to null, false respectively.
 
-4. Now to remove building, we will create `removeBuilding()`, with it we will remove building object from game and then remove it from out buildings array and finally unselect building.
+3. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it location to center of world, set it name to "bld_"+its type+ its buildingId, pushes this building to our buildings array and unselect any selected building and select this spawned building.
+
+4. We will create a utility function to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
+
+5. Now to remove building, we will create `removeBuilding()`, with it we will remove building object from game and then remove it from out buildings array and finally unselect building.
 
 </details>
 
@@ -387,12 +380,7 @@ class BuildingController extends iron.Trait {
 	}
 
 	public static function rotateBuilding() {
-        //Get euler of selected building
-		var buildingEuler = Scene.active.getChild(selectedBuilding).transform.rot.getEuler();
-        //Add 90 deg to z-axis
-		buildingEuler.z += 90 * 3.14 / 180;
-        //Set Euler rotation of selected building
-		Scene.active.getChild(selectedBuilding).transform.rot.fromEuler(buildingEuler.x, buildingEuler.y, buildingEuler.z);
+		Scene.active.getChild(selectedBuilding).transform.rotate(Vec4.zAxis(), 1.57);
 	}
 
 	function getRaycast(group:Int){ ~ }
@@ -407,7 +395,7 @@ ___
 
 1. To get contact of our buildings with any object that is rigidbody, we do so by creating `buildingContact()`, we get physics object that is in contact with our building's rigidbody, if there is any rigidbody contacting with our building, set buildingInContact to true, else false.
 
-2. For last feature i.e. rotating, we will create `rotateBuilding()`, get euler rotation of our building, add 90 deg to z-axis and set our building euler rotation every time this function is called.
+2. For last feature i.e. rotating, we will create `rotateBuilding()`, and rotate the building on z-axis by 1.57 in radians(90 degrees) every time this function is called.
 
 </details>
 
