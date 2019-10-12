@@ -128,18 +128,16 @@ import iron.math.RayCaster;
 import iron.system.Input;
 
 class BuildingController extends iron.Trait {
-	var physics = PhysicsWorld.active;
-
     //Declare selectedBuilding, i.e., name of building currently selected.
-	public var selectedBuilding:String = "";
+	public static var selectedBuilding:String = "";
     //Whether any building is selected or not
-	public var isBuildingSelected = false;
+	public static var isBuildingSelected = false;
 
 	public function new() {
 		super();
 	}
 
-	public function selectBuiliding() {
+	public static function selectBuiliding() {
         //Get rigid body from raycast from group 2.
 		var rigidbody = getRaycast(2).rigidbody;
         //Check if rigidbody isn't null and rigidbody's name start with "bld"
@@ -153,12 +151,19 @@ class BuildingController extends iron.Trait {
 		}
 	}
 
-	public function unselectBuilding() {
+	public static function selectBuilding(name: String) {
+		selectedBuilding = name;
+		isBuildingSelected = true;
+		buildingMove = true;
+	}
+
+	public static function unselectBuilding() {
 		selectedBuilding = null;
 		isBuildingSelected = false;
 	}
 
 	function getRaycast(group:Int){
+		var physics = PhysicsWorld.active;
         var mouse = Input.getMouse();
 		var start = new Vec4();
 		var end = new Vec4();
@@ -206,21 +211,20 @@ We will physics ray-cast to group 1 and check if it hit plane, if it do than upd
 ~
 
 class BuildingController extends iron.Trait {
-	var physics = PhysicsWorld.active;
 	~
 	//Should building move
-	public var buildingMove = false;
+	public static var buildingMove = false;
 
-	public function new() { ~ }
-	public function selectBuiliding() { ~ }
+	public static function new() { ~ }
+	public static function selectBuiliding() { ~ }
 
-	public function unselectBuilding() {
+	public static function unselectBuilding() {
 		selectedBuilding = null;
 		isBuildingSelected = false;
 		buildingMove = false;
 	}
 
-	public function moveBuilding() {
+	public static function moveBuilding() {
 		var raycast = getRaycast(1);
 		if(raycast.rigidbody != null && raycast.rigidbody.object.name == "Ground") {
             //Set loc of selected building as floor of ray hit position's x, y and z as 0.4.
@@ -264,19 +268,18 @@ typedef Building = {
 }
 
 class BuildingController extends iron.Trait {
-	var physics = PhysicsWorld.active;
 	~
 	//Declare arrays of buildings
-	public var buildings: Array<Building> = [];
-    //Building's Id, eg: bld_hs1, bld_pw2, etc.
-	public var buildingId = 0;
+	public static var buildings: Array<Building> = [];
+    //Buildstatic ing's Id, eg: bld_hs1, bld_pw2, etc.
+	public static var buildingId = 0;
 
 	public function new() { ~ }
-	public function selectBuiliding() { ~ }
-	public function unselectBuilding() { ~ }
-	public function moveBuilding() { ~ }
+	public static function selectBuiliding() { ~ }
+	public static function unselectBuilding() { ~ }
+	public static function moveBuilding() { ~ }
 
-	public function spawnBuilding(type: String) {
+	public static function spawnBuilding(type: String) {
         //Spawn object with name = "bld_"+type
 		Scene.active.spawnObject("bld_"+type, null, function(bld: Object){
             //Increment buildingID
@@ -291,10 +294,12 @@ class BuildingController extends iron.Trait {
 				name: "bld_"+type+buildingId,
 				type: type
 			});
+			unselectBuilding();
+			selectBuilding(bld.name);
 		});
 	}
 
-	public function removeBuilding() {
+	public static function removeBuilding() {
         //Remove Selected building
 		Scene.active.getChild(selectedBuilding).remove();
 		//Remove selected building from buildings array
@@ -359,19 +364,19 @@ import armory.trait.physics.RigidBody;
 typedef Building = { ~ }
 
 class BuildingController extends iron.Trait {
-	var physics = PhysicsWorld.active;
 	~
 	//Is building in any contact
-	public var buildingInContact = false;
+	public static var buildingInContact = false;
 
-	public function new() { ~ }
-	public function selectBuiliding() { ~ }
-	public function unselectBuilding() { ~ }
-	public function moveBuilding() { ~ }
-	public function spawnBuilding(type: String) { ~ }
-	public function removeBuilding() { ~ }
+	public static function new() { ~ }
+	public static function selectBuiliding() { ~ }
+	public static function unselectBuilding() { ~ }
+	public static function moveBuilding() { ~ }
+	public static function spawnBuilding(type: String) { ~ }
+	public static function removeBuilding() { ~ }
 
-	public function buildingContact() {
+	public static function buildingContact() {
+		var physics = PhysicsWorld.active;
         //Get contact of selected building
 		var contact = physics.getContacts(Scene.active.getChild(selectedBuilding).getTrait(RigidBody));
 		if (contact != null){
@@ -381,7 +386,7 @@ class BuildingController extends iron.Trait {
 		}
 	}
 
-	public function rotateBuilding() {
+	public static function rotateBuilding() {
         //Get euler of selected building
 		var buildingEuler = Scene.active.getChild(selectedBuilding).transform.rot.getEuler();
         //Add 90 deg to z-axis
