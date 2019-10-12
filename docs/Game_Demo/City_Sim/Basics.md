@@ -271,7 +271,7 @@ class BuildingController extends iron.Trait {
 	~
 	//Declare arrays of buildings
 	public static var buildings: Array<Building> = [];
-    //Buildstatic ing's Id, eg: bld_hs1, bld_pw2, etc.
+    //Building's Id, eg: bld_hs1, bld_pw2, etc.
 	public static var buildingId = 0;
 
 	public function new() { ~ }
