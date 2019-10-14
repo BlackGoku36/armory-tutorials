@@ -5,9 +5,9 @@ In `Basics` part we will establish basics of city buildings, such as placing, mo
 ---
 
 Table of contents:
-* [Arcball Camera](docs/Game_Demo/City_Sim/Part-1#Arcball-camera)
-* [Buildings](docs/Game_Demo/City_Sim/Part-1#Buildings)
-* [Player](docs/Game_Demo/City_Sim/Part-1#Player)
+* [Arcball Camera](docs/Game_Demo/City_Sim/Basics#Arcball-camera)
+* [Buildings](docs/Game_Demo/City_Sim/Basics#Buildings)
+* [Player](docs/Game_Demo/City_Sim/Basics#Player)
 
 ---
 

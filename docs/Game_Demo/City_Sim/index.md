@@ -24,8 +24,8 @@ So, let make a small `CBS` game demo in `Armory3D`, but with little twist in con
 
 | Buildings    | Costs                             | Produce                |
 | ------------ | :-------------------------------: | ---------------------: |
-| House        | Woods, Stones, Steel, Electricity | Happiness              |
-| Parks        | Woods, Stones, Steel, Electricity | Happiness              |
+| House        | Woods, Stones, Steel, Electricity | Money, Happiness       |
+| Parks        | Woods, Stones, Steel, Electricity | Money, Happiness       |
 | Garden       | Woods, Stones, Steel              | Happiness              |
 | Sports court | Woods, Stones, Steel              | Happiness              |
 | Sawmills     | Money, Electricity                | Woods, Pollution       |
