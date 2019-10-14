@@ -137,7 +137,7 @@ class BuildingController extends iron.Trait {
 		super();
 	}
 
-	public static function selectBuiliding() {
+	public static function raySelectBuilding() {
         //Get rigid body from raycast from group 2.
 		var rigidbody = getRaycast(2).rigidbody;
         //Check if rigidbody isn't null and rigidbody's name start with "bld"
@@ -151,7 +151,7 @@ class BuildingController extends iron.Trait {
 		}
 	}
 
-	function getRaycast(group:Int){
+	static function getRaycast(group:Int){
 		var physics = PhysicsWorld.active;
         var mouse = Input.getMouse();
 		var start = new Vec4();
@@ -178,7 +178,7 @@ ___
 
 1. We create `getRaycast(*group*)` specially, as we don't want to repeat this function during selecting and moving of building. This will ray-cast for specific group from camera to mouse's x/y location in world space, and get hit and rigidbody.
 
-2. We create `selectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
+2. We create `raySelectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
 
 </details>
 
@@ -203,7 +203,7 @@ class BuildingController extends iron.Trait {
 	public static var buildingMove = false;
 
 	public static function new() { ~ }
-	public static function selectBuiliding() { ~ }
+	public static function raySelectBuilding() { ~ }
 
 	public static function moveBuilding() {
 		var raycast = getRaycast(1);
@@ -213,7 +213,7 @@ class BuildingController extends iron.Trait {
 		}
 	}
 
-	function getRaycast(group:Int){ ~ }
+	static function getRaycast(group:Int){ ~ }
 }
 ```
 ___
@@ -254,7 +254,7 @@ class BuildingController extends iron.Trait {
 	public static var buildingId = 0;
 
 	public function new() { ~ }
-	public static function selectBuiliding() { ~ }
+	public static function raySelectBuilding() { ~ }
 	public static function moveBuilding() { ~ }
 
 	public static function selectBuilding(name: String) {
@@ -266,6 +266,7 @@ class BuildingController extends iron.Trait {
 	public static function unselectBuilding() {
 		selectedBuilding = null;
 		isBuildingSelected = false;
+		buildingMove = false;
 	}
 
 	public static function spawnBuilding(type: Int) {
@@ -297,9 +298,9 @@ class BuildingController extends iron.Trait {
 		unselectBuilding();
 	}
 
-	function getRaycast(group:Int){ ~ }
+	static function getRaycast(group:Int){ ~ }
 
-	function removefromArray(name: String, buildings: Array<Building>){
+	static function removefromArray(name: String, buildings: Array<Building>){
 		//Define building and set it to null
 		var building:Building = null;
 		//loop through buildings array
@@ -362,9 +363,10 @@ class BuildingController extends iron.Trait {
 	public static var buildingInContact = false;
 
 	public static function new() { ~ }
-	public static function selectBuiliding() { ~ }
-	public static function unselectBuilding() { ~ }
+	public static function raySelectBuilding() { ~ }
 	public static function moveBuilding() { ~ }
+	public static function selectBuilding(name: String) { ~ }
+	public static function unselectBuilding() { ~ }
 	public static function spawnBuilding(type: String) { ~ }
 	public static function removeBuilding() { ~ }
 
@@ -383,8 +385,8 @@ class BuildingController extends iron.Trait {
 		Scene.active.getChild(selectedBuilding).transform.rotate(Vec4.zAxis(), 1.57);
 	}
 
-	function getRaycast(group:Int){ ~ }
-	function removefromArray(name: String, buildings: Array<Buildings>){ ~ }
+	static function getRaycast(group:Int){ ~ }
+	static function removefromArray(name: String, buildings: Array<Buildings>){ ~ }
 }
 
 ```
@@ -437,7 +439,7 @@ class PlayerController extends iron.Trait {
 	function update() {
 		if(!building.isBuildingSelected){
 			if (mouse.started()){ //mouse.started() defaults to "left" if no button is provided.
-				building.selectBuilding();
+				building.raySelectBuilding();
 			}
 			if (kb.started("p")){
 				building.spawnBuilding(buildingType);
