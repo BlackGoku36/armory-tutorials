@@ -64,11 +64,12 @@ class CameraController extends iron.Trait {
 		}
 	}
 }
+
 ```
 ---
 
 <details>
-	<summary>Explanation</summary>
+	<summary>Code Explanation</summary>
 
 1. `@prop`, is used for variable that need configuration, if you refresh script than you can edit this variable straight from blender.
 2. We get empty's transform and and set it z-axis rotation to reverse of our mouse moment on x-axis and slow it down by 200, and then `buildMatrix()`.
