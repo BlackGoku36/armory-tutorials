@@ -14,7 +14,14 @@ Rechecking our concept, when we place buildings, we want it to produce some reso
 
 ---
 Table of contents:
-- [Building properties structure](docs/Game_Demo/City_Sim/part-2#building-properties-structure)
+- **RESOURCES**
+	- [Building properties structure](docs/Game_Demo/City_Sim/part-2#building-properties-structure)
+	- [Recalculate buildings](docs/Game_Demo/City_Sim/part-2#recalculate-buildings)
+	- [Recalculate resources](docs/Game_Demo/City_Sim/part-2#recalculate-resources)
+	- [Producing resources](docs/Game_Demo/City_Sim/part-2#producing-resources)
+
+- **CANVAS**
+	- [wip]
 
 ---
 
@@ -234,10 +241,8 @@ class WorldController extends iron.Trait {
 ---
 
 #### **BuildingController.hx**
-dfsf
 ```haxe
 ~
-
 typedef Building = {~}
 class BuildingController extends iron.Trait{
 	~
@@ -267,9 +272,132 @@ class BuildingController extends iron.Trait{
 	public static function removeBuilding(){~}
 	~
 	static function recalculateBuildings(){~}
+	static function checkResources(type:Int){
+		var world = WorldController;
+		switch(type){
+			case 1: (world.woods[0] < world.houseProp.costW && world.stones[0] < world.houseProp.costS) ? enoughResources = false : enoughResources = true;
+			case 5: (world.money[0] < world.sawmillProp.costM) ? enoughResources = false : enoughResources = true;
+			case 6: (world.money[0] < world.quarryProp.costM) ? enoughResources = false : enoughResources = true;
+			case 8: (world.money[0] < world.powerplantProp.costM) ? enoughResources = false : enoughResources = true;
+		}
+	}
+	static function recalculateResources(type:Int) {
+		var world = WorldController;
+		switch(type){
+			case 1:
+				world.woods[0] -= world.houseProp.costW;
+				world.stones[0] -= world.houseProp.costS;
+			case 5:
+				world.money[0] -= world.sawmillProp.costM;
+			case 6:
+				world.money[0] -= world.quarryProp.costM;
+			case 8:
+				world.money[0] -= world.powerplantProp.costM;
+		}
+	}
 	static function checkMaxBuilding(type:Int){~}
 }
 ```
+
+---
+
+<details>
+	<summary>Code Explanation</summary>
+
+1. In `recalculateResources(*type*)`, We recalculate resources by subtracting cost from resources amount with given type.
+2. In `checkResources(*type*)`, we check if resources available is less than the cost, if so, then we set enoughResources to true else false.
+3. We check resources before spawning, if there is enough resources and not enough building then we spawn the building, when spawned we recalculate the resources.
+
+</details>
+
+---
+
+<!-- tabs:end -->
+
+## PRODUCING RESOURCES
+
+Now, we want buildings to produce resources at given interval. This can be simply done by using kha's Scheduler timetask.
+
+<!-- tabs:start -->
+#### **WorldController.hx**
+
+```haxe
+package arm;
+
+import kha.Scheduler;
+
+import arm.BuildingController;
+import arm.MainCanvasController;
+
+typedef BuildingProp = {~}
+
+class WorldController extends iron.Trait {
+
+	public static var money:Array<Int> = [50, 100];
+	~
+	public static var electricity:Array<Int> = [0, 100];
+
+	public static var houseProp: BuildingProp = {~};
+	~
+	public static var powerplantProp: BuildingProp = {~};
+
+	//building's timetask id
+	static var housett = 0;
+	static var parkstt = 0;
+	static var sawmilltt = 0;
+	static var quarrytt = 0;
+	static var powerplanttt = 0;
+
+	public function new(){~}
+
+	function init() {
+		var world = WorldController;
+		//Add timetask with interval of 5sec and assign timetask id to housett.
+		housett = Scheduler.addTimeTask(function(){
+			//check electricity, if electricity is greater than cost
+			if (electricity[0] >= world.houseProp.costE){
+				// if money is less than or equal to max then increase increase by 1 times no. of houses
+				if (money[0] <= money[1]) money[0] += 1 * houseProp.at;
+				//if electricity is less than or equal to max, then decrease electricity by 1 time no. of buildings
+				if (electricity[0] <= electricity[1]) electricity[0] -= 1* houseProp.at;
+			}
+		}, 5, 5);
+		parkstt = Scheduler.addTimeTask(function(){
+			if (electricity[0] >= world.parkProp.costE){
+				if(money[0] <= money[1]) money[0] += 1 * parkProp.at;
+				if (electricity[0] <= electricity[1]) electricity[0] -= 1* parkProp.at;
+			}
+		}, 5, 5);
+		sawmilltt = Scheduler.addTimeTask(function(){
+			if (electricity[0] >= world.parkProp.costE){
+				if(woods[0] <= woods[1]) woods[0] += 1 * sawmillProp.at;
+				if (electricity[0] <= electricity[1]) electricity[0] -= 1* sawmillProp.at;
+			}
+		}, 5, 5);
+		quarrytt = Scheduler.addTimeTask(function(){
+			if (electricity[0] >= world.parkProp.costE){
+				if(stones[0] <= stones[1]) stones[0] += 1 * quarryProp.at;
+				if (electricity[0] <= electricity[1]) electricity[0] -= 1* quarryProp.at;
+			}
+		}, 5, 5);
+		powerplanttt = Scheduler.addTimeTask(function(){
+			if(electricity[0] <= electricity[1]) electricity[0] += 2 * powerplantProp.at;
+		}, 5, 5);
+	}
+}
+```
+
+---
+
+<details>
+	<summary>Code Explanation</summary>
+
+1. We create timetask for each building type, this is done by `kha.Scheduler.addTimeTask(*func*, *start*, *period*, *duration*)`, where `func` is function done in this time task, `start` is time to wait for first `func` execution, `period` is time interval between `func` execution, `duration`, is total amount of time this time task exist for, '0' means infinite amount of time and is set defaultly.
+
+</details>
+
+---
+
 <!-- tabs:end -->
 
 ---
