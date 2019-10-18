@@ -29,5 +29,4 @@ tmp/*
 
 # VS Code && jetbrains
 .idea
-.vscode
 .jsbeautifyrc
