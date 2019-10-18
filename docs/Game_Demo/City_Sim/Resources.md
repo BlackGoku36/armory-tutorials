@@ -15,13 +15,12 @@ Rechecking our concept, when we place buildings, we want it to produce some reso
 ---
 Table of contents:
 - **RESOURCES**
-	- [Building properties structure](docs/Game_Demo/City_Sim/part-2#building-properties-structure)
-	- [Recalculate buildings](docs/Game_Demo/City_Sim/part-2#recalculate-buildings)
-	- [Recalculate resources](docs/Game_Demo/City_Sim/part-2#recalculate-resources)
-	- [Producing resources](docs/Game_Demo/City_Sim/part-2#producing-resources)
+	- [Building properties structure](docs/Game_Demo/City_Sim/Resources#building-properties-structure)
+	- [Recalculate buildings](docs/Game_Demo/City_Sim/Resources#recalculate-buildings)
+	- [Recalculate resources](docs/Game_Demo/City_Sim/Resources#recalculate-resources)
+	- [Producing resources](docs/Game_Demo/City_Sim/Resources#producing-resources)
 
-- **CANVAS**
-	- [Canvas]
+- [Canvas](docs/Game_Demo/City_Sim/Resources#canvas)
 
 ---
 
