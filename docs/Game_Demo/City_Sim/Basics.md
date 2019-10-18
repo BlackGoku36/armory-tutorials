@@ -497,7 +497,7 @@ class PlayerController extends iron.Trait {
 
 Putting it all together you should get:
 
-![](/../../../docassets/CBS_F.gif ':size=400')
+![](/../../../docassets/CBS_1_F.gif ':size=400')
 
 Now try creating more building such as gardens, parks, sawmills, etc and apply same physics as `bld_hs`, and replace cube buildings, with your own assets.
 

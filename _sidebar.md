@@ -20,8 +20,13 @@
 
 ---
 
-- **Game-Demos**
+- **Game-Tutorial**
     - [City Building Sim](docs/Game_Demo/City_Sim/index.md)
+
+---
+
+- **Extras**
+    - [FAQ](docs/FAQ.md "CBS - FAQ")
 
 ---
 
