@@ -25,6 +25,8 @@ To do so:
 #### **CameraController.hx**
 
 ```haxe
+package arm;
+
 import iron.Scene;
 import iron.system.Input;
 import iron.math.Vec4;
