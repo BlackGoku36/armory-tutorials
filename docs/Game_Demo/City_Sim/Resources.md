@@ -174,6 +174,7 @@ class BuildingController extends iron.Trait{
 		switch(type){
 			//Check if building of type reached max amount, then set enough buildings to true else false
 			case 1: world.houseProp.at == world.houseProp.max ? enoughBuildings = true : enoughBuildings = false;
+			case 2: world.parkProp.at == world.parkProp.max ? enoughBuildings = true : enoughBuildings = false;
 			case 5: world.sawmillProp.at == world.sawmillProp.max ? enoughBuildings = true : enoughBuildings = false;
 			case 6: world.quarryProp.at == world.quarryProp.max ? enoughBuildings = true : enoughBuildings = false;
 			case 8: world.powerplantProp.at == world.powerplantProp.max ? enoughBuildings = true : enoughBuildings = false;
@@ -349,7 +350,10 @@ class WorldController extends iron.Trait {
 	static var quarrytt = 0;
 	static var powerplanttt = 0;
 
-	public function new(){~}
+	public function new() {
+		super();
+		notifyOnInit(init);
+	}
 
 	function init() {
 		var world = WorldController;
@@ -357,32 +361,32 @@ class WorldController extends iron.Trait {
 		housett = Scheduler.addTimeTask(function(){
 			//check electricity, if electricity is greater than cost
 			if (electricity[0] >= world.houseProp.costE){
-				// if money is less than or equal to max then increase increase by 1 times no. of houses
-				if (money[0] <= money[1]) money[0] += 1 * houseProp.at;
-				//if electricity is less than or equal to max, then decrease electricity by 1 time no. of buildings
-				if (electricity[0] <= electricity[1]) electricity[0] -= 1* houseProp.at;
+				// if money is less than or equal to max then increase increase by (no.of houses x house money production.)
+				if (money[0] <= money[1]) money[0] += houseProp.at * houseProp.prodM;
+				//Multiply no. of houses * houses cost and subtract the product from electricity amount
+				electricity[0] -= houseProp.at * houseProp.costE;
 			}
 		}, 5, 5);
 		parkstt = Scheduler.addTimeTask(function(){
 			if (electricity[0] >= world.parkProp.costE){
-				if(money[0] <= money[1]) money[0] += 1 * parkProp.at;
-				if (electricity[0] <= electricity[1]) electricity[0] -= 1* parkProp.at;
+				if(money[0] <= money[1]) money[0] += parkProp.at * parkProp.prodM;
+				electricity[0] -= parkProp.at * parkProp.costE;
 			}
 		}, 5, 5);
 		sawmilltt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.parkProp.costE){
-				if(woods[0] <= woods[1]) woods[0] += 1 * sawmillProp.at;
-				if (electricity[0] <= electricity[1]) electricity[0] -= 1* sawmillProp.at;
+			if (electricity[0] >= world.sawmillProp.costE){
+				if(woods[0] <= woods[1]) woods[0] += sawmillProp.at * sawmillProp.prodW;
+				electricity[0] -= sawmillProp.at * sawmillProp.costE;
 			}
 		}, 5, 5);
 		quarrytt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.parkProp.costE){
-				if(stones[0] <= stones[1]) stones[0] += 1 * quarryProp.at;
-				if (electricity[0] <= electricity[1]) electricity[0] -= 1* quarryProp.at;
+			if (electricity[0] >= world.quarryProp.costE){
+				if(stones[0] <= stones[1]) stones[0] += quarryProp.at * quarryProp.prodS;
+				electricity[0] -= quarryProp.at * quarryProp.costE;
 			}
 		}, 5, 5);
 		powerplanttt = Scheduler.addTimeTask(function(){
-			if(electricity[0] <= electricity[1]) electricity[0] += 2 * powerplantProp.at;
+			if(electricity[0] <= electricity[1]) electricity[0] += powerplantProp.at * powerplantProp.prodE;
 		}, 5, 5);
 	}
 }
@@ -394,6 +398,7 @@ class WorldController extends iron.Trait {
 	<summary>Code Explanation</summary>
 
 1. We create timetask for each building type, this is done by `kha.Scheduler.addTimeTask(*func*, *start*, *period*, *duration*)`, where `func` is function done in this time task, `start` is time to wait for first `func` execution, `period` is time interval between `func` execution, `duration`, is total amount of time this time task exist for, '0' means infinite amount of time and is set defaultly.
+2. We than check if there is sufficient electricity, than check if the resource is less than max, if so than let it produce the resource. Then multiply no. of building by building's electricity cost and subtract the product from electricity amount.
 
 </details>
 
