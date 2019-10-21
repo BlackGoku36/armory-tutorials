@@ -204,7 +204,7 @@ class BuildingController extends iron.Trait{
 
 ## RECALCULATE RESOURCES
 
-We will recalculate resources and limit buildings from being spawned if there aren't enough resources.
+We will recalculate resources after we spawn the building, i.e., after spawning we subtract the building's resource cost from total resources. And we will also limit buildings from being spawned if total resource is less than building's resource cost.
 
 <!-- tabs:start -->
 #### **WorldController.hx**
@@ -269,7 +269,6 @@ class BuildingController extends iron.Trait{
 				selectBuilding(bld.name);
 			});
 		}
-
 	}
 	public static function removeBuilding(){~}
 	~
