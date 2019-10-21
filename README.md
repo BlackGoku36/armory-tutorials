@@ -28,3 +28,5 @@ Plus side of using docsify cli is that docsify will automatically reload your si
 # go to root directory of this tutorial, then
 python -m SimpleHTTPServer
 ```
+
+?> **TIP:** If you are using vscode, press **F1** (**fn**+**F1**for macos), select **Tasks: Run Task** and then **docsify**/**python**.
