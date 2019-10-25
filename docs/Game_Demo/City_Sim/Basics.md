@@ -347,7 +347,7 @@ ___
 
 2. We creates `unselectBuilding()` and we do so by setting selectedBuilding, isBuildingSelected to null, false respectively.
 
-3. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it location to center of world, set it name to "bld_"+its type+ its buildingId, pushes this building to our buildings array and unselect any selected building and select this spawned building.
+3. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it name to "bld_"+its type+ its buildingId, pushes this building to our buildings array and unselect any selected building and select this spawned building.
 
 4. We will create a utility function `removefromArray(*name*, *buildings*)` to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
 
