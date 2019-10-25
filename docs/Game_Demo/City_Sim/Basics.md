@@ -293,9 +293,6 @@ class BuildingController extends iron.Trait {
 		Scene.active.spawnObject("bld_"+type, null, function(bld: Object){
             //Increment buildingID
 			buildingId++;
-            //Set loc to center
-			bld.transform.loc.set(0.0, 0.0, 0.0);
-			bld.transform.buildMatrix();
             //Change name
 			bld.name = "bld_"+type+"_"+buildingId;
 			//Add new building to add with name and type
