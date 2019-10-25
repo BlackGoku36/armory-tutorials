@@ -56,29 +56,31 @@ typedef BuildingProp = {
     //Produce amount of money, woods, stones, electricity
 	prodM: Int, prodW:Int, prodS:Int, prodE:Int,
     //Produce amount of happiness, pollution
-	prodH:Int, prodP:Int
+	prodH:Int, prodP:Int,
+	//Timetask id
+	tt: Int
 }
 
 class WorldController extends iron.Trait {
     //Set houses prop
 	public static var houseProp: BuildingProp = { 
-		at:0, max:2, costM: 0,costW:10, costS:10, costE:5, prodM: 5, prodW:0, prodS:0, prodE: 0, prodH:3, prodP:0
+		at:0, max:2, costM: 0,costW:10, costS:10, costE:5, prodM: 5, prodW:0, prodS:0, prodE: 0, prodH:3, prodP:0, tt: 0
 	};
     //Set parks prop
 	public static var parkProp: BuildingProp = {
-		at:0, max:2, costM: 0,costW:10, costS:10, costE:5, prodM: 5, prodW:0, prodS:0, prodE: 0, prodH:5, prodP:0
+		at:0, max:2, costM: 0,costW:10, costS:10, costE:5, prodM: 5, prodW:0, prodS:0, prodE: 0, prodH:5, prodP:0, tt: 0
 	};
     //Set sawmills prop
 	public static var sawmillProp: BuildingProp = {
-		at:0, max:2, costM: 10,costW:0, costS:0, costE:5, prodM: 0, prodW:5, prodS:0, prodE: 0, prodH:0, prodP:3
+		at:0, max:2, costM: 10,costW:0, costS:0, costE:5, prodM: 0, prodW:5, prodS:0, prodE: 0, prodH:0, prodP:3, tt: 0
 	};
     //Set quarrys prop
 	public static var quarryProp: BuildingProp = {
-		at:0, max:2, costM: 10, costW:0, costS:0, costE:5, prodM: 0, prodW:0, prodS:5, prodE: 0, prodH:0, prodP:3
+		at:0, max:2, costM: 10, costW:0, costS:0, costE:5, prodM: 0, prodW:0, prodS:5, prodE: 0, prodH:0, prodP:3, tt: 0
 	};
     //Set powerplants prop
 	public static var powerplantProp: BuildingProp = {
-		at:0, max:2, costM: 20, costW:0, costS:0, costE:0, prodM: 0, prodW:0, prodS:0, prodE: 10, prodH:0, prodP:5
+		at:0, max:2, costM: 20, costW:0, costS:0, costE:0, prodM: 0, prodW:0, prodS:0, prodE: 10, prodH:0, prodP:5, tt: 0
 	};
 
 	public function new() {
@@ -342,13 +344,6 @@ class WorldController extends iron.Trait {
 	~
 	public static var powerplantProp: BuildingProp = {~};
 
-	//building's timetask id
-	static var housett = 0;
-	static var parkstt = 0;
-	static var sawmilltt = 0;
-	static var quarrytt = 0;
-	static var powerplanttt = 0;
-
 	public function new() {
 		super();
 		notifyOnInit(init);
@@ -357,7 +352,7 @@ class WorldController extends iron.Trait {
 	function init() {
 		var world = WorldController;
 		//Add timetask with interval of 5sec and assign timetask id to housett.
-		housett = Scheduler.addTimeTask(function(){
+		houseProp.tt = Scheduler.addTimeTask(function(){
 			//check electricity, if electricity is greater than cost
 			if (electricity[0] >= world.houseProp.costE){
 				// if money is less than or equal to max then increase increase by (no.of houses x house money production.)
@@ -366,25 +361,25 @@ class WorldController extends iron.Trait {
 				electricity[0] -= houseProp.at * houseProp.costE;
 			}
 		}, 5, 5);
-		parkstt = Scheduler.addTimeTask(function(){
+		parkProp.tt = Scheduler.addTimeTask(function(){
 			if (electricity[0] >= world.parkProp.costE){
 				if(money[0] <= money[1]) money[0] += parkProp.at * parkProp.prodM;
 				electricity[0] -= parkProp.at * parkProp.costE;
 			}
 		}, 5, 5);
-		sawmilltt = Scheduler.addTimeTask(function(){
+		sawmillProp.tt = Scheduler.addTimeTask(function(){
 			if (electricity[0] >= world.sawmillProp.costE){
 				if(woods[0] <= woods[1]) woods[0] += sawmillProp.at * sawmillProp.prodW;
 				electricity[0] -= sawmillProp.at * sawmillProp.costE;
 			}
 		}, 5, 5);
-		quarrytt = Scheduler.addTimeTask(function(){
+		quarryProp.tt = Scheduler.addTimeTask(function(){
 			if (electricity[0] >= world.quarryProp.costE){
 				if(stones[0] <= stones[1]) stones[0] += quarryProp.at * quarryProp.prodS;
 				electricity[0] -= quarryProp.at * quarryProp.costE;
 			}
 		}, 5, 5);
-		powerplanttt = Scheduler.addTimeTask(function(){
+		powerplantProp.tt = Scheduler.addTimeTask(function(){
 			if(electricity[0] <= electricity[1]) electricity[0] += powerplantProp.at * powerplantProp.prodE;
 		}, 5, 5);
 	}
@@ -504,6 +499,6 @@ Putting it all together and you should get something like this:
 
 ![](/../../../docassets/CBS_2_2.gif ':size=400')
 
-**🎉 And We did it! We completed part-2! 🎉**
+**🎉 And We did it! We completed resources part! 🎉**
 
 !> W.I.P

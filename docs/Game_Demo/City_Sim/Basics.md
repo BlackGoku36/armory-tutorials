@@ -116,7 +116,7 @@ To manage our city, we will need to spawn, move, remove, rotate our buildings.
 
 ## SELECTING AND UNSELECTING
 
-We will physics ray-cast to group 2(groups of buildings) and check it it hit any of our building with name starting with `bld`, if it do than set selected building name.
+We will interact with our building by selecting, unselecting building. To do so, We will physics ray-cast to group 2(groups of buildings) and check if it hit any of our building, if it do than set selected building to this.
 
 <!-- tabs:start -->
 
@@ -130,9 +130,15 @@ import iron.math.Vec4;
 import iron.math.RayCaster;
 import iron.system.Input;
 
+//Define structure of building
+typedef Building = {
+	name: String,
+	type: Int
+}
+
 class BuildingController extends iron.Trait {
     //Declare selectedBuilding, i.e., name of building currently selected.
-	public static var selectedBuilding:String = "";
+	public static var selectedBuilding:Building = null;
     //Whether any building is selected or not
 	public static var isBuildingSelected = false;
 
@@ -146,7 +152,7 @@ class BuildingController extends iron.Trait {
         //Check if rigidbody isn't null and rigidbody's name start with "bld"
 		if(rigidbody != null && StringTools.startsWith(rigidbody.object.name, "bld")){
             //Set selected building to hit rigidbody name
-			selectedBuilding = rigidbody.object.name;
+			selectedBuilding = getBuildingFromString(rigidbody.object.name);
 			isBuildingSelected = true;
 		}else {
 			selectedBuilding = null;
@@ -172,6 +178,14 @@ class BuildingController extends iron.Trait {
 		};
 	}
 
+	static function getBuildingFromString(name: String):Building {
+		var building:Building = null;
+		for(i in buildings){
+			if (i.name == name) building = i;
+		}
+		return building;
+	}
+
 }
 ```
 ___
@@ -179,9 +193,13 @@ ___
 <details>
 	<summary>Code Explanation</summary>
 
-1. We create `getRaycast(*group*)` specially, as we don't want to repeat this function during selecting and moving of building. This will ray-cast for specific group from camera to mouse's x/y location in world space, and get hit and rigidbody.
+1. We define data structure of our building, that is its name and it type, with this it will be a lot easier to manage buildings(add, remove, etc).
 
-2. We create `raySelectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
+2. We create `getBuildingFromString(*name*)`, we loop through all building and check if name match building's name, if so, return the building object.
+
+3. We create `getRaycast(*group*)` specially, as we don't want to repeat this function during selecting and moving of building. This will ray-cast for specific group from camera to mouse's x/y location in world space, and get hit and rigidbody.
+
+4. We create `raySelectBuilding()`, which will be use to ofc selected building, we will do so why using our getRaycast() and get rigidbody of hit object, if this rigidbody's name start with 'bld' then set selectedBuilding to this rigidbody name and set isBuildingSelected to true else, null and false.
 
 </details>
 
@@ -191,7 +209,7 @@ ___
 
 ## MOVING
 
-We will physics ray-cast to group 1 and check if it hit plane, if it do than update building position to ray's hit location every frame.
+We will want to move building across ground to be able to place it wherever we like. For doing that, we will physics ray-cast to group 1 and check if it hit plane, if it do than update building position to ray's hit location every frame.
 
 <!-- tabs:start -->
 
@@ -199,7 +217,7 @@ We will physics ray-cast to group 1 and check if it hit plane, if it do than upd
 
 ```haxe
 ~
-
+typedef Building = { ~ }
 class BuildingController extends iron.Trait {
 	~
 	//Should building move
@@ -212,11 +230,12 @@ class BuildingController extends iron.Trait {
 		var raycast = getRaycast(1);
 		if(raycast.rigidbody != null && raycast.rigidbody.object.name == "Ground") {
             //Set loc of selected building as floor of ray hit position's x, y and z as 0.4.
-			Scene.active.getChild(selectedBuilding).transform.loc.set(Math.floor(raycast.hit.pos.x), Math.floor(raycast.hit.pos.y), 0);
+			Scene.active.getChild(selectedBuilding.name).transform.loc.set(Math.floor(raycast.hit.pos.x), Math.floor(raycast.hit.pos.y), 0.2);
 		}
 	}
 
 	static function getRaycast(group:Int){ ~ }
+	static function getBuildingFromString(name: String):Building { ~ }
 }
 ```
 ___
@@ -234,7 +253,7 @@ ___
 
 ## PLACING AND REMOVING
 
-We will define structure of our building, that is its special name and it types, we use this for 'organized manner' purpose, with this it will be a lot easier to manage buildings(add, remove, etc). Then, create an array of buildings and when spawned, we will insert Buildings structure with name and type into array and delete it from the array when removing buildings. We will so add small utility function to help remove particular building from the array.
+To be able to place building, we will first unselect any selected building, spawn new building and set selected building to new spawned one. To place it we will simply unselect our selected building. To remove building, we will select the building, than remove the building and then unselect building.
 
 <!-- tabs:start -->
 
@@ -243,11 +262,7 @@ We will define structure of our building, that is its special name and it types,
 ```haxe
 import iron.object.Object;
 ~
-//Define structure of buildings
-typedef Building = {
-	name: String,
-	type: Int
-}
+typedef Building = { ~ }
 
 class BuildingController extends iron.Trait {
 	~
@@ -261,7 +276,7 @@ class BuildingController extends iron.Trait {
 	public static function moveBuilding() { ~ }
 
 	public static function selectBuilding(name: String) {
-		selectedBuilding = name;
+		selectedBuilding = getBuildingFromString(name);
 		isBuildingSelected = true;
 		buildingMove = true;
 	}
@@ -273,6 +288,7 @@ class BuildingController extends iron.Trait {
 	}
 
 	public static function spawnBuilding(type: Int) {
+		unselectBuilding();
         //Spawn object with name = "bld_"+type
 		Scene.active.spawnObject("bld_"+type, null, function(bld: Object){
             //Increment buildingID
@@ -287,21 +303,21 @@ class BuildingController extends iron.Trait {
 				name: "bld_"+type+"_"+buildingId,
 				type: type
 			});
-			unselectBuilding();
 			selectBuilding(bld.name);
 		});
 	}
 
 	public static function removeBuilding() {
         //Remove Selected building
-		Scene.active.getChild(selectedBuilding).remove();
+		Scene.active.getChild(selectedBuilding.name).remove();
 		//Remove selected building from buildings array
-		removefromArray(selectedBuilding, buildings);
+		removefromArray(selectedBuilding.name, buildings);
 		//Unselect building
 		unselectBuilding();
 	}
 
 	static function getRaycast(group:Int){ ~ }
+	static function getBuildingFromString(name: String):Building { ~ }
 
 	static function removefromArray(name: String, buildings: Array<Building>){
 		//Define building and set it to null
@@ -336,7 +352,7 @@ ___
 
 3. We will now spawn building with `spawnBuilding(*type*)`, we will first spawn object and when it is spawned, we will increment buildingId, set it location to center of world, set it name to "bld_"+its type+ its buildingId, pushes this building to our buildings array and unselect any selected building and select this spawned building.
 
-4. We will create a utility function to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
+4. We will create a utility function `removefromArray(*name*, *buildings*)` to remove selectedBuilding from buildings array. we will loop through buildings array check if name matches, if it do then get index of this building in buildings array and then remove it with splice.
 
 5. Now to remove building, we will create `removeBuilding()`, with it we will remove building object from game and then remove it from out buildings array and finally unselect building.
 
@@ -349,7 +365,7 @@ ___
 
 ## ROTATING AND ON-CONTACT
 
-We will get contact between buildings to avoid putting them on top of each other. And also add rotation, because buildings can faced any side!.
+We will get contact between buildings to avoid putting them inside of each other. And also add rotation, because buildings can faced any side!.
 
 <!-- tabs:start -->
 
@@ -385,10 +401,11 @@ class BuildingController extends iron.Trait {
 	}
 
 	public static function rotateBuilding() {
-		Scene.active.getChild(selectedBuilding).transform.rotate(Vec4.zAxis(), 1.57);
+		Scene.active.getChild(selectedBuilding.name).transform.rotate(Vec4.zAxis(), 1.57);
 	}
 
 	static function getRaycast(group:Int){ ~ }
+	static function getBuildingFromString(name: String):Building { ~ }
 	static function removefromArray(name: String, buildings: Array<Buildings>){ ~ }
 }
 
@@ -448,7 +465,6 @@ class PlayerController extends iron.Trait {
 				building.spawnBuilding(buildingType);
 			}
 		}else{
-			building.buildingContact();
 			if (mouse.started("right")) {
 				if (!building.buildingInContact){
 					building.unselectBuilding();
@@ -465,6 +481,7 @@ class PlayerController extends iron.Trait {
 
 		if (building.buildingMove) {
 			building.moveBuilding();
+			building.buildingContact();
 		}
 
 		if (kb.started("1")) buildingType = 1;
