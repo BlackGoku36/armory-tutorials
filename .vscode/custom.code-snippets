@@ -1,0 +1,47 @@
+{
+	"codetab":{
+		"prefix": "codetab",
+		"body": [
+			"<!-- tabs:start -->",
+			"#### **$0.hx**",
+			"```haxe",
+			"```",
+			"",
+			"---",
+			"",
+			"<details>",
+			"\t<summary>Code Explanation</summary>",
+			"",
+			"1. Some explanation",
+			"</details>",
+			"",
+			"---",
+			"",
+			"<!-- tabs:end -->",
+			"",
+			"---",
+			""
+		],
+		"description": "Adds code tab with dropdown explanation"
+	},
+
+	"gif":{
+		"prefix": "gif",
+		"body": [
+			"",
+			"![](/../../../docassets/$0.gif ':size=400')",
+			"",
+		],
+		"description": "Adds gif"
+	},
+	
+	"img":{
+		"prefix": "img",
+		"body": [
+			"",
+			"![](/../../../docassets/$0 ':size=800')",
+			"",
+		],
+		"description": "Adds image"
+	}
+}

@@ -405,7 +405,7 @@ class WorldController extends iron.Trait {
 # CANVAS
 We will use `Canvas` to display our resources with progress bars.
 
-1. Create new canvas `MainCanvas`, we will use this as our main canvas, we will have other UI such as menus in here.
+1. Create new canvas `MainCanvas` and unselect it, we will use this as our main canvas, we will have other UI such as menus in here.
 
 In `MainCanvas`, create:
 
@@ -442,14 +442,15 @@ import arm.WorldController;
 
 class MainCanvasController extends iron.Trait {
 
-	static var canvas:CanvasScript;
+	static var maincanvas:CanvasScript;
 	var world = WorldController;
 
 	public function new() {
 		super();
 		notifyOnInit(function() {
 			//Set canvas on init
-			canvas = Scene.active.getTrait(CanvasScript);
+			maincanvas = new CanvasScript("MainCanvas", "Big_shoulders_text.ttf");
+			maincanvas.setCanvasVisibility(true);
 		});
 		notifyOnUpdate(updateCanvas);
 	}
@@ -461,21 +462,21 @@ class MainCanvasController extends iron.Trait {
 	}
 	function updatePB() {
 		//Set progress bar elements's 'at' and 'total'
-		canvas.getElement("moneypb").progress_total = world.money[1];
-		canvas.getElement("moneypb").progress_at = world.money[0];
-		canvas.getElement("woodpb").progress_total = world.woods[1];
-		canvas.getElement("woodpb").progress_at = world.woods[0];
-		canvas.getElement("stonepb").progress_total = world.stones[1];
-		canvas.getElement("stonepb").progress_at = world.stones[0];
-		canvas.getElement("electricitypb").progress_total = world.electricity[1];
-		canvas.getElement("electricitypb").progress_at = world.electricity[0];
+		maincanvas.getElement("moneypb").progress_total = world.money[1];
+		maincanvas.getElement("moneypb").progress_at = world.money[0];
+		maincanvas.getElement("woodpb").progress_total = world.woods[1];
+		maincanvas.getElement("woodpb").progress_at = world.woods[0];
+		maincanvas.getElement("stonepb").progress_total = world.stones[1];
+		maincanvas.getElement("stonepb").progress_at = world.stones[0];
+		maincanvas.getElement("electricitypb").progress_total = world.electricity[1];
+		maincanvas.getElement("electricitypb").progress_at = world.electricity[0];
 	}
 	function updateAmount() {
 		//Set amount text element's text to 'resource/totalresource'
-		canvas.getElement("money-amt").text = world.money[0] + "/" + world.money[1];
-		canvas.getElement("wood-amt").text = world.woods[0] + "/" + world.woods[1];
-		canvas.getElement("stone-amt").text = world.stones[0] + "/" + world.stones[1];
-		canvas.getElement("electricity-amt").text = world.electricity[0] + "/" + world.electricity[1];
+		maincanvas.getElement("money-amt").text = world.money[0] + "/" + world.money[1];
+		maincanvas.getElement("wood-amt").text = world.woods[0] + "/" + world.woods[1];
+		maincanvas.getElement("stone-amt").text = world.stones[0] + "/" + world.stones[1];
+		maincanvas.getElement("electricity-amt").text = world.electricity[0] + "/" + world.electricity[1];
 	}
 }
 
