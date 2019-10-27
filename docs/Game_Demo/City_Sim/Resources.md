@@ -1,6 +1,6 @@
-# Basic Resources
+# Resources
 
-In `Basic Resources`, we will involve resource producing and collecting from buildings.
+In `Resources`, we will involve resource producing and collecting from buildings.
 
 Rechecking our concept, when we place buildings, we want it to produce some resources at cost of some other resources, here the small table from the concept:
 
