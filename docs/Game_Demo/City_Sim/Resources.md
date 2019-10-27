@@ -49,36 +49,36 @@ Let create proper structure of our building property, where we will store buildi
 package arm;
 //Building properties structure
 typedef BuildingProp = {
-    //at: how many building are there currently?, max: how many maximum buildings can be spawned?
+	//at: how many building are there currently?, max: how many maximum buildings can be spawned?
 	at:Int, max:Int,
-    //Cost amount of money, wood, stones, electricity
+	//Cost amount of money, wood, stones, electricity
 	costM:Int, costW:Int, costS:Int, costE:Int,
-    //Produce amount of money, woods, stones, electricity
+	//Produce amount of money, woods, stones, electricity
 	prodM: Int, prodW:Int, prodS:Int, prodE:Int,
-    //Produce amount of happiness, pollution
+	//Produce amount of happiness, pollution
 	prodH:Int, prodP:Int,
 	//Timetask id
 	tt: Int
 }
 
 class WorldController extends iron.Trait {
-    //Set houses prop
-	public static var houseProp: BuildingProp = { 
+	//Set houses prop
+	public static var houseProp: BuildingProp = {
 		at:0, max:2, costM: 0,costW:10, costS:10, costE:5, prodM: 5, prodW:0, prodS:0, prodE: 0, prodH:3, prodP:0, tt: 0
 	};
-    //Set parks prop
+	//Set parks prop
 	public static var parkProp: BuildingProp = {
 		at:0, max:2, costM: 0,costW:10, costS:10, costE:5, prodM: 5, prodW:0, prodS:0, prodE: 0, prodH:5, prodP:0, tt: 0
 	};
-    //Set sawmills prop
+	//Set sawmills prop
 	public static var sawmillProp: BuildingProp = {
 		at:0, max:2, costM: 10,costW:0, costS:0, costE:5, prodM: 0, prodW:5, prodS:0, prodE: 0, prodH:0, prodP:3, tt: 0
 	};
-    //Set quarrys prop
+	//Set quarrys prop
 	public static var quarryProp: BuildingProp = {
 		at:0, max:2, costM: 10, costW:0, costS:0, costE:5, prodM: 0, prodW:0, prodS:5, prodE: 0, prodH:0, prodP:3, tt: 0
 	};
-    //Set powerplants prop
+	//Set powerplants prop
 	public static var powerplantProp: BuildingProp = {
 		at:0, max:2, costM: 20, costW:0, costS:0, costE:0, prodM: 0, prodW:0, prodS:0, prodE: 10, prodH:0, prodP:5, tt: 0
 	};

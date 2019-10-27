@@ -18,9 +18,9 @@ package arm;
 
 import armory.system.Event;
 import iron.Scene;
-                ~
+				~
 class SaveLoadMechanism extends iron.Trait {
-                ~
+				~
 	public function new() {
 		super();
 
@@ -31,7 +31,7 @@ class SaveLoadMechanism extends iron.Trait {
 		});
 
 	}
-                ~
+				~
 ```
 
 For our last and final feature, we are going to hide buttons on start and then we will able to show and hide them with `m`.

@@ -63,11 +63,11 @@ class SaveLoadMechanism extends iron.Trait {
 		super();
 
 		notifyOnUpdate(function() {
-            if(kb.started("f")){
-                save();
-            }else if(kb.started("g")){
-                load();
-            }
+			if(kb.started("f")){
+				save();
+			}else if(kb.started("g")){
+				load();
+			}
 		});
 	}
 	public function save(){
@@ -97,7 +97,7 @@ class SaveLoadMechanism extends iron.Trait {
 
 			var string = b.toString();
 			var json = haxe.Json.parse(string);
-			
+
 			//Set cube's location and rotation.
 			cube.transform.loc = json.loc;
 			cube.transform.setRotation(json.rot.x, json.rot.y, json.rot.z);

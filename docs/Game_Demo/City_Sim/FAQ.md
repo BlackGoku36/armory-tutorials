@@ -31,7 +31,7 @@ Feel free to ask anything!
 <details>
     <summary>YOUR TUTORIALS ARE GOOD! MIND IF I TRANSLATE IT TO OTHER LANGUAGE?</summary>
 
-Yes, you can translate it to whatever language you want, whether it is `Gujarati`, `Hindi`, `Japanese`, `Portuguese`, or even `MC enchanting table language`, feel free to do so. The only thing you gotta do is credit me and not claim yourself as original author, other than that, you are good.
+<p style="margin-left: 35px">Yes, you can translate it to whatever language you want, whether it is `Gujarati`, `Hindi`, `Japanese`, `Portuguese`, or even `MC enchanting table language`, feel free to do so. The only thing you gotta do is credit me and not claim yourself as original author, other than that, you are good.</p>
 
 </details>
 

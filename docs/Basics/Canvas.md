@@ -43,6 +43,7 @@ Let study its user interface:
 6. This is Timeline, used to animate elements, but currently it is WIP, so we will ignore it for now.
 
 Let add elements:
+
 ![](../../docassets/canvas_2.png ':size=700')
 
 1. `Text`: Add Text `txt`, We will control this by using below UI (sliders, input, etc).

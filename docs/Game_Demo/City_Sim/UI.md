@@ -60,44 +60,44 @@ import armory.system.Event;
 
 class MainCanvasController extends iron.Trait {
 
-	static var maincanvas:CanvasScript;
+    static var maincanvas:CanvasScript;
     //State of menu, 0 -> closed, 1 -> opened
-	var menuState = 0;
+    var menuState = 0;
 
-	public function new() {
-		super();
+    public function new() {
+        super();
 
-		notifyOnInit(init);
-		notifyOnUpdate(updateCanvas);
-	}
+        notifyOnInit(init);
+        notifyOnUpdate(updateCanvas);
+    }
 
-	function init() {
-		maincanvas = new CanvasScript("MainCanvas", "Big_shoulders_text.ttf");
+    function init() {
+        maincanvas = new CanvasScript("MainCanvas", "Big_shoulders_text.ttf");
 
-		maincanvas.setCanvasVisibility(true);
+        maincanvas.setCanvasVisibility(true);
         //Set menu_empty to invisible
-		maincanvas.getElement("menu_empty").visible = false;
+        maincanvas.getElement("menu_empty").visible = false;
         //On 'menu_btn' event
-		Event.add("menu_btn", function(){
+        Event.add("menu_btn", function(){
             //If closed
-			if (menuState == 0){
+            if (menuState == 0){
                 // Set menu_empty to visible
-				maincanvas.getElement("menu_empty").visible = true;
+                maincanvas.getElement("menu_empty").visible = true;
                 // menu is open
-				menuState = 1;
+                menuState = 1;
             //If opened
-			}else if (menuState == 1){
+            }else if (menuState == 1){
                 //Set menu_empty to invisible
-				maincanvas.getElement("menu_empty").visible = false;
+                maincanvas.getElement("menu_empty").visible = false;
                 // menu is close
-				menuState = 0;
-			}
-		});
-	}
+                menuState = 0;
+            }
+        });
+    }
 
-	function updateCanvas() { ~ }
-	function updatePB(){ ~ }
-	function updateAmount(){ ~ }
+    function updateCanvas() { ~ }
+    function updatePB(){ ~ }
+    function updateAmount(){ ~ }
 }
 ```
 
@@ -115,5 +115,3 @@ class MainCanvasController extends iron.Trait {
 <!-- tabs:end -->
 
 ---
-
-

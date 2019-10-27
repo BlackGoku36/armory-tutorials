@@ -43,5 +43,23 @@
 			"",
 		],
 		"description": "Adds image"
+	},
+
+	"qa":{
+		"prefix": "qa",
+		"body": [
+			"",
+			"---",
+			"",
+			"<details>",
+			"\t<summary>$0</summary>",
+			"",
+			"$1",
+			"</details>",
+			"",
+			"---",
+			"",
+		],
+		"description": "Add dropdown box"
 	}
 }

@@ -32,9 +32,9 @@ import iron.system.Input;
 import iron.math.Vec4;
 
 class CameraController extends iron.Trait {
-    //Get our CameraEmpty
+	//Get our CameraEmpty
 	var cameraEmpty = Scene.active.getEmpty("CameraEmpty").transform;
-    //Get mouse
+	//Get mouse
 	var mouse = Input.getMouse();
 
 	@prop
@@ -44,13 +44,13 @@ class CameraController extends iron.Trait {
 
 	public function new() {
 		super();
-        notifyOnUpdate(update);
+		notifyOnUpdate(update);
 	}
 
 	function update() {
 		if(mouse.down("right")){
-            // Rotate our empty on z-axis in opposite direction of our mouse-x movement.
-            // Mouse movement is divided by 200 to slow the rotation.
+			// Rotate our empty on z-axis in opposite direction of our mouse-x movement.
+			// Mouse movement is divided by 200 to slow the rotation.
 			cameraEmpty.rotate(new Vec4(0, 0, 1), -mouse.movementX / 200);
 			cameraEmpty.buildMatrix();
 			cameraEmpty.rotate(object.transform.world.right(), -mouse.movementY / 200);
@@ -93,7 +93,7 @@ You should get this:
 
 # BUILDINGS
 
-To manage our city, we will need to spawn, move, remove, rotate our buildings. 
+To manage our city, we will need to spawn, move, remove, rotate our buildings.
 
 1. Create a cube `hs`(stand for house), we will use this for assets, it will do nothing else of sort.
 2. Create a plane `bld_1`(we will use numbers for types), and make `hs` as child to this plane, we will use this as base, and for interaction. Set its physics as:
@@ -137,9 +137,9 @@ typedef Building = {
 }
 
 class BuildingController extends iron.Trait {
-    //Declare selectedBuilding, i.e., name of building currently selected.
+	//Declare selectedBuilding, i.e., name of building currently selected.
 	public static var selectedBuilding:Building = null;
-    //Whether any building is selected or not
+	//Whether any building is selected or not
 	public static var isBuildingSelected = false;
 
 	public function new() {
@@ -147,11 +147,11 @@ class BuildingController extends iron.Trait {
 	}
 
 	public static function raySelectBuilding() {
-        //Get rigid body from raycast from group 2.
+		//Get rigid body from raycast from group 2.
 		var rigidbody = getRaycast(2).rigidbody;
-        //Check if rigidbody isn't null and rigidbody's name start with "bld"
+		//Check if rigidbody isn't null and rigidbody's name start with "bld"
 		if(rigidbody != null && StringTools.startsWith(rigidbody.object.name, "bld")){
-            //Set selected building to hit rigidbody name
+			//Set selected building to hit rigidbody name
 			selectedBuilding = getBuildingFromString(rigidbody.object.name);
 			isBuildingSelected = true;
 		}else {
@@ -162,16 +162,16 @@ class BuildingController extends iron.Trait {
 
 	static function getRaycast(group:Int){
 		var physics = PhysicsWorld.active;
-        var mouse = Input.getMouse();
+		var mouse = Input.getMouse();
 		var start = new Vec4();
 		var end = new Vec4();
 		var camera = Scene.active.getCamera("Camera");
-        // Get Ray-cast direction from start to end with mouse's x, y and camera
+		// Get Ray-cast direction from start to end with mouse's x, y and camera
 		RayCaster.getDirection(start, end, mouse.x, mouse.y, camera);
-        // cast ray from camera's location in world space to end vec and get hit result.
+		// cast ray from camera's location in world space to end vec and get hit result.
 		var hit = physics.rayCast(camera.transform.world.getLoc(), end, group);
 		var rigidbody = (hit != null) ? hit.rb : null;
-        //wrap rigidbody and hit result and return it.
+		//wrap rigidbody and hit result and return it.
 		return{
 			rigidbody: rigidbody,
 			hit: hit
@@ -229,7 +229,7 @@ class BuildingController extends iron.Trait {
 	public static function moveBuilding() {
 		var raycast = getRaycast(1);
 		if(raycast.rigidbody != null && raycast.rigidbody.object.name == "Ground") {
-            //Set loc of selected building as floor of ray hit position's x, y and z as 0.4.
+			//Set loc of selected building as floor of ray hit position's x, y and z as 0.4.
 			Scene.active.getChild(selectedBuilding.name).transform.loc.set(Math.floor(raycast.hit.pos.x), Math.floor(raycast.hit.pos.y), 0.2);
 		}
 	}
@@ -268,7 +268,7 @@ class BuildingController extends iron.Trait {
 	~
 	//Declare arrays of buildings
 	public static var buildings: Array<Building> = [];
-    //Building's Id, eg: bld_hs1, bld_pw2, etc.
+	//Building's Id, eg: bld_hs1, bld_pw2, etc.
 	public static var buildingId = 0;
 
 	public function new() { ~ }
@@ -289,11 +289,11 @@ class BuildingController extends iron.Trait {
 
 	public static function spawnBuilding(type: Int) {
 		unselectBuilding();
-        //Spawn object with name = "bld_"+type
+		//Spawn object with name = "bld_"+type
 		Scene.active.spawnObject("bld_"+type, null, function(bld: Object){
-            //Increment buildingID
+			//Increment buildingID
 			buildingId++;
-            //Change name
+			//Change name
 			bld.name = "bld_"+type+"_"+buildingId;
 			//Add new building to add with name and type
 			buildings.push({
@@ -305,7 +305,7 @@ class BuildingController extends iron.Trait {
 	}
 
 	public static function removeBuilding() {
-        //Remove Selected building
+		//Remove Selected building
 		Scene.active.getChild(selectedBuilding.name).remove();
 		//Remove selected building from buildings array
 		removefromArray(selectedBuilding.name, buildings);
@@ -388,7 +388,7 @@ class BuildingController extends iron.Trait {
 
 	public static function buildingContact() {
 		var physics = PhysicsWorld.active;
-        //Get contact of selected building
+		//Get contact of selected building
 		var contact = physics.getContacts(Scene.active.getChild(selectedBuilding).getTrait(RigidBody));
 		if (contact != null){
 			buildingInContact = true;

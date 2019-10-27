@@ -69,15 +69,15 @@ class SaveLoadMechanism extends iron.Trait {
     //Get keyboard's input.
     var kb = Input.getKeyboard();
 
-	public function new() {
-		super();
+    public function new() {
+        super();
 
         notifyOnUpdate(function() {
             if(kb.started("f")){
                 save();
             }
         });
-	}
+    }
 
     public function save(){
         ~
@@ -124,17 +124,17 @@ class SaveLoadMechanism extends iron.Trait {
 
     var kb = Input.getKeyboard();
     var saveFile = "save_game.json";
-	public function new() {
-		super();
+    public function new() {
+        super();
 
-		notifyOnUpdate(function() {
+        notifyOnUpdate(function() {
             if(kb.started("f")){
                 save();
             }else if(kb.started("g")){
                 load();
             }
-		});
-	}
+        });
+    }
 
     public function save() { ~ }
 
