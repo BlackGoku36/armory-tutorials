@@ -36,3 +36,4 @@ python -m SimpleHTTPServer
 - `codetab`: It will add Tab with haxe code and code explanation dropdown
 - `gif`: It will add gif from `docassets`
 - `img`: It will add image from `docassets`
+- `qa` : It will add dropdown.
