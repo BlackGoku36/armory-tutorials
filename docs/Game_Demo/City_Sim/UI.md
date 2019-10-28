@@ -193,34 +193,34 @@ class MainCanvasController extends iron.Trait {
 				bldMenuState = 0;
 			}else if (menuState == 1){ ~ }
 		});
-        //Check bldMenuState and set bldMenuState to corresponding building.
 
-		Event.add("house_btn", function(){ bldMenuBtn = 3; bldMenuState == 0 ||bldMenuState == 4||bldMenuState == 5 ? bldMenuState = 3 : bldMenuState = 0;});
-		Event.add("factory_btn", function(){ bldMenuBtn = 4; bldMenuState == 0 ||bldMenuState == 3||bldMenuState == 5 ? bldMenuState = 4 : bldMenuState = 0;});
-		Event.add("community_btn", function(){ bldMenuBtn = 5; bldMenuState == 0 ||bldMenuState == 3||bldMenuState == 4 ? bldMenuState = 5 : bldMenuState = 0;});
+        //Check bldMenuState and set bldMenuState to corresponding building.
+		Event.add("house_btn", function(){ bldMenuBtn = 3; bldMenuState == 3 ? bldMenuState = 0 : bldMenuState = 3;});
+		Event.add("factory_btn", function(){ bldMenuBtn = 4; bldMenuState == 4 ? bldMenuState = 0 : bldMenuState = 4;});
+		Event.add("community_btn", function(){ bldMenuBtn = 5; bldMenuState == 5 ? bldMenuState = 0 : bldMenuState = 5;});
 
         //Check when bld_menu_btn_n, and spawn building corresponding to category and type
 		Event.add("bld_menu_btn_1", function(){
-			switch (bldMenuBtn){
+			switch (bldMenuState){
 				case 3: bld.spawnBuilding(1);
 				case 4: bld.spawnBuilding(5);
 				case 5: bld.spawnBuilding(2);
 			}
 		});
 		Event.add("bld_menu_btn_2", function(){
-			switch (bldMenuBtn){
+			switch (bldMenuState){
 				case 4: bld.spawnBuilding(6);
 				case 5: bld.spawnBuilding(3);
 			}
 		});
 		Event.add("bld_menu_btn_3", function(){
-			switch (bldMenuBtn){
+			switch (bldMenuState){
 				case 4: bld.spawnBuilding(7);
 				case 5: bld.spawnBuilding(4);
 			}
 		});
 		Event.add("bld_menu_btn_4", function(){
-			switch (bldMenuBtn){
+			switch (bldMenuState){
 				case 4: bld.spawnBuilding(8);
 			}
 		});
@@ -231,7 +231,7 @@ class MainCanvasController extends iron.Trait {
 		updateAmount();
 
         //Check if bldMenuBtn and set text and visibility according to it.
-		if(bldMenuBtn == 3 || bldMenuBtn == 4 || bldMenuBtn == 5){
+		if(bldMenuState == 3 || bldMenuState == 4 || bldMenuState == 5){
 			maincanvas.getElement("bld_menu_text").text = getCategoryFromInt(bldMenuBtn);
 			maincanvas.getElement("bld_menu").visible = true;
 		}
@@ -240,7 +240,7 @@ class MainCanvasController extends iron.Trait {
 		}
 
         //Switch between bldMenuBtn and set button's text and visibility.
-		switch (bldMenuBtn){
+		switch (bldMenuState){
 			case 3:
 				maincanvas.getElement("bld_menu_btn_1").text =  "House";
 				maincanvas.getElement("bld_menu_btn_1").visible = true;
@@ -289,8 +289,13 @@ class MainCanvasController extends iron.Trait {
 <details>
     <summary>Code Explanation</summary>
 
-<!-- 1. We will first check if menu is opened, if so than we close/reset building menu.
-2. //Check if other building menu were selected, if so that set bldMenuState to it own state, else if bldMenuState was same then set bldMenuState to 0  -->
+1. In `menu_btn` event, We will first check if menu is opened, if so than we close/reset building menu.
+2. In `<category>_btn` event, We will first set `bldMenuBtn` to its corresponding. We will than check if `bldMenuState` is same as corresponding button, if so then we set `bldMenuState` to 0 or else set `bldMenuState` to it corresponding button.
+3. In `updateCanvas()`, we will switch between `bldMenuState` and set buttons text and visibility according to it.
+4. In `updateCanvas()`, we will check if `bldMenuState` equals to any building category. If so, than set `bld_menu_text` text and set `bld_menu` visible
+5. In `updateCanvas()`, we will check if `bldMenuState` or `menuState` is closed. If so, than set `bld_menu` to invisible.
+6. In `getCategoryFromInt()`, we will switch between the int and then return corresponding text.
+7. In `bld_menu_btn_<n>` event, we will switch between `bldMenuState` and spawn building corresponding to category and type.
 </details>
 
 ---
@@ -298,4 +303,8 @@ class MainCanvasController extends iron.Trait {
 <!-- tabs:end -->
 
 ---
+
+Now, you should get like:
+
+![](/../../../docassets/CBS_3_4.gif ':size=400')
 
