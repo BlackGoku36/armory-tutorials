@@ -126,7 +126,7 @@ On playing, you should get:
 
 ---
 
-Now, we will add building menu. Here you should be able to select whatever building you want to spawn. 
+Now, we will add building menu. Here you should be able to select whatever building you want to spawn.
 
 1. Add more element to `MainCanvas`:
     - `Empty`:
@@ -170,117 +170,117 @@ package arm;
 ~
 class MainCanvasController extends iron.Trait {
 
-	static var maincanvas:CanvasScript;
+    static var maincanvas:CanvasScript;
 
-	var world = WorldController;
-	var bld = BuildingController;
+    var world = WorldController;
+    var bld = BuildingController;
 
-	var menuState = 0;
+    var menuState = 0;
     //0 -> no button, 1 -> Settings button, 2 -> Edit layout button
     //3 -> House button, 4 -> Factory button, 5 -> community button
     var bldMenuBtn = 0;
     // 0 -> closed bld menu, 3 -> House bld menu, 4 -> Factory bld menu, 5 -> Community bld menu
-	var bldMenuState = 0;
+    var bldMenuState = 0;
 
-	public function new() { ~ }
+    public function new() { ~ }
 
-	function init() {
+    function init() {
         ~
-		Event.add("menu_btn", function(){
-			if (menuState == 0){
-				maincanvas.getElement("menu_empty").visible = true;
-				menuState = 1;
+        Event.add("menu_btn", function(){
+            if (menuState == 0){
+                maincanvas.getElement("menu_empty").visible = true;
+                menuState = 1;
                 // Close/reset bld menu
-				bldMenuState = 0;
-			}else if (menuState == 1){ ~ }
-		});
+                bldMenuState = 0;
+            }else if (menuState == 1){ ~ }
+        });
 
         //Check bldMenuState and set bldMenuState to corresponding building.
-		Event.add("house_btn", function(){ bldMenuBtn = 3; bldMenuState == 3 ? bldMenuState = 0 : bldMenuState = 3;});
-		Event.add("factory_btn", function(){ bldMenuBtn = 4; bldMenuState == 4 ? bldMenuState = 0 : bldMenuState = 4;});
-		Event.add("community_btn", function(){ bldMenuBtn = 5; bldMenuState == 5 ? bldMenuState = 0 : bldMenuState = 5;});
+        Event.add("house_btn", function(){ bldMenuBtn = 3; bldMenuState == 3 ? bldMenuState = 0 : bldMenuState = 3;});
+        Event.add("factory_btn", function(){ bldMenuBtn = 4; bldMenuState == 4 ? bldMenuState = 0 : bldMenuState = 4;});
+        Event.add("community_btn", function(){ bldMenuBtn = 5; bldMenuState == 5 ? bldMenuState = 0 : bldMenuState = 5;});
 
         //Check when bld_menu_btn_n, and spawn building corresponding to category and type
-		Event.add("bld_menu_btn_1", function(){
-			switch (bldMenuState){
-				case 3: bld.spawnBuilding(1);
-				case 4: bld.spawnBuilding(5);
-				case 5: bld.spawnBuilding(2);
-			}
-		});
-		Event.add("bld_menu_btn_2", function(){
-			switch (bldMenuState){
-				case 4: bld.spawnBuilding(6);
-				case 5: bld.spawnBuilding(3);
-			}
-		});
-		Event.add("bld_menu_btn_3", function(){
-			switch (bldMenuState){
-				case 4: bld.spawnBuilding(7);
-				case 5: bld.spawnBuilding(4);
-			}
-		});
-		Event.add("bld_menu_btn_4", function(){
-			switch (bldMenuState){
-				case 4: bld.spawnBuilding(8);
-			}
-		});
-	}
+        Event.add("bld_menu_btn_1", function(){
+            switch (bldMenuState){
+                case 3: bld.spawnBuilding(1);
+                case 4: bld.spawnBuilding(5);
+                case 5: bld.spawnBuilding(2);
+            }
+        });
+        Event.add("bld_menu_btn_2", function(){
+            switch (bldMenuState){
+                case 4: bld.spawnBuilding(6);
+                case 5: bld.spawnBuilding(3);
+            }
+        });
+        Event.add("bld_menu_btn_3", function(){
+            switch (bldMenuState){
+                case 4: bld.spawnBuilding(7);
+                case 5: bld.spawnBuilding(4);
+            }
+        });
+        Event.add("bld_menu_btn_4", function(){
+            switch (bldMenuState){
+                case 4: bld.spawnBuilding(8);
+            }
+        });
+    }
 
-	function updateCanvas() {
-		updatePB();
-		updateAmount();
+    function updateCanvas() {
+        updatePB();
+        updateAmount();
 
         //Check if bldMenuBtn and set text and visibility according to it.
-		if(bldMenuState == 3 || bldMenuState == 4 || bldMenuState == 5){
-			maincanvas.getElement("bld_menu_text").text = getCategoryFromInt(bldMenuBtn);
-			maincanvas.getElement("bld_menu").visible = true;
-		}
-		if (bldMenuState == 0 || menuState == 0){
-			maincanvas.getElement("bld_menu").visible = false;
-		}
+        if(bldMenuState == 3 || bldMenuState == 4 || bldMenuState == 5){
+            maincanvas.getElement("bld_menu_text").text = getCategoryFromInt(bldMenuBtn);
+            maincanvas.getElement("bld_menu").visible = true;
+        }
+        if (bldMenuState == 0 || menuState == 0){
+            maincanvas.getElement("bld_menu").visible = false;
+        }
 
         //Switch between bldMenuBtn and set button's text and visibility.
-		switch (bldMenuState){
-			case 3:
-				maincanvas.getElement("bld_menu_btn_1").text =  "House";
-				maincanvas.getElement("bld_menu_btn_1").visible = true;
-				maincanvas.getElement("bld_menu_btn_2").visible = false;
-				maincanvas.getElement("bld_menu_btn_3").visible = false;
-				maincanvas.getElement("bld_menu_btn_4").visible = false;
-			case 4:
-				maincanvas.getElement("bld_menu_btn_1").text =  "Sawmill";
-				maincanvas.getElement("bld_menu_btn_1").visible = true;
-				maincanvas.getElement("bld_menu_btn_2").text =  "Quarry";
-				maincanvas.getElement("bld_menu_btn_2").visible = true;
-				maincanvas.getElement("bld_menu_btn_3").text =  "Steelworks";
-				maincanvas.getElement("bld_menu_btn_3").visible = true;
-				maincanvas.getElement("bld_menu_btn_4").text =  "Powerplant";
-				maincanvas.getElement("bld_menu_btn_4").visible = true;
-			case 5:
-				maincanvas.getElement("bld_menu_btn_1").text =  "Park";
-				maincanvas.getElement("bld_menu_btn_1").visible = true;
-				maincanvas.getElement("bld_menu_btn_2").text =  "Garden";
-				maincanvas.getElement("bld_menu_btn_2").visible = true;
-				maincanvas.getElement("bld_menu_btn_3").text =  "Sport.C.";
-				maincanvas.getElement("bld_menu_btn_3").visible = true;
-				maincanvas.getElement("bld_menu_btn_4").visible = false;
-		}
-	}
+        switch (bldMenuState){
+            case 3:
+                maincanvas.getElement("bld_menu_btn_1").text =  "House";
+                maincanvas.getElement("bld_menu_btn_1").visible = true;
+                maincanvas.getElement("bld_menu_btn_2").visible = false;
+                maincanvas.getElement("bld_menu_btn_3").visible = false;
+                maincanvas.getElement("bld_menu_btn_4").visible = false;
+            case 4:
+                maincanvas.getElement("bld_menu_btn_1").text =  "Sawmill";
+                maincanvas.getElement("bld_menu_btn_1").visible = true;
+                maincanvas.getElement("bld_menu_btn_2").text =  "Quarry";
+                maincanvas.getElement("bld_menu_btn_2").visible = true;
+                maincanvas.getElement("bld_menu_btn_3").text =  "Steelworks";
+                maincanvas.getElement("bld_menu_btn_3").visible = true;
+                maincanvas.getElement("bld_menu_btn_4").text =  "Powerplant";
+                maincanvas.getElement("bld_menu_btn_4").visible = true;
+            case 5:
+                maincanvas.getElement("bld_menu_btn_1").text =  "Park";
+                maincanvas.getElement("bld_menu_btn_1").visible = true;
+                maincanvas.getElement("bld_menu_btn_2").text =  "Garden";
+                maincanvas.getElement("bld_menu_btn_2").visible = true;
+                maincanvas.getElement("bld_menu_btn_3").text =  "Sport.C.";
+                maincanvas.getElement("bld_menu_btn_3").visible = true;
+                maincanvas.getElement("bld_menu_btn_4").visible = false;
+        }
+    }
 
-	function updatePB() { ~ }
-	function updateAmount() { ~ }
+    function updatePB() { ~ }
+    function updateAmount() { ~ }
 
     //Get building category from int
-	static function getCategoryFromInt(int: Int):String {
-		var type = "";
-		switch (int){
-			case 3: type = "House";
-			case 4: type = "Factory";
-			case 5: type = "Community";
-		}
-		return type;
-	}
+    static function getCategoryFromInt(int: Int):String {
+        var type = "";
+        switch (int){
+            case 3: type = "House";
+            case 4: type = "Factory";
+            case 5: type = "Community";
+        }
+        return type;
+    }
 }
 
 ```
@@ -308,4 +308,3 @@ class MainCanvasController extends iron.Trait {
 Now, you should get like:
 
 ![](/../../../docassets/CBS_3_4.gif ':size=400')
-
