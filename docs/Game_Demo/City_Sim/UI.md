@@ -1,11 +1,10 @@
 # User Interface (UI)
 
-<!-- TODO: More words -->
-We will create better UI to remove need of pressing key.
+We will create UI in which player will have to rely less on keybinds, that is we will create menu, which will let use spawn any building type of any category easily, create other menus such as settings or layout edit and also interact with buildings with 3D UI.
 
 This will be split in 2 parts:
-- Main Menu UI: This will have placing of building from menu, settings, layout edit.
-- 3D Menu UI: This will have moving, removing, rotating, info of buildings.
+- Main Menu UI: This will have placing of building from menu, settings and layout edit.
+- 3D Menu UI: This will 3D UI that interact with building (such as moving, removing, etc).
 
 ## Main Menu UI
 
@@ -28,10 +27,10 @@ Let's get started!
     - `Rect`:
         - `menu_rect`: Just for style
     - `Fill Rect`:
-        - `bluerect`: act as background for menu buttons
+        - `menu_bg`: act as background for menu buttons
 
 2. Now parent following elements to `menu_empty`:
-    - `bluerect`
+    - `menu_bg`
     - `settings_btn`
     - `edit_btn`
     - `house_btn`
@@ -47,6 +46,8 @@ Let's get started!
 
 
 ![](/../../../docassets/CBS_3_1.png ':size=800')
+
+?> **How-to:** To parent any element, select the child element and the right click-hold the element and left click the parent element.
 
 Now to add Main menu hiding and showing:
 
@@ -125,7 +126,7 @@ On playing, you should get:
 
 ---
 
-Now, we will add building menu. Here you should be able to select whatever building you want to create. 
+Now, we will add building menu. Here you should be able to select whatever building you want to spawn. 
 
 1. Add more element to `MainCanvas`:
     - `Empty`:
@@ -160,7 +161,7 @@ Now, we will add building menu. Here you should be able to select whatever build
 
 We will break building type in 3 categories, that is, `House`, `Factory`, `Community`.
 
-Now, let get to code.
+Now, let's get to code.
 
 <!-- tabs:start -->
 #### **MainCanvasController.hx**
