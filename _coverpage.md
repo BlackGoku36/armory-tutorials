@@ -1,3 +1,5 @@
+![](docassets/logo.png ':size=200')
+
 # ARMORED-TUT ⛨
 
 > Tutorials for Armory3D game engine.
