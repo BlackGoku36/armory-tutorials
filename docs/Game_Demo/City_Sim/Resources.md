@@ -413,7 +413,7 @@ In `MainCanvas`, create:
 	1. `Name`: money. `Text`: Money
 	2. `Name`: wood. `Text`: Wood
 	3. `Name`: stone. `Text`: Stone
-	4. `Name`: electricity. `Text`: 0/100
+	4. `Name`: electricity. `Text`: Electricity
 	5. `Name`: money-amt, wood-amt, stone-amt, electricity-amt. `Text`: 0/100
 
 2. `RectPB` element:

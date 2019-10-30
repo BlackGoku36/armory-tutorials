@@ -389,7 +389,7 @@ class BuildingController extends iron.Trait {
 	public static function buildingContact() {
 		var physics = PhysicsWorld.active;
 		//Get contact of selected building
-		var contact = physics.getContacts(Scene.active.getChild(selectedBuilding).getTrait(RigidBody));
+		var contact = physics.getContacts(Scene.active.getChild(selectedBuilding.name).getTrait(RigidBody));
 		if (contact != null){
 			buildingInContact = true;
 		}else{
