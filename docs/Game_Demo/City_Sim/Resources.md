@@ -353,29 +353,29 @@ class WorldController extends iron.Trait {
 		var world = WorldController;
 		//Add timetask with interval of 5sec and assign timetask id to housett.
 		houseProp.tt = Scheduler.addTimeTask(function(){
-			//check electricity, if electricity is greater than cost
-			if (electricity[0] >= world.houseProp.costE){
-				// if money is less than or equal to max then increase increase by (no.of houses x house money production.)
-				if (money[0] <= money[1]) money[0] += houseProp.at * houseProp.prodM;
+			//check electricity, if electricity is greater than cost and money amount is less than max money
+			if (electricity[0] >= world.houseProp.costE && money[0] <= money[1]){
+				// increase by (no.of houses x house money production.)
+				money[0] += houseProp.at * houseProp.prodM;
 				//Multiply no. of houses * houses cost and subtract the product from electricity amount
 				electricity[0] -= houseProp.at * houseProp.costE;
 			}
 		}, 5, 5);
 		parkProp.tt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.parkProp.costE){
-				if(money[0] <= money[1]) money[0] += parkProp.at * parkProp.prodM;
+			if (electricity[0] >= world.parkProp.costE && money[0] <= money[1]){
+				money[0] += parkProp.at * parkProp.prodM;
 				electricity[0] -= parkProp.at * parkProp.costE;
 			}
 		}, 5, 5);
 		sawmillProp.tt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.sawmillProp.costE){
-				if(woods[0] <= woods[1]) woods[0] += sawmillProp.at * sawmillProp.prodW;
+			if (electricity[0] >= world.sawmillProp.costE && woods[0] <= woods[1]){
+				woods[0] += sawmillProp.at * sawmillProp.prodW;
 				electricity[0] -= sawmillProp.at * sawmillProp.costE;
 			}
 		}, 5, 5);
 		quarryProp.tt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.quarryProp.costE){
-				if(stones[0] <= stones[1]) stones[0] += quarryProp.at * quarryProp.prodS;
+			if (electricity[0] >= world.quarryProp.costE && stones[0] <= stones[1]){
+				stones[0] += quarryProp.at * quarryProp.prodS;
 				electricity[0] -= quarryProp.at * quarryProp.costE;
 			}
 		}, 5, 5);
