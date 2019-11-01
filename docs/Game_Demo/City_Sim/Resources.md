@@ -354,28 +354,33 @@ class WorldController extends iron.Trait {
 		//Add timetask with interval of 5sec and assign timetask id to housett.
 		houseProp.tt = Scheduler.addTimeTask(function(){
 			//check electricity, if electricity is greater than cost and money amount is less than max money
-			if (electricity[0] >= world.houseProp.costE && money[0] <= money[1]){
+			if (electricity[0] >= world.houseProp.costE && money[0] < money[1]){
 				// increase by (no.of houses x house money production.)
 				money[0] += houseProp.at * houseProp.prodM;
+				//Do clamping and handle overflowing
+				if (money[0] > money[1]) money[0] = money[1];
 				//Multiply no. of houses * houses cost and subtract the product from electricity amount
 				electricity[0] -= houseProp.at * houseProp.costE;
 			}
 		}, 5, 5);
 		parkProp.tt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.parkProp.costE && money[0] <= money[1]){
+			if (electricity[0] >= world.parkProp.costE && money[0] < money[1]){
 				money[0] += parkProp.at * parkProp.prodM;
+				if (money[0] > money[1]) money[0] = money[1];
 				electricity[0] -= parkProp.at * parkProp.costE;
 			}
 		}, 5, 5);
 		sawmillProp.tt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.sawmillProp.costE && woods[0] <= woods[1]){
+			if (electricity[0] >= world.sawmillProp.costE && woods[0] < woods[1]){
 				woods[0] += sawmillProp.at * sawmillProp.prodW;
+				if (woods[0] > woods[1]) woods[0] = woods[1];
 				electricity[0] -= sawmillProp.at * sawmillProp.costE;
 			}
 		}, 5, 5);
 		quarryProp.tt = Scheduler.addTimeTask(function(){
-			if (electricity[0] >= world.quarryProp.costE && stones[0] <= stones[1]){
+			if (electricity[0] >= world.quarryProp.costE && stones[0] < stones[1]){
 				stones[0] += quarryProp.at * quarryProp.prodS;
+				if (stones[0] > stones[1]) stones[0] = stones[1];
 				electricity[0] -= quarryProp.at * quarryProp.costE;
 			}
 		}, 5, 5);
@@ -392,7 +397,7 @@ class WorldController extends iron.Trait {
 	<summary>Code Explanation</summary>
 
 1. We create timetask for each building type, this is done by `kha.Scheduler.addTimeTask(*func*, *start*, *period*, *duration*)`, where `func` is function done in this time task, `start` is time to wait for first `func` execution, `period` is time interval between `func` execution, `duration`, is total amount of time this time task exist for, '0' means infinite amount of time and is set defaultly.
-2. We than check if there is sufficient electricity, than check if the resource is less than max, if so than let it produce the resource. Then multiply no. of building by building's electricity cost and subtract the product from electricity amount.
+2. We than check if there is sufficient electricity, than check if the resource is less than max, if so than let it produce the resource. Then we will check if resource is more than max resource if so, than set resource as max resources(This works as clamping and to prevent money overflowing).Then multiply no. of building by building's electricity cost and subtract the product from electricity amount.
 
 </details>
 
