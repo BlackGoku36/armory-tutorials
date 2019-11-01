@@ -410,7 +410,7 @@ class WorldController extends iron.Trait {
 # CANVAS
 We will use `Canvas` to display our resources with progress bars.
 
-1. Create new canvas `MainCanvas` and unselect it, we will use this as our main canvas, we will have other UI such as menus in here.
+1. Create new canvas `MainCanvas` and uncheck it, we will use this as our main canvas, we will have other UI such as menus in here.
 
 In `MainCanvas`, create:
 
