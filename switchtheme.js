@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // Functions
     // =========================================================================
     /**
@@ -22,11 +22,11 @@
      *   <link rel="stylesheet" title="Bar" href="path/to/file.css" >
      */
     function initStyleSwitcher() {
-        var isInitialzed      = false;
+        var isInitialzed = false;
         var sessionStorageKey = 'activeStylesheetHref';
 
         function handleSwitch(activeHref, activeTitle) {
-            var activeElm = document.querySelector('link[href*="' + activeHref +'"],link[title="' + activeTitle +'"]');
+            var activeElm = document.querySelector('link[href*="' + activeHref + '"],link[title="' + activeTitle + '"]');
 
             if (!activeElm && activeHref) {
                 activeElm = document.createElement('link');
@@ -47,9 +47,9 @@
         }
 
         function setActiveLink(activeElm) {
-            var activeHref   = activeElm.getAttribute('href');
-            var activeTitle  = activeElm.getAttribute('title');
-            var inactiveElms = document.querySelectorAll('link[title]:not([href*="' + activeHref +'"]):not([title="' + activeTitle +'"])');
+            var activeHref = activeElm.getAttribute('href');
+            var activeTitle = activeElm.getAttribute('title');
+            var inactiveElms = document.querySelectorAll('link[title]:not([href*="' + activeHref + '"]):not([title="' + activeTitle + '"])');
 
             // Remove "alternate" keyword
             activeElm.setAttribute('rel', (activeElm.rel || '').replace(/\s*alternate/g, '').trim());
@@ -72,7 +72,7 @@
                 // required to properly apply style updates when alternate
                 // stylesheets are enabled.
                 if (window.browsersyncObserver) {
-                    var linkRel    = elm.getAttribute('rel') || '';
+                    var linkRel = elm.getAttribute('rel') || '';
                     var linkRelAlt = linkRel.indexOf('alternate') > -1 ? linkRel : (linkRel + ' alternate').trim();
 
                     elm.setAttribute('rel', linkRelAlt);
@@ -90,7 +90,7 @@
             isInitialzed = true;
 
             // Restore active stylesheet
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 var activeHref = sessionStorage.getItem(sessionStorageKey);
 
                 if (activeHref) {
@@ -99,8 +99,8 @@
             });
 
             // Update active stylesheet
-            document.addEventListener('click', function(evt) {
-                var dataHref  = evt.target.getAttribute('data-link-href');
+            document.addEventListener('click', function (evt) {
+                var dataHref = evt.target.getAttribute('data-link-href');
                 var dataTitle = evt.target.getAttribute('data-link-title')
 
                 if (dataHref || dataTitle) {

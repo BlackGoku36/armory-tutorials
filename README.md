@@ -6,7 +6,7 @@ Tutorials for Armory3d game engine
 ![GitHub stars](https://img.shields.io/github/stars/BlackGoku36/armory-tutorials?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/BlackGoku36/armory-tutorials?style=flat-square)
 
-</div> 
+</div>
 
 ## Building Docsify Locally
 You can do it two way:
