@@ -8,7 +8,8 @@
 - **Basics**
   - [Traits](docs/Basics/Trait.md "Traits")
   - [Canvas](docs/Basics/Canvas.md "Canvas")
-  - [Tilesheet](docs/Basics/Tilesheet.md "Tilesheet")
+  - [Tilesheet (Video)](docs/Basics/Tilesheet.md "Tilesheet")
+  - [Navmesh (Video)](docs/Basics/Navmesh.md "Navmesh")
 
 ---
 
