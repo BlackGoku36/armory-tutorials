@@ -14,11 +14,11 @@ So, let make a small `CBS` game demo in `Armory3D`, but with little twist in con
 * **Goal**: Your goal is to keep your citizens happy, go below the line of happiness, and you lose.
 
 * **How this game work**:
-    * You start playing the game with happiness at half.
-    * Building such as Housing, Amusement park, small gardens, sports court increases happiness.
-    * Building such as Sawmills, quarry, steelworks, powerplants increases pollution bar.
-    * Pollution degrades parks, gardens, etc, and this make people unhappy.
-    * You have to pay to maintain this parks, gardens, etc.
+	* You start playing the game with happiness at half.
+	* Building such as Housing, Amusement park, small gardens, sports court increases happiness.
+	* Building such as Sawmills, quarry, steelworks, powerplants increases pollution bar.
+	* Pollution degrades parks, gardens, etc, and this make people unhappy.
+	* You have to pay to maintain this parks, gardens, etc.
 
 * **Building stuffs**:
 

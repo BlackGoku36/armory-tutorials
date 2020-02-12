@@ -3,11 +3,11 @@
 Setting up Armory in Blender.
 
 - [Setup](#setup)
-  - [Downloading the add-on](#downloading-the-add-on)
-    - [Git](#git)
-    - [Itch.io](#itchio)
-  - [Installing the add-on](#installing-the-add-on)
-  - [Updating the add-on](#updating-the-add-on)
+	- [Downloading the add-on](#downloading-the-add-on)
+	- [Git](#git)
+	- [Itch.io](#itchio)
+	- [Installing the add-on](#installing-the-add-on)
+	- [Updating the add-on](#updating-the-add-on)
 
 ---
 

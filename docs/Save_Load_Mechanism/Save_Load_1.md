@@ -16,32 +16,32 @@ We will first set-up the saving mechanism for hard-coded value.
 package arm;
 
 class SaveLoadMechanism extends iron.Trait {
-    public function new() {
-        super();
+	public function new() {
+		super();
 
-        notifyOnInit(function() {
-            //Only compile the code for krom platform
-            #if kha_krom
-            //Set json structure with text as 'hello World!'
-            var saveData = { text: "Hello World!" };
-            //Converts above structure to json string.
-            var saveDataJSON = haxe.Json.stringify(saveData);
-            //Get Krom's location path and add path for save_game.json.
-            var path = Krom.getFilesLocation() + "/save_game.json";
-            //Write json string to bytes.
-            var bytes = haxe.io.Bytes.ofString(saveDataJSON);
-            //Save to file from path specified above with data from bytes.
-            Krom.fileSaveBytes(path, bytes.getData());
-            #end
-        });
+		notifyOnInit(function() {
+			//Only compile the code for krom platform
+			#if kha_krom
+			//Set json structure with text as 'hello World!'
+			var saveData = { text: "Hello World!" };
+			//Converts above structure to json string.
+			var saveDataJSON = haxe.Json.stringify(saveData);
+			//Get Krom's location path and add path for save_game.json.
+			var path = Krom.getFilesLocation() + "/save_game.json";
+			//Write json string to bytes.
+			var bytes = haxe.io.Bytes.ofString(saveDataJSON);
+			//Save to file from path specified above with data from bytes.
+			Krom.fileSaveBytes(path, bytes.getData());
+			#end
+		});
 
-    }
+	}
 }
 ```
 ---
 
 <details>
-    <summary>Code Explanation</summary>
+	<summary>Code Explanation</summary>
 
 1. `#if some_condition` is called [Conditional Compiling](https://en.wikipedia.org/wiki/Conditional_compilation) expression, here, our code will only be compiled to Krom platform.
 2. We define structure and convert the structure into json.
@@ -66,34 +66,34 @@ package arm;
 import iron.system.Input;
 
 class SaveLoadMechanism extends iron.Trait {
-    //Get keyboard's input.
-    var kb = Input.getKeyboard();
+	//Get keyboard's input.
+	var kb = Input.getKeyboard();
 
-    public function new() {
-        super();
+	public function new() {
+		super();
 
-        notifyOnUpdate(function() {
-            if(kb.started("f")){
-                save();
-            }
-        });
-    }
+		notifyOnUpdate(function() {
+			if(kb.started("f")){
+				save();
+			}
+		});
+	}
 
-    public function save(){
-        ~
-        var saveDataJSON = haxe.Json.stringify(saveData);
-        //Move out of 3 dirs
-        var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";
-        var bytes = haxe.io.Bytes.ofString(saveDataJSON);
-        ~
-        #end
-    }
+	public function save(){
+		~
+		var saveDataJSON = haxe.Json.stringify(saveData);
+		//Move out of 3 dirs
+		var path = Krom.getFilesLocation() + "/../../../" + "/Bundled/save_game.json";
+		var bytes = haxe.io.Bytes.ofString(saveDataJSON);
+		~
+		#end
+	}
 }
 ```
 ---
 
 <details>
-    <summary>Code Explanation</summary>
+	<summary>Code Explanation</summary>
 
 1. On every frame, check if key `f` is pressed, than call `save()`
 2. We add `/../../../` before path to move out of three directory.
@@ -122,38 +122,38 @@ import iron.data.Data;
 
 class SaveLoadMechanism extends iron.Trait {
 
-    var kb = Input.getKeyboard();
-    var saveFile = "save_game.json";
-    public function new() {
-        super();
+	var kb = Input.getKeyboard();
+	var saveFile = "save_game.json";
+	public function new() {
+		super();
 
-        notifyOnUpdate(function() {
-            if(kb.started("f")){
-                save();
-            }else if(kb.started("g")){
-                load();
-            }
-        });
-    }
+		notifyOnUpdate(function() {
+			if(kb.started("f")){
+				save();
+			}else if(kb.started("g")){
+				load();
+			}
+		});
+	}
 
-    public function save() { ~ }
+	public function save() { ~ }
 
-    public function load(){
-        //Get Blob, from `Bundled`
-        Data.getBlob(saveFile, function(bytes:kha.Blob) {
-            //Converts bytes to string.
-            var jsonString = bytes.toString();
-            //Parse value from stringy json.
-            var json = haxe.Json.parse(jsonString);
-            trace(json.text);
-        });
-    }
+	public function load(){
+		//Get Blob, from `Bundled`
+		Data.getBlob(saveFile, function(bytes:kha.Blob) {
+			//Converts bytes to string.
+			var jsonString = bytes.toString();
+			//Parse value from stringy json.
+			var json = haxe.Json.parse(jsonString);
+			trace(json.text);
+		});
+	}
 }
 ```
 ---
 
 <details>
-    <summary>Code Explanation</summary>
+	<summary>Code Explanation</summary>
 
 1. Check if `f`, `g` is pressed and then call `save()`, `load()` respectively.
 1. Load blob from path specified.
