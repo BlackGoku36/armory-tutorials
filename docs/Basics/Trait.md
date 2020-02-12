@@ -7,17 +7,17 @@ Goal:
 
 ---
 
-`Trait` is conecpt in `Iron` means a piece of logic attached to object or scene, just like traits of humans.
+`Trait` is conecpt in `Iron` means a piece of logic attached to object or scene.
 
 There are 4 different types of `traits`:
-1. **Haxe Trait**: [Haxe](https://haxe.org/) scripting trait that can be used to write game logic in.
+1. **Haxe Trait**: [Haxe](https://haxe.org/) Text-based scripting trait that can be used to write game-play logic in.
 
-2. **Logic Nodes Trait**: It is visual scripting trait that can also be used to write game logic in, it is similar to [UE4's Blueprints](https://docs.unrealengine.com/en-US/Engine/Blueprints/index.html).
+2. **Logic Nodes Trait**: Visual scripting trait for writing game-play logic in. It is similar to [UE4's Blueprints](https://docs.unrealengine.com/en-US/Engine/Blueprints/index.html).
 
-3. **Canvas Trait**: This is trait for UI, canvas can be made using [Armory2D](https://github.com/armory3d/armory2d), but you can create it yourself with Armory2D as canvas use `.json`.
+3. **Canvas Trait**: Trait for UI, canvas can be made using [Armory2D](https://github.com/armory3d/armory2d), but since it use `Json`, you can create layout yourself without `Armory2D`.
 
-4. **WebAssembly(WASM)**: [WebAssembly](https://webassembly.org/) can also be used as scripting trait, to write game logic in [`Rust`](https://www.rust-lang.org/)/[`C`](https://en.wikipedia.org/wiki/C_%28programming_language%29)/[`C++`](https://en.wikipedia.org/wiki/C%2B%2B) and than compiling the code to `WASM` to use it in Armory.
-WASM is very usefull when it comes to plugins, you can use Libraries made in `Rust`/`C`/`C++` and compile it to WASM and then use it in `Armory` and `Kha`. Two examples that are used in `ArmorPaint`: [Texture-synthesis(Rust)](https://twitter.com/luboslenco/status/1173942414966439938), [Chips(C)](https://twitter.com/luboslenco/status/1172536139573538816).
+4. **WebAssembly(WASM)**: [WebAssembly](https://webassembly.org/) can also be used as scripting trait, It can be written in [`Rust`](https://www.rust-lang.org/)/[`C`](https://en.wikipedia.org/wiki/C_%28programming_language%29)/[`C++`](https://en.wikipedia.org/wiki/C%2B%2B) and than complied to `WASM` to use it in Armory *(WASM will only work with Krom target)*.
+WASM is very useful when it comes to plugins, you can use Libraries made in `Rust`/`C`/`C++` and compile it to WASM and then use it in `Armory` and `Kha`. Two examples that are used in `ArmorPaint`: [Texture-synthesis(Rust)](https://twitter.com/luboslenco/status/1173942414966439938), [Chips(C)](https://twitter.com/luboslenco/status/1172536139573538816).
 
 ---
 
