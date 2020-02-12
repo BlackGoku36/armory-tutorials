@@ -1,4 +1,7 @@
 # Canvas
+
+!> THIS IS DATED! ARMORY2D HAS EVOLVED A LOT SINCE WRITING THIS!
+
 In this tutorial, we will create canvas using Armory2D, learn about it and then add and control canvas's element using `haxe`.
 
 Our Goal:
